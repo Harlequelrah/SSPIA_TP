@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\InterventionTypeEnum;
+use App\Enums\UnitEnum;
 use App\Models\Plot;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -21,6 +22,7 @@ return new class extends Migration
             $table->decimal('product_used_quantity')->nullable();
             $table->enum('intervention_type',InterventionTypeEnum::values());
             $table->dateTime('intervention_date');
+            $table->enum('unit_enum', UnitEnum::values());
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
