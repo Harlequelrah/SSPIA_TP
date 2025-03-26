@@ -12,6 +12,14 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
+    public function plots(){
+        return $this->hasMany(Plot::class);
+    }
+
+    public function interventions(){
+        return $this->belongsToMany(Intervention::class);
+    }
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 

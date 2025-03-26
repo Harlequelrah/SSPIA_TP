@@ -15,6 +15,37 @@ namespace App\Models{
 /**
  * 
  *
+ * @property-read \App\Models\Plot|null $plot
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Intervention newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Intervention newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Intervention query()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperIntervention {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Intervention> $interventions
+ * @property-read int|null $interventions_count
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Plot newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Plot newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Plot query()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	class IdeHelperPlot {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -23,8 +54,12 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Intervention> $interventions
+ * @property-read int|null $interventions_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Plot> $plots
+ * @property-read int|null $plots_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
