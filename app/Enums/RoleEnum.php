@@ -8,10 +8,8 @@ enum RoleEnum: string {
 
     public static function values(): array
     {
-        return [
-            self::ADMIN,
-            self::AGRICULTEUR
-        ];
+        return array_column(RoleEnum::cases(), 'value');
+
     }
 }
 

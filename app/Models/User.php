@@ -16,6 +16,7 @@ class User extends Authenticatable
         return $this->hasMany(Plot::class);
     }
 
+
     public function interventions(){
         return $this->belongsToMany(Intervention::class);
     }
@@ -32,6 +33,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'username'
     ];
 
     /**

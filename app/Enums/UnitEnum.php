@@ -8,10 +8,8 @@ enum UnitEnum: string {
 
     public static function values(): array
     {
-        return [
-            self::L,
-            self::KG
-        ];
+return array_column(UnitEnum::cases(), 'value');
+
     }
 }
 

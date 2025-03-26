@@ -11,13 +11,8 @@ enum InterventionTypeEnum: string {
 
     public static function values(): array
     {
-        return [
-            self::SM,
-            self::AR,
-            self::FT,
-            self::TR,
-            self::RC
-        ];
+    return array_column(InterventionTypeEnum::cases(), 'value');
+
     }
 }
 

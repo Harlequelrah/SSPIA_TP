@@ -9,10 +9,7 @@ enum  StatusEnum :string
     case RCLT = 'Recoltée';
 
     public static function values():array{
-        return [
-            self::EN_C,
-            self::EN_J,
-            self::RCLT,
-        ];
+        return array_column(StatusEnum::cases(), 'value');
+
     }
 }
