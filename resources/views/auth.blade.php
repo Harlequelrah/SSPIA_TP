@@ -7,8 +7,10 @@
     @vite('resources/css/app.css')
     @livewireStyles()
 </head>
-<body>
-    <x-dashboard.dashboard />
+<body class="flex justify-center items-center h-screen bg-[#1d7a4c]">
+    <div class="bg-gray-100 p-8 rounded-lg shadow-lg">
+        <x-auth.login />
+    </div>
     @livewireScripts()
 </body>
 </html>
