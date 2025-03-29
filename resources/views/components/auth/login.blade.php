@@ -12,12 +12,12 @@
                    <div class="flex space-x-3 items-center mt-2" x-data="{ show: false }">
                     <x-input-field x-bind:type="show ? 'text': 'password'" id="password" name="password" />
                     <button type="button" @click="show = !show" class="text-gray-500">
-                        <x-icon show="show" name="eye" class="" />
-                        <x-icon show="!show" name="eye-slash" class="" />
+                        <x-icon :show="show" name="eye" class="" />
+                        <x-icon :show="!show" name="eye-slash" class="" />
                     </button>
                    </div> 
                 </div>
-                <button type="submit" class="w-full bg-[#1d7a4c] text-white p-2 mt-4 rounded-lg cursor-pointer transition-all duration-200 hover:bg-green-800">Connexion</button>
-                <x-text-small title="Mot de passe oublié" class="mt-4 underline cursor-pointer text-[#1d7a4c] text-center" />
+                <button type="submit" class="w-full bg-[#4a7c59] text-white p-2 mt-4 rounded-lg cursor-pointer transition-all duration-200 hover:bg-green-800">Connexion</button>
+                <x-text-small title="Mot de passe oublié" class="mt-4 underline cursor-pointer text-[#4a7c59] text-center" />
             </form>
         </div>

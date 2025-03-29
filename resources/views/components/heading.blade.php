@@ -1,1 +1,1 @@
-<h1 {{ $attributes->merge(['class' => 'text-xl font-bold mb-3']) }}>{{ $title }}</h1>
+<h1 {{ $attributes->merge(['class' => 'text-xl font-bold']) }}>{{ $title }}</h1>

@@ -8,7 +8,7 @@
     @livewireStyles()
 </head>
 <body>
-    <x-dashboard.dashboard />
+    <x-app_layout />
     @livewireScripts()
 </body>
 </html>
