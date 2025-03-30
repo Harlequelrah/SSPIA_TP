@@ -1,23 +1,32 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class TestController extends Controller
 {
     public function index()
     {
-        $user = User::create(
+        $user1 = User::create(
             [
-                'name' => 'John Doe',
-                'email' => 'john.doe@example.com',
+                'name'     => 'John Doe',
+                'email'    => 'john.doe@example.com',
                 'password' => 'mdrbroyoubastard',
-                'role' => 'Administrateur',
-                'username' => 'john_doe'
-                ]
+                'role'     => 'Administrateur',
+                'username' => 'john_doe',
+            ]
         );
-        return $user;
+        $user2 = User::create(
+            [
+                'name'     => 'Jane Doe',
+                'email'    => 'jane.doe@example.com',
+                'password' => Hash::make('0000'),
+                'role'     => 'Administrateur',
+                'username' => 'jane_doe',
+            ]
+        );
+
+        return $user2;
     }
 }

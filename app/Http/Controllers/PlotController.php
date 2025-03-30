@@ -12,7 +12,13 @@ class PlotController extends Controller
      */
     public function index()
     {
-        //
+        $plots=Plot::paginate(10);
+        return view(
+            'plot.index',
+            [
+                'plots'=>$plots
+            ]
+        );
     }
 
     /**
