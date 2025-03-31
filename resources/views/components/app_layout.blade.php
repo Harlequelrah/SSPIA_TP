@@ -1,4 +1,4 @@
-<div class="flex w-full relative" x-data="{ activeMenu: 'home', openSidebar: false }">
+<div class="flex w-full relative" x-data="{ activeMenu: 'users', openSidebar: false }">
     <!-- Sidebar, visible only on medium and larger screens -->
     <x-sidebar x-bind:active-menu="activeMenu" />
 
@@ -16,7 +16,7 @@
                 <x-interventions />
             </template>
             <template x-if="activeMenu === 'landmark'">
-                <x-parcelles />
+                <x-plots />
             </template>
             <template x-if="activeMenu === 'users'">
                 <x-agriculteurs />

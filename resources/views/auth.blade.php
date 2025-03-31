@@ -8,7 +8,7 @@
     @livewireStyles()
 </head>
 <body class="flex justify-center items-center h-screen bg-[#4a7c59]">
-    <div class="bg-gray-100 p-8 rounded-lg shadow-lg">
+    <div class="bg-white px-6 py-4 rounded-lg shadow-lg">
         <x-auth.login />
     </div>
     @livewireScripts()
