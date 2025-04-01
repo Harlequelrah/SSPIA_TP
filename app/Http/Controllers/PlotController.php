@@ -19,6 +19,7 @@ class PlotController extends Controller
                 'plots'=>$plots
             ]
         );
+
     }
 
     /**

@@ -1,36 +1,55 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title', config('app.name', 'Laravel'))</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body class="bg-gray-100">
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-green-700 text-white min-h-screen p-4">
+            <h2 class="text-xl font-bold mb-4">SSPIA</h2>
+            <nav>
+                <ul>
+                    <li class="mb-2"><a href="{{ route('dashboard') }}" class="block p-2 hover:bg-green-600">🏠 Tableau de bord</a></li>
+                    <li class="mb-2"><a href="{{ route('parcelles.index') }}" class="block p-2 hover:bg-green-600">📍 Parcelles</a></li>
+                    <li class="mb-2"><a href="{{ route('interventions.index') }}" class="block p-2 hover:bg-green-600">⚙️ Interventions</a></li>
+                    <li class="mb-2"><a href="#" class="block p-2 hover:bg-green-600">👤 Utilisateurs</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
+        <!-- Contenu principal -->
+        <main class="flex-1 p-6">
+            <header class="bg-white shadow p-4 flex justify-between items-center">
+                <h1 class="text-xl font-bold">@yield('header', 'Bienvenue')</h1>
+                <div>
+                    <span class="text-gray-700 font-semibold">👤 Jean Dupont</span>
+                    {{-- Décommenter pour ajouter un bouton de déconnexion --}}
+                    {{-- <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit">Se déconnecter</button>
+                    </form> --}}
+                </div>
+            </header>
+
+            <div class="mt-4">
+                @yield('content')
+            </div>
+        </main>
+    </div>
+
+</body>
 </html>
