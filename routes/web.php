@@ -16,3 +16,12 @@ Route::get('/parcelles', function () {
 Route::get('/interventions', function () {
     return view('interventions.index');
 })->name('interventions.index');
+
+Route::get('/', function () {
+    return view('app');
+});
+
+// Route::get('/auth/login', function () {
+//    return view('auth');
+// });
+
