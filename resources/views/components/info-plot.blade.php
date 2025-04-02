@@ -28,18 +28,18 @@
             <p>{{ $plantationDate }}</p>
         </div>
     </div>
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between lg:gap-3 md:gap-3">
         <button class="text-green-800 flex items-center justify-center space-x-1 cursor-pointer">
             <i class="fa-solid fa-eye"></i>
-            <p class="text-lg">Détails</p>
+            <p class="text-md hidden lg:block md:block ">Détails</p>
         </button>
         <button class="text-amber-800 flex items-center justify-center space-x-1 cursor-pointer">
             <i class="fa-solid fa-pencil"></i>
-            <p class="text-lg">Modifier</p>
+            <p class="text-md hidden lg:block md:block ">Modifier</p>
         </button>
         <button class="text-red-800 flex items-center justify-center space-x-1 cursor-pointer">
             <i class="fa-solid fa-trash"></i>
-            <p class="text-lg">Supprimer</p>
+            <p class="text-md hidden lg:block md:block ">Supprimer</p>
         </button>
     </div>
 </div>
