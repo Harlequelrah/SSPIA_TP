@@ -1,4 +1,7 @@
- <div>
-     <h2 class="text-2xl font-bold">Tableau de bord</h2>
-     <p>Bienvenue sur le tableau de bord.</p>
- </div>
+<div class="p-10">
+    <div class="grid grid-cols-3 gap-4">
+        <x-dashboard-card title="Agriculteurs" count="00" activeMenu="users" />
+        <x-dashboard-card title="Parcelles" count="00" activeMenu="landmark" />
+        <x-dashboard-card title="Interventions" count="00" activeMenu="bolt" />
+    </div>
+</div>

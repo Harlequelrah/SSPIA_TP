@@ -8,6 +8,8 @@
         this.showAgriForm = false
     }
  }">
+     <x-back-to-home />
+
      <div class="flex items-center justify-between mb-6">
          <x-heading title="Gestion des agriculteurs" />
          <button @click="toggleAgriForm()" class="bg-[#4a7c59] text-white px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 hover:bg-green-900 active:bg-green-800">
