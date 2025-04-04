@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
+
     public function plots(){
         return $this->hasMany(Plot::class);
     }
@@ -34,7 +37,9 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'username'
+        'username',
+        'address',
+        'phone'
     ];
 
     /**
@@ -55,6 +60,7 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
+            'role' => RoleEnum::class,
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];

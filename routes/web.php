@@ -31,9 +31,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-// Route::get('/auth/login', function () {
-//    return view('auth');
-// });
+
+Route::get('/admin-only', function () {
+    return 'Bienvenue Admin !';
+})->middleware(['auth', 'role:Administrateur']);
+
+// Route::post('/logout', function () {
+//     auth()->guard()->logout();     // Déconnexion
+//     return redirect('/'); // Redirection après déconnexion
+// })->name('logout');
+
 
 require __DIR__.'/auth.php';
 

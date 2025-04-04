@@ -15,11 +15,11 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next,string $role): Response
     {
-        if(!$request->user() || $request->user()->role() !=$role)
+        if(!$request->user() || $request->user()->role->value !=$role)
         {
-            // dd($request);
             abort(403,'Accès interdit.');
         }
+
         return $next($request);
     }
 }

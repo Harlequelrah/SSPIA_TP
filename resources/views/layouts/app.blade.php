@@ -37,11 +37,10 @@
                 <h1 class="text-xl font-bold">@yield('header', 'Bienvenue')</h1>
                 <div>
                     <span class="text-gray-700 font-semibold">👤 Jean Dupont</span>
-                    {{-- Décommenter pour ajouter un bouton de déconnexion --}}
-                    {{-- <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit">Se déconnecter</button>
-                    </form> --}}
+                    </form>
                 </div>
             </header>
 

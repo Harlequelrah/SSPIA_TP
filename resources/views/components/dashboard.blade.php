@@ -4,4 +4,5 @@
         <x-dashboard-card title="Parcelles" count="00" activeMenu="landmark" />
         <x-dashboard-card title="Interventions" count="00" activeMenu="bolt" />
     </div>
+
 </div>
