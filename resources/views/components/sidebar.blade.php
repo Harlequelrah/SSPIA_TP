@@ -13,7 +13,7 @@
         'home' => 'Tableau de bord',
         'bolt' => 'Interventions',
         'landmark' => 'Parcelles',
-        'users' => 'Agriculteurs'
+        'users' => 'Utilisateurs'
         ] as $icon => $label)
         <li @click="activeMenu = '{{ $icon }}'"
             class="flex items-center space-x-2 px-3 py-2 rounded-lg transition hover:bg-slate-100 hover:text-black cursor-pointer"

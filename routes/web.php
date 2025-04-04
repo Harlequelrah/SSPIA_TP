@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->name('dashboard');
+Route::get('/', function () {
+    return view('app_layout');
+})->name('dashboard');
 
 // Route pour afficher la liste des parcelles
 Route::get('/parcelles', function () {
@@ -18,9 +21,13 @@ Route::get('/interventions', function () {
     return view('interventions.index');
 })->name('interventions.index');
 
-Route::get('/', function () {
-    return view('app');
-});
+Route::get('/users', function () {
+    return view('users.index');
+})->name('users.index');
+
+// Route::get('/', function () {
+//     return view('app');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');

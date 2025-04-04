@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('app_layout')
 
 @section('title', 'Mes Parcelles')
 
 @section('header', 'Liste des Parcelles')
 
 @section('content')
-    <p>Voici la liste de vos parcelles.</p>
+    
 @endsection
