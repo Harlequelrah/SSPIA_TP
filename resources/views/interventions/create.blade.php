@@ -1,7 +1,7 @@
 <div class="bg-white rounded-lg w-full mb-5">
     <div class="p-6">
-        <x-heading title="Formulaire d'intervention" class="mb-5" />
-        <form action="">
+        <x-heading title="Formulaire d'ajout d'une intervention" class="mb-5" />
+        <form action="" @submit.prevent=''>
             <div class="grid grid-cols-2 gap-4 mb-4">
                 {{-- parcelle concernée --}}
                 <div>

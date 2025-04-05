@@ -6,21 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ str_replace('_TP', '', config('app.name')) }} | @yield('title', 'Tableau de bord') </title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    @livewireStyles()
 </head>
 
-<body class="bg-gray-100">
-    <div class="flex">
+<body class="bg-gray-100 overflow-hidden h-screen">
+    <div class="flex h-full">
         <!-- Sidebar -->
-        @include('includes.sidebar')
+        <div class="sticky top-0 h-screen">
+            @include('includes.sidebar')
+        </div>
         <!-- Contenu principal -->
-        <main class="flex-1">
-            @include('includes.navbar')
-            <div class="mt-4 p-4">
-                @yield('content')
+        <div class="flex-1 flex flex-col h-screen">
+            <div class="sticky top-0 z-10">
+                @include('includes.navbar')
             </div>
-        </main>
+            <main class="flex-1 overflow-y-auto p-4">
+                @yield('content')
+            </main>
+        </div>
     </div>
+    @livewireScripts()
 </body>
 
 </html>
