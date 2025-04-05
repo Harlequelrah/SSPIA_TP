@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->name('dashboard');
-Route::get('/', function () {
-    return view('app_layout');
-})->name('dashboard');
+// Route::get('/', function () {
+//     return view('app_layout');
+// })->name('dashboard');
 
 // Route pour afficher la liste des parcelles
 Route::get('/parcelles', function () {
