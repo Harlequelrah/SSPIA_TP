@@ -1,7 +1,7 @@
 <aside class="bg-[#4a7c59] md:flex-col h-screen w-80 p-4 hidden md:flex">
     {{-- logo --}}
     <div class="flex items-center space-x-2">
-        <img src="{{ URL('storage/logo.jpg') }}" alt="logo" class="w-10 h-10">
+        <img src="{{ URL('assets/logo.jpg') }}" alt="logo" class="w-10 h-10">
         <x-heading title="SSPIA" class="text-white" />
     </div>
 

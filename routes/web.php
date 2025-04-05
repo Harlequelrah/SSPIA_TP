@@ -3,13 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-// Route pour le tableau de bord
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
-// Route::get('/', function () {
-//     return view('app_layout');
-// })->name('dashboard');
+
+
+
+Route::get('/', function () {
+    return view('app_layout');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route pour afficher la liste des parcelles
 Route::get('/parcelles', function () {
@@ -42,13 +41,6 @@ Route::get('/users', function () {
     return view('users.index');
 })->name('users.index');
 
-// Route::get('/', function () {
-//     return view('app');
-// });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
