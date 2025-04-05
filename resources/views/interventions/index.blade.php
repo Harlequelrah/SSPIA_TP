@@ -32,7 +32,7 @@ $pagination = [
     ];
 @endphp
 @section('content')
-    <div class="mt-4 p-4" x-data="{
+    <div class="p-4" x-data="{
         showForm: false,
         selectedIntervention: null,
         interventions: {{ json_encode($interventions) }},
@@ -51,7 +51,6 @@ $pagination = [
             }
         }
     }">
-        @include('interventions.includes.search-bar')
         <section class="mb-5">
             <div class="w-full flex justify-between items-center">
                 <x-heading title="Liste des interventions" />
@@ -67,6 +66,9 @@ $pagination = [
         </div>
 
         <!-- Intervention List -->
+
+        @include('interventions.includes.search-bar')
+
         <div class="overflow-x-auto bg-white rounded-lg shadow mt-4">
             <table class="min-w-full bg-white">
                 <thead>
@@ -88,14 +90,14 @@ $pagination = [
                             <td class="py-2 px-4" x-text="intervention.date"></td>
                             <td class="py-2 px-4 space-x-4">
                                 <button @click="selectedIntervention = intervention"
-                                    class="text-blue-600 hover:text-blue-800 cursor-pointer">
+                                    class="text-blue-600 hover:text-blue-600 cursor-pointer">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
                                 <a href="#">
                                     <i class="fa-solid fa-pencil-alt text-amber-600"></i>
                                 </a>
                                 <a href="#">
-                                    <i class="fa-solid fa-trash-alt text-red-500"></i>
+                                    <i class="fa-solid fa-trash-alt text-red-600"></i>
                                 </a>
                             </td>
                         </tr>
@@ -121,9 +123,12 @@ $pagination = [
                                     <!-- Page Numbers -->
                                     <template x-for="page in Math.min(5, pagination.last_page)" :key="page">
                                         <button @click="goToPage(page)"
-                                            :class="{ 'bg-[#4a7c59] text-white px-2 py-1': currentPage ===
-                                                page, 'bg-white text-gray-700 hover:bg-green-50 px-3 py-1': currentPage !==
-                                                    page }"
+                                            :class="{
+                                                'bg-[#4a7c59] text-white px-2 py-1': currentPage ===
+                                                    page,
+                                                'bg-white text-gray-700 hover:bg-green-50 px-3 py-1': currentPage !==
+                                                    page
+                                            }"
                                             class="rounded-lg border cursor-pointer border-gray-400 text-sm font-medium">
                                             <span x-text="page"></span>
                                         </button>
@@ -131,9 +136,12 @@ $pagination = [
 
                                     <!-- Last Page Button (if there are many pages) -->
                                     <button @click="goToPage(pagination.last_page)"
-                                        :class="{ 'bg-[#4a7c59] text-white': currentPage === pagination
-                                            .last_page, 'bg-white text-gray-700 hover:bg-gray-50': currentPage !==
-                                                pagination.last_page }"
+                                        :class="{
+                                            'bg-[#4a7c59] text-white': currentPage === pagination
+                                                .last_page,
+                                            'bg-white text-gray-700 hover:bg-gray-50': currentPage !==
+                                                pagination.last_page
+                                        }"
                                         class="px-3 py-1 rounded border border-gray-300 text-sm font-medium"
                                         x-show="pagination.last_page > 5">
                                         <span x-text="pagination.last_page"></span>

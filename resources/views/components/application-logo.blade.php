@@ -1,1 +1,1 @@
-<img src="{{URL('storage/logo.jpg')}}" class="w-20" />
+<img src="{{ URL('assets/logo.jpg') }}" class="w-20" />

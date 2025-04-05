@@ -6,7 +6,7 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="flex flex-col items-center justify-center">
-                <img src="{{ URL('storage/logo.jpg') }}" alt="logo" class="w-25 h-25">
+                <img src="{{ URL('assets/logo.jpg') }}" alt="logo" class="w-25 h-25">
                 <x-heading-small class="text-center my-4"
                     title="Système de Suivi des plots et des Interventions Agricole" />
             </div>
@@ -22,14 +22,13 @@
             <div class="mb-4">
                 <x-input-label for="password" :value="__('Mot de passe')" />
                 <div class="flex space-x-3 items-center justify-center mt-1 w" x-data="{ obscuredText: true }">
-                    <x-input-field id="password" class="w-full" type="password" name="password" required
-                        autocomplete="current-password" />
+                    <x-input-field id="password" class="w-full" x-bind:type="obscuredText ? 'password' : 'text'"
+                        name="password" required autocomplete="current-password" />
                     <i :class="obscuredText ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"
                         class="cursor-pointer text-gray-500" @click="obscuredText = !obscuredText">
                     </i>
                 </div>
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
-
             </div>
 
             <button type="submit"

@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         // Check if the admin user already exists
-        $adminEmail = 'godswilllek02@example.com';
+        $adminEmail = 'godswilllek02@gmail.com';
         
         if (!User::where('email', $adminEmail)->exists()) {
             User::create([
