@@ -2,8 +2,6 @@
 
 @php
     $isActive = request()->routeIs($active);
-    // dd($active);
-    // dd(request()->routeIs())
 @endphp
 
 <li>
