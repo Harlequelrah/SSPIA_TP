@@ -34,7 +34,7 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'username' => 'required|string|max:255|unique:users',
-            'role' => 'required|in:' . implode(',', RoleEnum::values()),
+            // 'role' => 'required|in:' . implode(',', RoleEnum::values()),
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'address' => ['nullable', 'string', 'max:255'],
             'phone' => ['nullable', 'string', 'max:20'],
@@ -46,7 +46,7 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'role' => $request->role,
             'password' => Hash::make($request->password),
-            'role' => $request->role,
+            'role' => RoleEnum::AGRICULTEUR,
             'address' => $request->address,
             'phone' => $request->phone,
         ]);

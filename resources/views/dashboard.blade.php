@@ -7,3 +7,4 @@
 @section('content')
     <p>Bienvenue sur le tableau de bord.</p>
 @endsection
+

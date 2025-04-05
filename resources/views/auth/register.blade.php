@@ -27,7 +27,7 @@
         </div>
 
         <!-- Role -->
-        <div class="mt-4">
+        {{-- <div class="mt-4">
             <label for="role">Rôle</label>
             <select id="role" name="role" class="block mt-1 w-full" required>
                 @foreach (\App\Enums\RoleEnum::cases() as $role)
@@ -39,7 +39,7 @@
             @error('role')
                 <div class="text-red-500 text-sm mt-1">{{ $message }}</div>
             @enderror
-        </div>
+        </div> --}}
 
         <!-- Address -->
         <div class="mt-4">
