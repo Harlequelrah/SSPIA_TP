@@ -6,12 +6,12 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="flex flex-col items-center justify-center">
-                <img src="{{ URL('storage/logo.jpg') }}" alt="logo" class="w-25 h-16   ">
-                <x-heading-small class="text-center my-6"
+                <img src="{{ URL('storage/logo.jpg') }}" alt="logo" class="w-25 h-25">
+                <x-heading-small class="text-center my-4"
                     title="Système de Suivi des plots et des Interventions Agricole" />
             </div>
 
-            <div class="mt-4 mb-4">
+            <div class="mb-4">
                 <x-input-label for="email" :value="__('E-mail')" />
                 <x-input-field id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                     required autocomplete="email" />

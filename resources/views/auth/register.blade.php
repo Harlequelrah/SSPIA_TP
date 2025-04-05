@@ -1,7 +1,7 @@
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}" class="">
         @csrf
-
+        <h1 class="mb-4 text-2xl font-bold">Crée un compte admin</h1>
         <div class="grid grid-cols-2 gap-4 mb-3">
             <!-- Name -->
 
