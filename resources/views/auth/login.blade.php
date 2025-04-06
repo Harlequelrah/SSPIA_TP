@@ -6,7 +6,7 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div class="flex flex-col items-center justify-center">
-                <img src="{{ URL('assets/logo.jpg') }}" alt="logo" class="w-25 h-25">
+                <img src="{{ URL('assets/logo.jpg') }}" alt="logo" class="w-25 h-[20]">
                 <x-heading-small class="text-center my-4"
                     title="Système de Suivi des plots et des Interventions Agricole" />
             </div>
