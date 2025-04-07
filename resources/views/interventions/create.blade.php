@@ -1,26 +1,35 @@
 <div class="bg-white rounded-lg w-full mb-5">
     <div class="p-6">
         <x-heading title="Formulaire d'ajout d'une intervention" class="mb-5" />
-        <form action="" @submit.prevent=''>
+        <form action="{{ route('interventions.store') }}" method="POST">
+            @csrf
             <div class="grid grid-cols-2 gap-4 mb-4">
                 {{-- parcelle concernée --}}
                 <div>
-                    <label for="parcelleConcernee" class="text-slate-700">Parcelles concernée <span
-                            class="text-red-600">*</span> </label>
-                    <select name="parcelleConcernee" id="parcelleConcernee"
-                        class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:bg-white focus:border-green-500 focus:outline-none text-sm placeholder:text-sm">
-                        <option value="">Selectionnez une parcelles</option>
-                    </select>
+                    <label for="plot_id" class="text-slate-700">Parcelle concernée <span
+                            class="text-red-600">*</span></label>
+
+                    @if ($plots->isEmpty())
+                        <p class="text-red-600">Aucune parcelle disponible. Veuillez en ajouter d'abord.</p>
+                    @else
+                        <select name="plot_id" id="plot_id" required
+                            class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
+                            <option value="">Sélectionnez une parcelle</option>
+                            @foreach ($plots as $plot)
+                                <option value="{{ $plot->id }}">{{ $plot->name }}</option>
+                            @endforeach
+                        </select>
+                    @endif
                 </div>
                 {{-- type d'intervention --}}
-                <div>
-                    <label for="typeIntervention" class="text-slate-700">Type d'intervention <span
-                            class="text-red-600">*</span> </label>
-                    <select name="typeIntervention" id="typeIntervention"
-                        class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:bg-white focus:border-green-500 focus:outline-none text-sm placeholder:text-sm">
-                        <option value="">Selectionnez un type</option>
-                    </select>
-                </div>
+                <select name="intervention_type" id="intervention_type" required
+                    class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
+                    <option disabled>Sélectionnez un type</option>
+                    @foreach (App\Enums\InterventionTypeEnum::values() as $type)
+                        <option value="{{ $type }}">{{ $type }}</option>
+                    @endforeach
+                </select>
+
                 {{-- date d'intervention --}}
                 <div>
                     <label for="dateIntervention" class="text-slate-700">Date de l'intervention <span
@@ -32,7 +41,7 @@
                 <div>
                     <label for="quantiteProduit" class="text-slate-700">Quantité de produit utilisé</label>
                     <div class="flex">
-                        <input type="text" name="quantiteProduit" id="quantiteProduit"
+                        <input type="number" name="quantiteProduit" id="quantiteProduit"
                             class="w-full p-2 border rounded-tl-sm rounded-bl-sm border-slate-400 bg-white focus:bg-white focus:border-green-500 focus:outline-none text-sm placeholder:text-sm">
                         <select name="type" id="type"
                             class="w-14 text-center p-2 border rounded-tr-sm rounded-br-sm border-slate-400 bg-slate-200 focus:bg-white focus:border-green-500 focus:outline-none text-sm placeholder:text-sm">
@@ -50,10 +59,12 @@
                     class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:bg-white focus:border-green-500 focus:outline-none resize-none text-sm placeholder:text-sm"></textarea>
             </div>
             <div class="w-full flex justify-end space-x-2">
-                <button
+                <button @click="showForm = false" type="reset"
                     class="border border-slate-600 rounded-md cursor-pointer duration-200 transition-all px-3 py-2 hover:bg-black hover:text-white">Annuler</button>
-                <button
-                    class="bg-[#4a7c59] text-white rounded-md cursor-pointer duration-200 transition-all px-3 py-2 hover:bg-white hover:border hover:border-[#4a7c59] hover:text-[#4a7c59]">Enregistrer</button>
+                <button type="submit"
+                    class="bg-[#4a7c59] cursor-pointer disabled:opacity-50  text-white rounded-md px-3 py-2  not-disabled:hover:border duration-200 transition-all not-disabled:hover:border-[#4a7c59] not-disabled:hover:bg-white not-disabled:hover:text-[#4a7c59] disabled:cursor-not-allowed"
+                    @disabled($plots->isEmpty())>Enregistrer
+                </button>
             </div>
         </form>
     </div>

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\InterventionController;
+use App\Http\Controllers\PlotController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,31 +17,11 @@ Route::get('/dashboard', function () {
 })->name('dashboard.index');
 
 // Route pour afficher la liste des parcelles
-Route::get('/parcelles', function () {
-    return view('parcelles.index');
-})->name('parcelles.index');
+Route::resource('parcelles', PlotController::class);
 
+
+Route::resource('interventions', InterventionController::class);
 // Route pour afficher la liste des interventions
-Route::get('/interventions', function () {
-    return view('interventions.index');
-})->name('interventions.index');
-
-Route::get('/interventions/{id}', function ($id) {
-    $intervention = (object)[
-        'id' => $id,
-        'parcelle' => 'Parcelle Nord',
-        'type' => 'Semis',
-        'date' => '2024-03-15',
-        'description' => 'Irrigation après semis',
-        'quantite' => '25 kg/ha',
-    ];
-
-    return view('interventions.show', compact('intervention'));
-})->name('interventions.show');
-
-Route::get('/interventions/detail', function () {
-    return view('interventions.show');
-})->name('interventions.show');
 
 Route::get('/users', function () {
     return view('users.index');

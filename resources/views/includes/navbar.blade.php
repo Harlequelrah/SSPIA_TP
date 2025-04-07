@@ -4,10 +4,7 @@
 @endphp
 
 <div class="p-4 bg-[#4a7c59] w-full flex justify-between items-center">
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <button type="submit">Se déconnecter</button>
-    </form>
+  
     <button @click="openSidebar = !openSidebar" class="md:hidden bg-[#4a7c59] cursor-pointer">
         <i class="fa-solid fa-bars text-xl text-slate-100"></i>
     </button>

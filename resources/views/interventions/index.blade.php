@@ -4,53 +4,38 @@
 
 @section('header', 'Historique des Interventions')
 @php
-    $interventions = [
-        (object) [
-            'id' => 1,
-            'parcelle' => 'Parcelle Nord',
-            'type' => 'Semis',
-            'date' => '15-03-2024',
-            'description' => 'Irrigation',
-            'quantite' => '25 kg/ha',
-        ],
-        (object) [
-            'id' => 2,
-            'parcelle' => 'Parcelle Sud',
-            'type' => 'Récolte',
-            'date' => '20-03-2024',
-            'description' => 'Récolte manuelle',
-            'quantite' => '40 kg/ha',
-        ],
-    ];
-
-    // Pagination configuration (normally you'd get this from a paginator)
-$pagination = [
-    'current_page' => 1,
-    'last_page' => 5,
-    'per_page' => 10,
-    'total' => 45,
+    $pagination = [
+        'current_page' => $interventions->currentPage(),
+        'last_page' => $interventions->lastPage(),
+        'per_page' => $interventions->perPage(),
+        'total' => $interventions->total(),
     ];
 @endphp
 @section('content')
-    <div class="p-4" x-data="{
+    <div class="p-4 relative h-full" x-data="{
         showForm: false,
         selectedIntervention: null,
-        interventions: {{ json_encode($interventions) }},
+        interventions: {{ json_encode($interventions->items()) }},
         pagination: {{ json_encode($pagination) }},
         currentPage: {{ $pagination['current_page'] }},
     
         init() {
-            // Selectionner la dernière intervention par défaut
-            this.selectedIntervention = this.interventions[-1];
+            if (this.interventions.length) {
+                this.selectedIntervention = this.interventions.last;
+            }
         },
     
-        goToPage(page) {
-            if (page >= 1 && page <= this.pagination.last_page) {
-                this.currentPage = page;
-    
-            }
+        selectIntervention(item) {
+            this.selectedIntervention = item;
         }
     }">
+        @if (session('success'))
+            <x-notification message='{{ session('success') }}' color="green" icon='fa-circle-check' />
+        @else
+            <x-notification message='{{ session('error') }}' color="red" icon='fa-circle-exclamation' />
+        @endif
+
+
         <section class="mb-5">
             <div class="w-full flex justify-between items-center">
                 <x-heading title="Liste des interventions" />
@@ -62,7 +47,7 @@ $pagination = [
             </div>
         </section>
         <div x-show="showForm" x-transition class="mt-4">
-            @include('interventions.create')
+            @include('interventions.create', ['plots' => $plots])
         </div>
 
         <!-- Intervention List -->
@@ -70,7 +55,7 @@ $pagination = [
         @include('interventions.includes.search-bar')
 
         <div class="overflow-x-auto bg-white rounded-lg shadow mt-4">
-            <table class="min-w-full bg-white">
+            <table class="min-w-full bg-white" id="interventions">
                 <thead>
                     <tr class="bg-[#4a7c59] text-white">
                         <th class="py-2 px-4 text-left">ID</th>
@@ -80,25 +65,26 @@ $pagination = [
                         <th class="py-2 px-4 text-left">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="even:bg-slate-50 odd:bg-slate-500">
-                    <template x-for="intervention in interventions" :key="intervention.id">
-                        <tr class="border-b transition-colors"
-                            :class="{ 'bg-green-100': selectedIntervention && selectedIntervention.id === intervention.id }">
-                            <td class="py-2 px-4" x-text="intervention.id"></td>
-                            <td class="py-2 px-4" x-text="intervention.parcelle"></td>
-                            <td class="py-2 px-4" x-text="intervention.type"></td>
-                            <td class="py-2 px-4" x-text="intervention.date"></td>
-                            <td class="py-2 px-4 space-x-4">
-                                <button @click="selectedIntervention = intervention"
-                                    class="text-blue-600 hover:text-blue-600 cursor-pointer">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <a href="#">
-                                    <i class="fa-solid fa-pencil-alt text-amber-600"></i>
-                                </a>
-                                <a href="#">
-                                    <i class="fa-solid fa-trash-alt text-red-600"></i>
-                                </a>
+                <tbody>
+                    <!-- When there are interventions -->
+                    <template x-if="interventions.length !== 0">
+                        <template x-for="intervention in interventions" :key="intervention.id">
+                            <tr class="cursor-pointer" @click="selectIntervention(intervention)"
+                                :class="{ 'bg-green-200': selectedIntervention && selectedIntervention.id === intervention.id }">
+                                <td class="py-2 px-4" x-text="intervention.id"></td>
+                                <td class="py-2 px-4" x-text="intervention.parcelle"></td>
+                                <td class="py-2 px-4" x-text="intervention.type"></td>
+                                <td class="py-2 px-4" x-text="intervention.date"></td>
+                                <td class="py-2 px-4">
+                                    <i class="fa-solid fa-eye text-blue-600"></i>
+                                </td>
+                            </tr>
+                        </template>
+                    </template>
+                    <template x-if="interventions.length === 0">
+                        <tr>
+                            <td colspan="5" class="p-6 text-center text-gray-500 italic">
+                                Aucune intervention trouvée.
                             </td>
                         </tr>
                     </template>
@@ -161,7 +147,6 @@ $pagination = [
                 </tfoot>
             </table>
         </div>
-
         <!-- Intervention Details -->
         <div class="p-4 border rounded-lg bg-green-50 shadow mt-4" x-show="selectedIntervention">
             <h2 class="text-xl font-bold text-[#4a7c59] mb-4">
@@ -180,4 +165,5 @@ $pagination = [
             </ul>
         </div>
     </div>
+
 @endsection

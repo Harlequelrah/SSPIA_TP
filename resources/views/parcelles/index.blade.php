@@ -6,7 +6,6 @@
 
 @section('content')
     <div class="mt-4 px-4">
-
         <div class="flex flex-col md:flex-col lg:flex-row lg:items-start lg:justify-around gap-6">
             <!-- Liste des parcelles -->
             <h1 class="font-bold text-lg md:block lg:hidden">Liste des parcelles</h1>

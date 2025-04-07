@@ -14,7 +14,7 @@ class PlotController extends Controller
     {
         $plots=Plot::paginate(10);
         return view(
-            'plot.index',
+            'parcelles.index',
             [
                 'plots'=>$plots
             ]
