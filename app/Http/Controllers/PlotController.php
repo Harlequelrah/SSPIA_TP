@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PlotFormRequest;
 use App\Models\Plot;
-use Illuminate\Http\Request;
+use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class PlotController extends Controller
 {
@@ -12,14 +13,13 @@ class PlotController extends Controller
      */
     public function index()
     {
-        $plots=Plot::paginate(10);
+        $plots = Auth::user()->plots()->paginate(10);
         return view(
             'parcelles.index',
             [
-                'plots'=>$plots
+                'plots' => $plots,
             ]
         );
-
     }
 
     /**
@@ -27,15 +27,23 @@ class PlotController extends Controller
      */
     public function create()
     {
-        //
+        $plot = new Plot();
+        return view(
+            'plot.create',
+            [
+                'plot' => $plot,
+            ]
+        );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PlotFormRequest $request)
     {
-        //
+        $post = Post::create($request->validated());
+        return redirect()->route('plot.index')
+            ->with('success', 'Plot created successfully.');
     }
 
     /**
@@ -43,7 +51,9 @@ class PlotController extends Controller
      */
     public function show(Plot $plot)
     {
-        //
+        return view('plot.show', [
+            'plot' => $plot,
+        ]);
     }
 
     /**
@@ -51,15 +61,25 @@ class PlotController extends Controller
      */
     public function edit(Plot $plot)
     {
-        //
+        if ($plot->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized action');
+        }
+        return view(
+            'plot.edit',
+            [
+                'plot' => $plot,
+            ]
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Plot $plot)
+    public function update(PlotFormRequest $request, Plot $plot)
     {
-        //
+        $plot->update($request->validated());
+        return redirect()->route('plot.index')
+            ->with('success', "The plot was successfully updated");
     }
 
     /**
@@ -67,6 +87,11 @@ class PlotController extends Controller
      */
     public function destroy(Plot $plot)
     {
-        //
+        if ($plot->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized action');
+        }
+        $plot->delete();
+        return redirect()->route('plot.index')
+            ->with('success', "The plot was successfully deleted");
     }
 }
