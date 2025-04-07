@@ -1,6 +1,10 @@
 <div class="bg-white rounded-lg w-full mb-5">
     <div class="p-6">
-        <x-heading title="Formulaire d'ajout d'une intervention" class="mb-5" />
+        <div class="mb-6">
+            <x-heading title="Formulaire d'ajout d'une intervention" />
+            <x-heading-small title="Les champs marqués avec (*) sont obligatoires"/>
+        </div>
+
         <form action="" @submit.prevent=''>
             <div class="grid grid-cols-2 gap-4 mb-4">
                 {{-- parcelle concernée --}}
@@ -50,10 +54,8 @@
                     class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:bg-white focus:border-green-500 focus:outline-none resize-none text-sm placeholder:text-sm"></textarea>
             </div>
             <div class="w-full flex justify-end space-x-2">
-                <button
-                    class="border border-slate-600 rounded-md cursor-pointer duration-200 transition-all px-3 py-2 hover:bg-black hover:text-white">Annuler</button>
-                <button
-                    class="bg-[#4a7c59] text-white rounded-md cursor-pointer duration-200 transition-all px-3 py-2 hover:bg-white hover:border hover:border-[#4a7c59] hover:text-[#4a7c59]">Enregistrer</button>
+                <x-secondary-button>Annuler</x-secondary-button>
+                <x-primary-button>Ajouter</x-primary-button>
             </div>
         </form>
     </div>

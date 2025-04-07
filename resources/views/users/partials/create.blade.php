@@ -27,9 +27,9 @@
                 <x-input-field name="address" id="address" type="text" :placeholder="'Ex: Lomé, Togo'" />
             </div>
         </div>
-        <div class="mt-4 flex justify-end">
-            <button type="submit"
-                class="bg-[#4a7c59] cursor-pointer transition-all duration-200 text-white px-4 py-2 rounded-lg hover:bg-green-900 active:bg-green-800">Enregistrer</button>
+        <div class="w-full flex justify-end space-x-2 mt-4">
+            <x-secondary-button>Annuler</x-secondary-button>
+            <x-primary-button>Ajouter</x-primary-button>
         </div>
     </form>
 </div>

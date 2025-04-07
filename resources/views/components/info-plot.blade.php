@@ -1,9 +1,9 @@
 @props([
-'name' => 'Parcelle',
-'status' => 'En culture',
-'size' => '0 hectareq',
-'crop' => 'Culture inconnue',
-'plantationDate' => 'Date inconnue'
+    'name' => 'Parcelle',
+    'status' => 'En culture',
+    'size' => '0 hectareq',
+    'crop' => 'Culture inconnue',
+    'plantationDate' => 'Date inconnue',
 ])
 
 <div class="bg-slate-100 w-[380px] px-4 py-3 rounded-lg shadow-lg">
