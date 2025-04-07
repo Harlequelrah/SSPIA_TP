@@ -4,24 +4,57 @@
 
 @section('header', 'Liste des Parcelles')
 
+@php
+    $plots = [
+        (object) [
+            'id' => 1,
+            'name' => 'Parcelle Nord',
+            'area' => '25',
+            'crop_type' => 'Blé',
+            'plantation_date' => '2024-06-06',
+            'status' => 'En jachère',
+            'user' => 'Uche',
+        ],
+    ];
+
+    $pagination = [
+        'current_page' => 1,
+        'last_page' => 3,
+        'per_page' => 10,
+        'total' => 21,
+    ];
+@endphp
 @section('content')
-    <div class="mt-4 px-4">
-        <div class="flex flex-col md:flex-col lg:flex-row lg:items-start lg:justify-around gap-6">
-            <!-- Liste des parcelles -->
-            <h1 class="font-bold text-lg md:block lg:hidden">Liste des parcelles</h1>
-            <div
-                class="flex md:overflow-x-auto md:space-x-4 lg:flex-col lg:space-y-4 lg:overflow-y-auto lg:h-[730px] sm:w-[700px] lg:w-[400px] sm:overflow-x-auto sm:space-x-4">
-                <h1 class="font-bold mb-4 text-lg hidden md:hidden lg:block">Liste des parcelles</h1>
+    <div class="mt-4" x-data="{
+        showForm: false,
+        plots: {{ json_encode($plots) }},
+        pagination: {{ json_encode($pagination) }},
+        currentPage: {{ $pagination['current_page'] }},
+        selectedPlot: null,
 
-                <x-info-plot status="En culture" size="2 hectares" crop="Blé" plantationDate="2024-12-26" />
-                <x-info-plot status="En culture" size="2 hectares" crop="Blé" plantationDate="2024-12-26" />
-                <x-info-plot status="En culture" size="2 hectares" crop="Blé" plantationDate="2024-12-26" />
-                <x-info-plot status="En culture" size="2 hectares" crop="Blé" plantationDate="2024-12-26" />
-                <x-info-plot status="En culture" size="2 hectares" crop="Blé" plantationDate="2024-12-26" />
+        init() {
+            this.selectedPlot = this.plots[this.plots.length - 1];
+        },
+
+        goToPage(page) {
+            if (page >= 1 && page <= this.pagination.last_page) {
+                this.currentPage = page;
+            }
+        }
+    }">
+        <section class ="mb-5">
+            <div class="w-full flex justify-between items-center">
+                <x-heading title="Liste des parcelles" />
+                <x-primary-button class="space-x-2" @click="showForm = !showForm">
+                    <i class="fa-solid fa-plus"></i>
+                    <x-heading-small title="Nouvelle Parcelle" class="text-white" />
+                </x-primary-button>
             </div>
-
-            <!-- Formulaire d'ajout d'une parcelle -->
-            @include('parcelles.create')
+        </section>
+        <div x-show="showForm" x-transition class="mt-4" @click.outside="showForm = false">
+            @include('parcelles.partials.create')
         </div>
+
+        @include('parcelles.partials.plots-list')
     </div>
 @endsection
