@@ -17,7 +17,7 @@
 </head>
 
 <body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen flex flex-col items-center justify-center bg-[#4a7c59]">
+    <div class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-bl from-[#4a7c59]  to-green-800">
         <div class="w-full rounded-lg sm:max-w-xl px-6 py-4 bg-white shadow-md ">
             {{ $slot }}
         </div>

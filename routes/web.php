@@ -10,6 +10,10 @@ Route::get('/', function () {
     return view('app_layout');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard.index');
+
 // Route pour afficher la liste des parcelles
 Route::get('/parcelles', function () {
     return view('parcelles.index');
