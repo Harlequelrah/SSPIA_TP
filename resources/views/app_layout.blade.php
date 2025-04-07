@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ str_replace('_TP', '', config('app.name')) }} | @yield('title', 'Tableau de bord') </title>
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
     @livewireStyles()
 </head>
 
@@ -21,7 +23,11 @@
                 @include('includes.navbar')
             </div>
             <main class="flex-1 overflow-y-auto p-4">
-                @yield('content')
+                @if (request()->route() == 'dashboard.index')
+                    @include('dashboard')
+                @else
+                    @yield('content')
+                @endif
             </main>
         </div>
     </div>
