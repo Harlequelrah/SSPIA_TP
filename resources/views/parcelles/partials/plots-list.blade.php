@@ -17,7 +17,8 @@
             <tbody class="text-center">
                 <template x-if='plots.length !== 0'>
                     <template x-for="plot in plots" :key="plot.id">
-                        <tr class="text-sm text-left" :class="{ 'bg-green-50': selectedPlot && selectedPlot.id === plot.id }">
+                        <tr class="text-sm text-left"
+                            :class="{ 'bg-green-50': selectedPlot && selectedPlot.id === plot.id }">
                             <td class="px-3 py-2 text-slate-800" x-text="plot.id"></td>
                             <td class="px-3 py-2 text-slate-800" x-text="plot.name"></td>
                             <td class="px-3 py-2 text-slate-800" x-text="plot.area"></td>
@@ -57,7 +58,6 @@
                 </template>
             </tbody>
             <!-- Pagination -->
-
             <tfoot>
                 <tr>
                     <td colspan="8" class="py-3 px-4">
@@ -71,30 +71,31 @@
                             </div>
 
                             <div class="flex items-center space-x-1">
-                                <button @click="goToPage(currentPage - 1)" :disabled="currentPage <= 1"
+                                <button @click="window.location.href = '?page=' + (currentPage - 1)"
+                                    :disabled="currentPage <= 1"
                                     :class="{ 'opacity-50 cursor-not-allowed': currentPage <= 1 }"
                                     class="px-3 py-1 rounded border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
 
-                                <template x-for="page in Math.min(5, pagination.last_page)" :key="page">
-                                    <button @click="goToPage(page)"
+                                <template x-for="page in pagination.last_page" :key="page">
+                                    <button @click="window.location.href = '?page=' + page"
                                         :class="{
                                             'bg-[#4a7c59] text-white px-2 py-1': currentPage === page,
-                                            'bg-white text-gray-700 hover:bg-green-50 px-3 py-1': currentPage !==
-                                                page
+                                            'bg-white text-gray-700 hover:bg-green-50 px-3 py-1': currentPage !== page
                                         }"
                                         class="rounded-lg border cursor-pointer border-gray-400 text-sm font-medium">
                                         <span x-text="page"></span>
                                     </button>
                                 </template>
 
-                                <button @click="goToPage(currentPage + 1)"
+                                <button @click="window.location.href = '?page=' + (currentPage + 1)"
                                     :disabled="currentPage >= pagination.last_page"
                                     :class="{ 'opacity-50 cursor-not-allowed': currentPage >= pagination.last_page }"
                                     class="px-3 py-1 rounded border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>
+
                             </div>
                         </div>
                     </td>

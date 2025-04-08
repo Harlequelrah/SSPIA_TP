@@ -16,7 +16,7 @@
                         <p class="text-red-600">Aucune parcelle disponible. Veuillez en ajouter d'abord.</p>
                     @else
                         <select name="plot_id" id="plot_id" required
-                            class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
+                            class="w-full border p-2 rounded-sm border-slate-400 bg-white focus:border-green-500">
                             <option value="">Sélectionnez une parcelle</option>
                             @foreach ($plots as $plot)
                                 <option value="{{ $plot->id }}">{{ $plot->name }}</option>
@@ -25,13 +25,16 @@
                     @endif
                 </div>
                 {{-- type d'intervention --}}
-                <select name="intervention_type" id="intervention_type" required
-                    class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
-                    <option disabled>Sélectionnez un type</option>
-                    @foreach (App\Enums\InterventionTypeEnum::values() as $type)
-                        <option value="{{ $type }}">{{ $type }}</option>
-                    @endforeach
-                </select>
+                <div>
+                    <label for="intervention_type">Type d'intervention</label>
+                    <select name="intervention_type" id="intervention_type" required
+                        class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
+                        <option disabled>Sélectionnez un type</option>
+                        @foreach (App\Enums\InterventionTypeEnum::values() as $type)
+                            <option value="{{ $type }}">{{ $type }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
                 {{-- date d'intervention --}}
                 <div>
