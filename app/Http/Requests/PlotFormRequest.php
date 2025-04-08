@@ -24,7 +24,7 @@ class PlotFormRequest extends FormRequest
     {
         return [
             'name' => ['required','string'],
-            'area' => ['required', 'numeric', 'regex:/^\d+(\.\d{2})?$/', 'min:0', 'max:9999999999.99'],
+            'area' => ['required', 'numeric', 'min:0', 'max:9999999999.99'],
             'plantation_date' => ['required','date'],
             'status'=>['required',Rule::in(StatusEnum::values())],
             'crop_type' => ['required','string']

@@ -5,37 +5,25 @@
 @section('header', 'Liste des Parcelles')
 
 @php
-    $plots = [
-        (object) [
-            'id' => 1,
-            'name' => 'Parcelle Nord',
-            'area' => '25',
-            'crop_type' => 'Blé',
-            'plantation_date' => '2024-06-06',
-            'status' => 'En jachère',
-            'user' => 'Uche',
-        ],
-    ];
-
     $pagination = [
-        'current_page' => 1,
-        'last_page' => 3,
-        'per_page' => 10,
-        'total' => 21,
+        'current_page' => $plots->currentPage(),
+        'last_page' => $plots->lastPage(),
+        'per_page' => $plots->perPage(),
+        'total' => $plots->total(),
     ];
 @endphp
 @section('content')
     <div class="mt-4" x-data="{
-        showForm: false,
-        plots: {{ json_encode($plots) }},
+        showForm: true,
+        plots: {{ json_encode($plots->items()) }},
         pagination: {{ json_encode($pagination) }},
         currentPage: {{ $pagination['current_page'] }},
         selectedPlot: null,
-
+    
         init() {
             this.selectedPlot = this.plots[this.plots.length - 1];
         },
-
+    
         goToPage(page) {
             if (page >= 1 && page <= this.pagination.last_page) {
                 this.currentPage = page;
@@ -44,14 +32,14 @@
     }">
         <section class ="mb-5">
             <div class="w-full flex justify-between items-center">
-                <x-heading title="Liste des parcelles" />
-                <x-primary-button class="space-x-2" @click="showForm = !showForm">
+                <x-heading title="Gestion des parcelles" />
+                {{-- <x-primary-button class="space-x-2" @click="showForm = !showForm">
                     <i class="fa-solid fa-plus"></i>
                     <x-heading-small title="Nouvelle Parcelle" class="text-white" />
-                </x-primary-button>
+                </x-primary-button> --}}
             </div>
         </section>
-        <div x-show="showForm" x-transition class="mt-4" @click.outside="showForm = false">
+        <div x-show="showForm" x-transition class="mt-4">
             @include('parcelles.partials.create')
         </div>
 

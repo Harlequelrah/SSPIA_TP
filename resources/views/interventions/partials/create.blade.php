@@ -2,10 +2,10 @@
     <div class="p-6">
         <div class="mb-6">
             <x-heading title="Formulaire d'ajout d'une intervention" />
-            <x-heading-small title="Les champs marqués avec (*) sont obligatoires"/>
+            <x-heading-small title="Les champs marqués avec (*) sont obligatoires" />
         </div>
 
-        <form action="" @submit.prevent=''>
+        <form action="{{ route('interventions.store') }}">
             <div class="grid grid-cols-2 gap-4 mb-4">
                 {{-- parcelle concernée --}}
                 <div>

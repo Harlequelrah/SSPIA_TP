@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use App\Enums\RoleEnum;
 use App\Http\Requests\PlotFormRequest;
 use App\Models\Plot;
-use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
 class PlotController extends Controller
@@ -13,48 +14,57 @@ class PlotController extends Controller
      */
     public function index()
     {
-        $plots = Auth::user()->plots()->paginate(10);
-        return view(
-            'parcelles.index',
-            [
-                'plots' => $plots,
-            ]
-        );
+        $user = Auth::user();
+
+        if ($user->role === RoleEnum::ADMIN->value) {
+            // administrateur: afficher toutes les parcelles
+            $plots = Plot::paginate(10);
+        } else {
+            // autres utilisateur: récupérer uniquement leurs parcelles
+            $plots = $user->plots()->paginate(10);
+        }
+
+        return view('parcelles.index', [
+            'plots' => $plots,
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        $plot = new Plot();
-        return view(
-            'plot.create',
-            [
-                'plot' => $plot,
-            ]
-        );
-    }
+    // public function create()
+    // {
+    //     $plot = new Plot();
+    //     return view(
+    //         'parcelles.create',
+    //         [
+    //             'plot' => $plot,
+    //         ]
+    //     );
+    // }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(PlotFormRequest $request)
     {
-        $post = Post::create($request->validated());
-        return redirect()->route('plot.index')
+        $validated = $request->validated();
+        $validated['user_id'] = Auth::user()->id; // link plot to current user
+
+        Plot::create($validated);
+        return redirect()->route('parcelles.index')
             ->with('success', 'Plot created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Plot $plot)
-    {
-        return view('plot.show', [
-            'plot' => $plot,
-        ]);
-    }
+    // public function show(Plot $plot)
+    // {
+    //     return view('plot.show', [
+    //         'plot' => $plot,
+    //     ]);
+    // }
 
     /**
      * Show the form for editing the specified resource.
