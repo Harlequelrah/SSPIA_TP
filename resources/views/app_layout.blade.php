@@ -7,6 +7,7 @@
     <title>{{ str_replace('_TP', '', config('app.name')) }} | @yield('title', 'Tableau de bord') </title>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" href="{{ URL('assets/logo.jpg') }}" />
 
     @livewireStyles()
 </head>
