@@ -15,7 +15,11 @@
                     <x-sidebar-item route="parcelles.index" active="parcelles.*" icon="fa-landmark" label="Parcelles" />
                     <x-sidebar-item route="interventions.index" active="interventions.*" icon="fa-bolt"
                         label="Interventions" />
-                    <x-sidebar-item route="users.index" active="users.*" icon="fa-user" label="Utilisateurs" />
+                    @auth
+                        @if (auth()->user()->role === App\Enums\RoleEnum::ADMIN)
+                            <x-sidebar-item route="users.index" active="users.*" icon="fa-user" label="Utilisateurs" />
+                        @endif
+                    @endauth
                 </div>
             </ul>
         </nav>

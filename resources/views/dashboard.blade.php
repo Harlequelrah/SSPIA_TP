@@ -4,11 +4,16 @@
 
 @section('header', 'Tableau de bord')
 
+@php
+    $isAdmin = auth()->user()->role === App\Enums\RoleEnum::ADMIN;
+@endphp
+
 @section('content')
     <div class="p-6">
         <div class="flex flex-col justify-around md:flex-row mb-10">
-            <x-dashboard-card title="Parcelle totales" count=10 class="border-green-500" />
-            <x-dashboard-card title="Interventions totales" count=18 class="border-amber-500" />
+            <x-dashboard-card title="{{ $isAdmin ? 'Parcelle totales' : 'Mes parcelles' }} " count=10
+                class="border-green-500" />
+            <x-dashboard-card title="{{ $isAdmin ? 'Interventions totales' : 'Mes interventions' }}" count=18 class="border-amber-500" />
             <x-dashboard-card title="Parcelles en culture" count=5 class="border-blue-500" />
             <x-dashboard-card title="Parcelles récoltées" count=8 class="border-red-500" />
         </div>
@@ -24,4 +29,3 @@
         </div>
     </div>
 @endsection
-

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Intervention;
 use App\Models\Plot;
-use App\Enums\InterventionTypeEnum;
 use App\Http\Requests\InterventionFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,9 +36,9 @@ class InterventionController extends Controller
      */
     public function store(InterventionFormRequest $request)
     {
-
-
-        Intervention::create($request->validated());
+        $validated = $request->validated();
+        $validated['user_id'] = Auth::user()->id;
+        Intervention::create($validated);
         return redirect()->route('interventions.index')
             ->with('success', 'Intervention ajoutée avec succès.');
     }

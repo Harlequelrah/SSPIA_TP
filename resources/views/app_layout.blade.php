@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ str_replace('_TP', '', config('app.name')) }} | @yield('title', 'Tableau de bord') </title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css" />
+    <link rel="shortcut icon" href="{{ URL('assets/logo.jpg') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @livewireStyles()

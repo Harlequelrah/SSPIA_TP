@@ -1,7 +1,5 @@
 <div class="mt-4">
     <!-- Liste des parcelles -->
-    <x-heading title="Liste des parcelles" />
-
     <div class="overflow-x-auto bg-white rounded-lg shadow mt-4">
         <table class="w-full">
             <thead class="bg-[#4a7c59] divide-x-2 text-sm text-left text-white">

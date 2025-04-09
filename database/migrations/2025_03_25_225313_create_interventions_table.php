@@ -22,7 +22,6 @@ return new class extends Migration
             $table->decimal('product_used_quantity')->nullable();
             $table->enum('intervention_type',InterventionTypeEnum::values());
             $table->dateTime('intervention_date');
-            $table->enum('unit_enum', UnitEnum::values());
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();

@@ -5,8 +5,6 @@ use App\Http\Controllers\InterventionController;
 use App\Http\Controllers\PlotController;
 use Illuminate\Support\Facades\Route;
 
-
-
 Route::get('/', function () {
     return view('app_layout');
 })->middleware(['auth', 'verified']);
