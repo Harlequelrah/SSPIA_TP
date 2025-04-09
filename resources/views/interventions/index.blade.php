@@ -10,7 +10,7 @@
         'per_page' => $interventions->perPage(),
         'total' => $interventions->total(),
     ];
-    $canCreate = Auth::user()->role->value === 'Agriculteur';
+    $canCreate = Auth::user()->role === App\Enums\RoleEnum::AGRICULTEUR;
     // dd($canCreate);
 @endphp
 @section('content')
@@ -40,7 +40,7 @@
         <section class="mb-5">
             <div class="w-full flex justify-between items-center">
                 @auth
-                    @if (auth()->user()->role === App\Enums\RoleEnum::AGRICULTEUR)
+                    @if ($canCreate)	
                         <x-heading title="Gestion des interventions" />
 
                         <x-primary-button class="space-x-2" @click="showForm = !showForm">
@@ -52,11 +52,6 @@
                     @endif
                 @endauth
 
-                <x-heading title="Gestion des interventions" />
-                <x-primary-button class="space-x-2" @click="showForm">
-                    <i class="fa-solid fa-plus"></i>
-                    <x-heading-small title="Nouvelle Intervention" class="text-white" />
-                </x-primary-button> --}}
             </div>
         </section>
         <div x-show="showForm" x-transition class="mt-4" @click.outside="showForm = false">

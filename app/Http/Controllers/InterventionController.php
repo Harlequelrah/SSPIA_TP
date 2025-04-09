@@ -5,10 +5,6 @@ use App\Enums\RoleEnum;
 use App\Http\Requests\InterventionFormRequest;
 use App\Models\Intervention;
 use App\Models\Plot;
-<<<<<<< HEAD
-use App\Http\Requests\InterventionFormRequest;
-=======
->>>>>>> 0a8558e0cc49c6dd61aec1e433f1f7ad830ba146
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +19,7 @@ class InterventionController extends Controller
 
         // $plots = Plot::all();
         $user = Auth::user();
-
+        // dd($user->plots());
         if ($user->role === RoleEnum::ADMIN->value) {
             // administrateur: afficher toutes les parcelles
             $plots = Plot::paginate(10);
@@ -49,8 +45,8 @@ class InterventionController extends Controller
     public function store(InterventionFormRequest $request)
     {
         $validated = $request->validated();
-        $validated['user_id'] = Auth::user()->id;
-        Intervention::create($validated);
+
+        $intervention=Intervention::create($validated);
         return redirect()->route('interventions.index')
             ->with('success', 'Intervention ajoutée avec succès.');
     }

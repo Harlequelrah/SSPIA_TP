@@ -16,16 +16,13 @@
                     @if ($plots->isEmpty())
                         <p class="text-red-600">Aucune parcelle disponible. Veuillez en ajouter d'abord.</p>
                     @else
-                        <select name="plot_id" id="plot_id"
-                            class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
+                        <select name="plot_id" id="plot_id" required
+                            class="w-full border p-2 rounded-sm border-slate-400 bg-white focus:border-green-500">
                             <option value="" disabled>Sélectionnez une parcelle</option>
-                            <select name="plot_id" id="plot_id" required
-                                class="w-full border p-2 rounded-sm border-slate-400 bg-white focus:border-green-500">
-                                <option value="">Sélectionnez une parcelle</option>
-                                @foreach ($plots as $plot)
-                                    <option value="{{ $plot->id }}">{{ $plot->name }}</option>
-                                @endforeach
-                            </select>
+                            @foreach ($plots as $plot)
+                                <option value="{{ $plot->id }}">{{ $plot->name }}</option>
+                            @endforeach
+                        </select>
                     @endif
                     @error('plot_id')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -56,7 +53,16 @@
                     @error('intervention_date')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
+                    <input hidden type="number" name="user_id" value="{{ Auth::user()->id }}">
+                </div>
+                {{-- nom du produit utilisé --}}
 
+                <div>
+                    <label for="product_used_name" class="block text-gray-700">Nom du produit utilisé <span class="text-red-600">*</span> </label>
+                    <x-input-field name="product_used_name" id="product_used_name" type="text" :value="old('product_used_name')" :placeholder="'Ex: Fertilisant ELRAH'" />
+                    @error('product_used_name')
+                        <span class="text-sm text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
                 {{-- quantité de produit utilisé --}}
                 <div>
@@ -64,8 +70,8 @@
                     <div class="flex">
                         <input type="number" name="product_used_quantity" id="product_used_quantity"
                             class="w-full p-2 border rounded-tl-sm rounded-bl-sm border-slate-400 bg-white focus:bg-white focus:border-green-500 focus:outline-none text-sm placeholder:text-sm">
-                        <select name="product_used_name" id="product_used_name"
-                            class="w-14 text-center p-2 border rounded-tr-sm rounded-br-sm border-slate-400 bg-slate-200 focus:bg-white focus:border-green-500 focus:outline-none text-sm placeholder:text-sm">
+                        <select name="unit" id="unit"
+                            class="w-20 text-center p-2 border rounded-tr-sm rounded-br-sm border-slate-400 bg-slate-200 focus:bg-white focus:border-green-500 focus:outline-none text-sm placeholder:text-sm">
                             @foreach (App\Enums\UnitEnum::values() as $type)
                                 <option value="{{ $type }}">{{ $type }}</option>
                             @endforeach

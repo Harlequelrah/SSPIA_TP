@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('product_used_name')->nullable();
             $table->decimal('product_used_quantity')->nullable();
             $table->enum('intervention_type',InterventionTypeEnum::values());
+            $table->enum('unit',UnitEnum::values());	
             $table->dateTime('intervention_date');
             $table->foreignIdFor(User::class)
                 ->constrained()

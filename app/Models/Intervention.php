@@ -17,7 +17,8 @@ class Intervention extends Model
         'intervention_type',
         'intervention_date',
         'user_id',
-        'plot_id'
+        'plot_id',
+        'unit'
     ];
 
     protected $guarded=[];
