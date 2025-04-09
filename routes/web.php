@@ -7,14 +7,13 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
 Route::get('/', function () {
     return view('app_layout');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified']);
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return view('dashboard');
-})->name('dashboard.index');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route pour afficher la liste des parcelles
 Route::resource('parcelles', PlotController::class);
