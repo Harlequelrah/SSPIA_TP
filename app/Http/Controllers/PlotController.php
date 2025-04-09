@@ -18,10 +18,10 @@ class PlotController extends Controller
 
         if ($user->role === RoleEnum::ADMIN->value) {
             // administrateur: afficher toutes les parcelles
-            $plots = Plot::paginate(10);
+            $plots = Plot::paginate(5);
         } else {
             // autres utilisateur: récupérer uniquement leurs parcelles
-            $plots = $user->plots()->paginate(10);
+            $plots = $user->plots()->paginate(5);
         }
 
         return view('parcelles.index', [

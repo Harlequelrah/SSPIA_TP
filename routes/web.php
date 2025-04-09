@@ -18,8 +18,10 @@ Route::get('/', function () {
 // Route pour afficher la liste des parcelles
 Route::resource('parcelles', PlotController::class);
 
+Route::get('interventions/create/{plot_id}', [InterventionController::class, 'create'])
+    ->name('interventions.create');
 
-Route::resource('interventions', InterventionController::class);
+Route::resource('interventions', InterventionController::class)->except(['create']);
 // Route pour afficher la liste des interventions
 
 Route::get('/users', function () {
