@@ -1,10 +1,14 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Enums\RoleEnum;
+use App\Http\Requests\InterventionFormRequest;
 use App\Models\Intervention;
 use App\Models\Plot;
+<<<<<<< HEAD
 use App\Http\Requests\InterventionFormRequest;
+=======
+>>>>>>> 0a8558e0cc49c6dd61aec1e433f1f7ad830ba146
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,11 +21,19 @@ class InterventionController extends Controller
     {
         $interventions = Intervention::orderByDesc('id')->paginate(10);
 
-        $plots = Plot::all();
+        // $plots = Plot::all();
+        $user = Auth::user();
+
+        if ($user->role === RoleEnum::ADMIN->value) {
+            // administrateur: afficher toutes les parcelles
+            $plots = Plot::paginate(10);
+        } else {
+            // autres utilisateur: récupérer uniquement leurs parcelles
+            $plots = $user->plots()->paginate(10);
+        }
 
         return view('interventions.index', compact('interventions', 'plots'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -42,8 +54,6 @@ class InterventionController extends Controller
         return redirect()->route('interventions.index')
             ->with('success', 'Intervention ajoutée avec succès.');
     }
-
-
 
     /**
      * Display the specified resource.

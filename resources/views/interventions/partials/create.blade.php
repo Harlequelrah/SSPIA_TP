@@ -18,11 +18,14 @@
                     @else
                         <select name="plot_id" id="plot_id"
                             class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
-                            <option value="" disabled >Sélectionnez une parcelle</option>
-                            @foreach ($plots as $plot)
-                                <option value="{{ $plot->id }}">{{ $plot->name }}</option>
-                            @endforeach
-                        </select>
+                            <option value="" disabled>Sélectionnez une parcelle</option>
+                            <select name="plot_id" id="plot_id" required
+                                class="w-full border p-2 rounded-sm border-slate-400 bg-white focus:border-green-500">
+                                <option value="">Sélectionnez une parcelle</option>
+                                @foreach ($plots as $plot)
+                                    <option value="{{ $plot->id }}">{{ $plot->name }}</option>
+                                @endforeach
+                            </select>
                     @endif
                     @error('plot_id')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -30,10 +33,11 @@
                 </div>
                 {{-- type d'intervention --}}
                 <div>
-                    <label for="intervention_type" class="text-slate-700">Type d'intervention</label>
-                    <select name="intervention_type" id="intervention_type"
+
+                    <label for="intervention_type">Type d'intervention</label>
+                    <select name="intervention_type" id="intervention_type" required
                         class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
-                        <option disabled value="">Sélectionnez un type</option>
+                        <option disabled>Sélectionnez un type</option>
                         @foreach (App\Enums\InterventionTypeEnum::values() as $type)
                             <option value="{{ $type }}">{{ $type }}</option>
                         @endforeach

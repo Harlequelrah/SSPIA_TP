@@ -21,7 +21,7 @@
         selectedPlot: null,
     
         init() {
-            this.selectedPlot = this.plots[this.plots.length - 1];
+            this.selectedPlot = this.plots[0];
         },
     
         goToPage(page) {

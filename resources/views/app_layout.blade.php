@@ -7,6 +7,7 @@
     <title>{{ str_replace('_TP', '', config('app.name')) }} | @yield('title', 'Tableau de bord') </title>
     <link rel="shortcut icon" href="{{ URL('assets/logo.jpg') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" href="{{ URL('assets/logo.jpg') }}" />
 
     @livewireStyles()
 </head>
