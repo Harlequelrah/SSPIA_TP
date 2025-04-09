@@ -6,12 +6,12 @@
             <x-heading title="SSPIA" class="text-white" />
         </div>
         <hr class="my-5 text-white">
-        
+
         {{-- navigation --}}
         <nav>
             <ul>
                 <div>
-                    <x-sidebar-item route="dashboard.index" active="dashboard" icon="fa-home" label="Tableau de bord" />
+                    <x-sidebar-item route="dashboard" active="dashboard" icon="fa-home" label="Tableau de bord" />
                     <x-sidebar-item route="parcelles.index" active="parcelles.*" icon="fa-landmark" label="Parcelles" />
                     <x-sidebar-item route="interventions.index" active="interventions.*" icon="fa-bolt"
                         label="Interventions" />
