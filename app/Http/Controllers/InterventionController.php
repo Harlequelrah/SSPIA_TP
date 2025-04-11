@@ -18,13 +18,14 @@ class InterventionController extends Controller
     {
         $user = Auth::user();
 
-        $interventions = Intervention::where('user_id', $user->id)->with('plot')->paginate(2);
 
         if ($user->role === RoleEnum::ADMIN) {
             // administrateur: afficher toutes les parcelles
             $plots = Plot::paginate(10);
+            $interventions = Intervention::with('plot')->paginate(10);
         } else {
             // autres utilisateur: récupérer uniquement leurs parcelles
+            $interventions = Intervention::where('user_id', $user->id)->with('plot')->paginate(10);
             $plots = $user->plots()->paginate(10);
         }
 
