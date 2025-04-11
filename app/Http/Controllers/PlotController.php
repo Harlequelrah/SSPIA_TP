@@ -16,7 +16,7 @@ class PlotController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role === RoleEnum::ADMIN->value) {
+        if ($user->role === RoleEnum::ADMIN) {
             // administrateur: afficher toutes les parcelles
             $plots = Plot::paginate(5);
         } else {
