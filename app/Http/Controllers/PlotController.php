@@ -89,7 +89,7 @@ class PlotController extends Controller
     public function update(PlotFormRequest $request, Plot $plot)
     {
         $plot->update($request->validated());
-        return redirect()->route('plot.index')
+        return redirect()->route('parcelles.index')
             ->with('success', "The plot was successfully updated");
     }
 
@@ -102,7 +102,7 @@ class PlotController extends Controller
             abort(403, 'Unauthorized action');
         }
         $plot->delete();
-        return redirect()->route('plot.index')
+        return redirect()->route('parcelles.index')
             ->with('success', "The plot was successfully deleted");
     }
 }
