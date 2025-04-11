@@ -7,8 +7,9 @@
             @csrf
             <div class="flex flex-col items-center justify-center">
                 <img src="{{ URL('assets/logo.jpg') }}" alt="logo" class="w-25 h-[20]">
-                <x-heading-small class="text-center my-4"
-                    title="Système de Suivi des plots et des Interventions Agricole" />
+                <x-heading-small class="text-2xl text-center my-4"
+    title="Système de Suivi des Parcelles et des Interventions Agricoles" />
+
             </div>
 
             <div class="mb-4">
