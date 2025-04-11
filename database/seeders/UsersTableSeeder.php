@@ -19,16 +19,18 @@ class UsersTableSeeder extends Seeder
         // Check if the admin user already exists
         $adminEmail = 'godswilllek02@gmail.com';
         $agriEmail = "agri@gmail.com";
+        $agriEmail2 = 'agri2@gmail.com';
+
         if (!User::where('email', $adminEmail)->exists()) {
             User::create([
                 'name' => 'Uche lek',
                 'email' => $adminEmail,
                 'username' => 'escanor',
-                'role'=> RoleEnum::ADMIN,
+                'role' => RoleEnum::ADMIN,
                 'password' => Hash::make('Uche@2064'),
                 'email_verified_at' => now(),
             ]);
-            
+
             $this->command->info('Admin user created successfully!');
         } else {
             $this->command->info('Admin user already exists. Skipped creation.');
@@ -46,6 +48,20 @@ class UsersTableSeeder extends Seeder
             $this->command->info('Agriculteur user created successfully!');
         } else {
             $this->command->info('Agriculteur user already exists. Skipped creation.');
+        }
+        if (!User::where('email', $agriEmail2)->exists()) {
+            User::create([
+                'name' => 'Agriculteur 2',
+                'email' => $agriEmail2,
+                'username' => 'Agri3',
+                'role' => RoleEnum::AGRICULTEUR,
+                'password' => Hash::make('uche@2064'),
+                'email_verified_at' => now(),
+            ]);
+
+            $this->command->info('Agriculteur 2 user created successfully!');
+        } else {
+            $this->command->info('Agriculteur 2 user already exists. Skipped creation.');
         }
     }
 }
