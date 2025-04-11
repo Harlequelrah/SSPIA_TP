@@ -11,10 +11,12 @@
         'per_page' => $plots->perPage(),
         'total' => $plots->total(),
     ];
+
+    $canCreate = Auth::user()->role === App\Enums\RoleEnum::AGRICULTEUR;
 @endphp
 @section('content')
     <div class="mt-4" x-data="{
-        showForm:  {{ $errors->any() ? 'true' : 'false' }},
+        showForm: {{ $errors->any() ? 'true' : 'false' }},
         plots: {{ json_encode($plots->items()) }},
         pagination: {{ json_encode($pagination) }},
         currentPage: {{ $pagination['current_page'] }},
@@ -33,7 +35,7 @@
         <section class ="mb-5">
             <div class="w-full flex justify-between items-center">
                 @auth
-                    @if (auth()->user()->role === App\Enums\RoleEnum::AGRICULTEUR)
+                    @if ($canCreate)
                         <x-heading title="Gestion des Parcelles" />
                         <x-primary-button class="space-x-2" @click="showForm = !showForm">
                             <i class="fa-solid fa-plus"></i>

@@ -27,9 +27,10 @@
                                 <a href="#">
                                     <i class="fa-solid fa-pencil-alt text-amber-600"></i>
                                 </a>
-                                <a href="{{ route('parcelles.destroy') }}">
-                                    <i class="fa-solid fa-trash-alt text-red-600"></i>
+                                <a :href="'/parcelles/' + intervention.plot.id" class="text-red-600 hover:text-red-800">
+                                    <i class="fa-solid fa-trash-alt"></i>
                                 </a>
+
                             </td>
                         </tr>
                     </template>
@@ -44,6 +45,7 @@
                     </tr>
                 </template>
             </tbody>
+            <!-- Pagination -->
             <tfoot>
                 <tr>
                     <td colspan="5" class="py-3 px-4">
@@ -55,15 +57,16 @@
                             </div>
                             <div class="flex items-center space-x-1">
                                 <!-- Previous Page Button -->
-                                <button @click="goToPage(currentPage - 1)" :disabled="currentPage <= 1"
+                                <button @click="window.location.href = '?page=' + (currentPage - 1)"
+                                    :disabled="currentPage <= 1"
                                     :class="{ 'opacity-50 cursor-not-allowed': currentPage <= 1 }"
                                     class="px-3 py-1 rounded border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
 
                                 <!-- Page Numbers -->
-                                <template x-for="page in Math.min(5, pagination.last_page)" :key="page">
-                                    <button @click="goToPage(page)"
+                                <template x-for="page in pagination.last_page" :key="page">
+                                    <button @click="window.location.href = '?page=' + page"
                                         :class="{
                                             'bg-[#4a7c59] text-white px-2 py-1': currentPage ===
                                                 page,
@@ -76,7 +79,7 @@
                                 </template>
 
                                 <!-- Last Page Button (if there are many pages) -->
-                                <button @click="goToPage(pagination.last_page)"
+                                {{-- <button @click="goToPage(pagination.last_page)"
                                     :class="{
                                         'bg-[#4a7c59] text-white': currentPage === pagination
                                             .last_page,
@@ -86,10 +89,10 @@
                                     class="px-3 py-1 rounded border border-gray-300 text-sm font-medium"
                                     x-show="pagination.last_page > 5">
                                     <span x-text="pagination.last_page"></span>
-                                </button>
+                                </button> --}}
 
                                 <!-- Next Page Button -->
-                                <button @click="goToPage(currentPage + 1)"
+                                <button @click="window.location.href = '?page=' + (currentPage + 1)"
                                     :disabled="currentPage >= pagination.last_page"
                                     :class="{ 'opacity-50 cursor-not-allowed': currentPage >= pagination.last_page }"
                                     class="px-3 py-1 rounded border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
