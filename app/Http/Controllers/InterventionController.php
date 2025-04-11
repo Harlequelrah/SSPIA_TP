@@ -16,12 +16,11 @@ class InterventionController extends Controller
      */
     public function index(Request $request)
     {
-        $interventions = Intervention::with('plot')->paginate(10);
-
-        // $plots = Plot::all();
         $user = Auth::user();
-        // dd($user->plots());
-        if ($user->role === RoleEnum::ADMIN->value) {
+
+        $interventions = Intervention::where('user_id', $user->id)->with('plot')->paginate(2);
+
+        if ($user->role === RoleEnum::ADMIN) {
             // administrateur: afficher toutes les parcelles
             $plots = Plot::paginate(10);
         } else {
