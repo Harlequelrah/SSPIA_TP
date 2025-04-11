@@ -4,13 +4,21 @@
     </h2>
     <ul class="space-y-2">
         <li><strong>ID:</strong> <span x-text="selectedIntervention ? selectedIntervention.id : ''"></span></li>
-        <li><strong>Parcelle:</strong> <span x-text="selectedIntervention ? selectedIntervention.parcelle : ''"></span>
+        <li><strong>Parcelle:</strong> <span x-text="selectedIntervention ? selectedIntervention.plot.name : ''"></span>
         </li>
-        <li><strong>Type:</strong> <span x-text="selectedIntervention ? selectedIntervention.type : ''"></span></li>
-        <li><strong>Date:</strong> <span x-text="selectedIntervention ? selectedIntervention.date : ''"></span></li>
-        <li><strong>Description:</strong> <span
-                x-text="selectedIntervention ? selectedIntervention.description : ''"></span></li>
-        <li><strong>Quantité:</strong> <span x-text="selectedIntervention ? selectedIntervention.quantite : ''"></span>
+        <li><strong>Type:</strong> <span
+                x-text="selectedIntervention ? selectedIntervention.intervention_type : ''"></span></li>
+        <li><strong>Date:</strong> <span
+                x-text="selectedIntervention ? selectedIntervention.intervention_date : ''"></span></li>
+        <li><strong>Description:</strong>
+            <span
+                x-text="selectedIntervention && selectedIntervention.description ? selectedIntervention.description : 'Non spécifié'"></span>
         </li>
+
+        <li><strong>Quantité:</strong>
+            <span
+                x-text="selectedIntervention && selectedIntervention.product_used_quantity ? selectedIntervention.product_used_quantity : 'Non spécifié'"></span>
+        </li>
+
     </ul>
 </div>

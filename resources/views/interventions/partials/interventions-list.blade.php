@@ -16,9 +16,9 @@
                         <tr class="transition-colors"
                             :class="{ 'bg-green-100': selectedIntervention && selectedIntervention.id === intervention.id }">
                             <td class="py-2 px-4" x-text="intervention.id"></td>
-                            <td class="py-2 px-4" x-text="intervention.parcelle"></td>
-                            <td class="py-2 px-4" x-text="intervention.type"></td>
-                            <td class="py-2 px-4" x-text="intervention.date"></td>
+                            <td class="py-2 px-4" x-text="intervention.plot.name"></td>
+                            <td class="py-2 px-4" x-text="intervention.intervention_type"></td>
+                            <td class="py-2 px-4" x-text="intervention.intervention_date"></td>
                             <td class="py-2 px-4 space-x-4">
                                 <button @click="selectedIntervention = intervention"
                                     class="text-blue-600 hover:text-blue-600 cursor-pointer">
@@ -27,7 +27,7 @@
                                 <a href="#">
                                     <i class="fa-solid fa-pencil-alt text-amber-600"></i>
                                 </a>
-                                <a href="#">
+                                <a href="{{ route('parcelles.destroy') }}">
                                     <i class="fa-solid fa-trash-alt text-red-600"></i>
                                 </a>
                             </td>
