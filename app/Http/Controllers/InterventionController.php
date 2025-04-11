@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Enums\RoleEnum;
@@ -15,7 +16,7 @@ class InterventionController extends Controller
      */
     public function index(Request $request)
     {
-        $interventions = Intervention::orderByDesc('id')->paginate(10);
+        $interventions = Intervention::with('plot')->paginate(10);
 
         // $plots = Plot::all();
         $user = Auth::user();
@@ -46,7 +47,7 @@ class InterventionController extends Controller
     {
         $validated = $request->validated();
 
-        $intervention=Intervention::create($validated);
+        $intervention = Intervention::create($validated);
         return redirect()->route('interventions.index')
             ->with('success', 'Intervention ajoutée avec succès.');
     }
@@ -80,6 +81,11 @@ class InterventionController extends Controller
      */
     public function destroy(Intervention $intervention)
     {
-        //
+        if ($intervention->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized action');
+        }
+        $intervention->delete();
+        return redirect()->route('interventions.index')
+            ->with('success', "L'intervention a été supprimée (soft delete)");
     }
 }

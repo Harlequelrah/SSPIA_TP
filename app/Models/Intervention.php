@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @mixin IdeHelperIntervention
  */
 class Intervention extends Model
 {
+    use SoftDeletes;
 
-        protected $fillable=[
+    protected $fillable = [
         'description',
         'product_used_name',
         'product_used_quantity',
@@ -21,13 +23,15 @@ class Intervention extends Model
         'unit'
     ];
 
-    protected $guarded=[];
+    protected $guarded = [];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
     public function plot()
     {
-        return $this->belongsTo(Plot::class);}
+        return $this->belongsTo(Plot::class);
+    }
 }

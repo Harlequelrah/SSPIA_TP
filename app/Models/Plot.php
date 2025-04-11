@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @mixin IdeHelperPlot
  */
 class Plot extends Model
 {
-    protected $fillable=[
+    use SoftDeletes;
+    protected $fillable = [
         'name',
         'area',
         'crop_type',
@@ -18,13 +20,15 @@ class Plot extends Model
         'user_id'
     ];
 
-    protected $guarded=[];
+    protected $guarded = [];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function interventions(){
+    public function interventions()
+    {
         return $this->hasMany(Intervention::class);
     }
 }
