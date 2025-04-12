@@ -31,8 +31,8 @@
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
-            <button type="submit"
-                class="w-full bg-[#4a7c59] text-white p-2 mt-4 rounded-lg cursor-pointer transition-all duration-200 hover:bg-green-800 mb-4">Connexion</button>
+            <x-primary-button class=" mb-4 text-center w-full">Connexion</x-primary-button>
+
             <div class="w-full flex items-center justify-center">
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-[#4a7c59] text-center" href="{{ route('password.request') }}">
