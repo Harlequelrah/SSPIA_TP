@@ -29,7 +29,7 @@
         </div>
     </div>
     <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
-
+    @stack('scripts')
     @livewireScripts()
 </body>
 

@@ -17,6 +17,20 @@
 ])
 
 <div class="p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 ">
+        <!-- Donut Chart - Statut des parcelles -->
+        <div class="bg-white rounded-lg p-5 h-80">
+            <x-heading class="mb-3" title="Status des parcelles" />
+            <canvas id="plotStatusChart" class="w-full h-full"></canvas>
+        </div>
+
+        <!-- Bar Chart - Type d'intervention -->
+        <div class="bg-white rounded-lg p-5 h-80">
+            <x-heading class="mb-3" title="Status des interventions" />
+            <canvas id="interventionTypeChart" class="w-full h-full"></canvas>
+        </div>
+    </div>
+
     {{-- État général --}}
     <div class="flex flex-col justify-around md:flex-row mb-10 gap-4">
         <x-dashboard-card title="{{ $isAdmin ? 'Parcelles totales' : 'Mes parcelles' }}" count="{{ $totalPlots }}"
@@ -371,3 +385,69 @@
         </div>
     @endif
 </div>
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const plotStatusChartEl = document.getElementById('plotStatusChart');
+            const interventionTypeChartEl = document.getElementById('interventionTypeChart');
+
+            if (plotStatusChartEl) {
+                const ctx = plotStatusChartEl.getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['En culture', 'Récoltées', 'En jachère'],
+                        datasets: [{
+                            data: [{{ $plotsInCulture }}, {{ $plotsHarvested }},
+                                {{ $plotsInFallow }}
+                            ],
+                            backgroundColor: [
+                                'rgba(75, 192, 192, 0.6)',
+                                'rgba(255, 159, 64, 0.6)',
+                                'rgba(201, 203, 207, 0.6)'
+                            ],
+                            borderColor: [
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 159, 64, 1)',
+                                'rgba(201, 203, 207, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+
+            if (interventionTypeChartEl && @json($interventionTypesCount->values()->count() > 0)) {
+                const ctx = interventionTypeChartEl.getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: @json($interventionTypesCount->keys()),
+                        datasets: [{
+                            label: 'Nombre d\'interventions',
+                            data: @json($interventionTypesCount->values()),
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                precision: 0
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+@endpush
