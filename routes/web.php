@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InterventionController;
 use App\Http\Controllers\PlotController;
@@ -9,17 +10,16 @@ Route::get('/', function () {
     return view('app_layout');
 })->middleware(['auth', 'verified']);
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route pour afficher la liste des parcelles
 Route::resource('parcelles', PlotController::class);
 
-Route::get('interventions/create/{plot_id}', [InterventionController::class, 'create'])
-    ->name('interventions.create');
+// Route::get('interventions/create/{plot_id}', [InterventionController::class, 'create'])
+//     ->name('interventions.create');
 
-Route::resource('interventions', InterventionController::class)->except(['create']);
+Route::resource('interventions', InterventionController::class);
 // Route pour afficher la liste des interventions
 
 Route::get('/users', function () {
@@ -48,7 +48,4 @@ Route::get('/admin-only', function () {
 // })->name('logout');
 
 
-require __DIR__.'/auth.php';
-
-
-
+require __DIR__ . '/auth.php';

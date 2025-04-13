@@ -1,31 +1,12 @@
+{{-- dashboard --}}
+
 @extends('app_layout')
 
 @section('title', 'Tableau de bord')
 
 @section('header', 'Tableau de bord')
 
-@php
-    $isAdmin = auth()->user()->role === App\Enums\RoleEnum::ADMIN;
-@endphp
-
 @section('content')
-    <div class="p-6">
-        <div class="flex flex-col justify-around md:flex-row mb-10">
-            <x-dashboard-card title="{{ $isAdmin ? 'Parcelle totales' : 'Mes parcelles' }} " count=10
-                class="border-green-500" />
-            <x-dashboard-card title="{{ $isAdmin ? 'Interventions totales' : 'Mes interventions' }}" count=18 class="border-amber-500" />
-            <x-dashboard-card title="Parcelles en culture" count=5 class="border-blue-500" />
-            <x-dashboard-card title="Parcelles récoltées" count=8 class="border-red-500" />
-        </div>
-
-        <div class="flex justify-around gap-3">
-            <div class="p-10 shadow-lg rounded-lg flex flex-col w-lg h-lg">
-                <h1 class="mb-4">Carte des parcelles</h1>
-                <div class="bg-slate-200 rounded-lg p-40"></div>
-            </div>
-            <div class="p-10 shadow-lg rounded-lg flex flex-col w-lg h-lg">
-                <h1>Répartition des cultures</h1>
-            </div>
-        </div>
-    </div>
+    <x-dashboard :isAdmin="$isAdmin" :interventions="$interventions" :plots="$plots" :plotsInCulture="$plotsInCulture" :plotsHarvested="$plotsHarvested" :totalPlots="$totalPlots"
+        :plotsInFallow="$plotsInFallow" :totalCultivatedArea="$totalCultivatedArea" :interventionTypesCount="$interventionTypesCount" :needAttentionPlots="$needAttentionPlots" :recentInterventions="$recentInterventions" :cultureTypes="$cultureTypes" :latestInterventions="$latestInterventions" :interventionsByMonth="$interventionsByMonth" />
 @endsection

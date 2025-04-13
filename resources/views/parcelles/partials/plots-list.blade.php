@@ -9,7 +9,9 @@
                 <th class="uppercase px-3 py-2">Culture</th>
                 <th class="uppercase px-3 py-2">Date de plantation</th>
                 <th class="uppercase px-3 py-2">Statut</th>
-                <th class="uppercase px-3 py-2">Agriculteur</th>
+                @if ($isAdmin)
+                    <th class="uppercase px-3 py-2">Agriculteur</th>
+                @endif
                 <th class="uppercase px-3 py-2">Actions</th>
             </thead>
             <tbody class="text-center">
@@ -29,7 +31,9 @@
                                     'text-gray-900': plot.status === '{{ \App\Enums\StatusEnum::RCLT }}'
                                 }"
                                 x-text="plot.status"></td>
-                            <td class="px-3 py-2 text-slate-800" x-text="plot.user"></td>
+                            @if ($isAdmin)
+                                <td class="px-3 py-2 text-slate-800" x-text="plot.user"></td>
+                            @endif
 
                             <td class="px-3 py-2 flex items-center justify-center space-x-3">
                                 <button @click="selectedPlot = plot">

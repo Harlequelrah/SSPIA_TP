@@ -32,7 +32,7 @@
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
-            <x-primary-button class=" mb-4 text-center w-full">Connexion</x-primary-button>
+            <x-primary-button class="mb-4 w-full">Connexion</x-primary-button>
 
             <div class="w-full flex items-center justify-center">
                 @if (Route::has('password.request'))

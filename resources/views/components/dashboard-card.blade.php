@@ -1,11 +1,6 @@
-@props([
-    'title' => '',
-    'count' => '',
-    'activeMenu' => '',
-])
+@props(['title', 'count', 'class'])
 
-<div
-    {{ $attributes->merge(['class' => 'p-4 text-left bg-slate-100 flex flex-col justify-between border-l-4 rounded-2xl shadow-lg w-[200px] h-[150px] hover:scale-105 transition-all duration-200']) }}>
-    <h1 class="text-slate-600">{{ $title }}</h1>
-    <span class="block text-5xl font-bold">{{ $count }}</span>
+<div class="bg-white rounded-lg shadow-lg p-6 border-l-4 {{ $class }} flex flex-col items-center justify-center h-32 w-full">
+    <h2 class="text-lg font-semibold text-center">{{ $title }}</h2>
+    <p class="text-3xl font-bold mt-2">{{ $count }}</p>
 </div>

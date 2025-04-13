@@ -12,7 +12,7 @@
         'total' => $plots->total(),
     ];
 
-    $canCreate = Auth::user()->role === App\Enums\RoleEnum::AGRICULTEUR;
+    $isAdmin = Auth::user()->role === App\Enums\RoleEnum::ADMIN;
 @endphp
 @section('content')
     <div class="mt-4" x-data="{
@@ -35,7 +35,7 @@
         <section class ="mb-5">
             <div class="w-full flex justify-between items-center">
                 @auth
-                    @if ($canCreate)
+                    @if (!$isAdmin)
                         <x-heading title="Gestion des Parcelles" />
                         <x-primary-button class="space-x-2" @click="showForm = !showForm">
                             <i class="fa-solid fa-plus"></i>
@@ -51,6 +51,6 @@
             @include('parcelles.partials.create')
         </div>
 
-        @include('parcelles.partials.plots-list')
+        @include('parcelles.partials.plots-list', ['isAdmin' => $isAdmin])
     </div>
 @endsection
