@@ -52,5 +52,7 @@
         </div>
 
         @include('parcelles.partials.plots-list', ['isAdmin' => $isAdmin])
+
+        @include('parcelles.partials.detail-parcelles')
     </div>
 @endsection
