@@ -6,6 +6,7 @@ use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
 use App\Models\Intervention;
 use App\Models\Plot;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -82,9 +83,11 @@ class DashboardController extends Controller
                 ];
             })->sortByDesc('count')->take(5);
         }
-
+        $totalFarmers = User::where('role', RoleEnum::AGRICULTEUR)->count();
+      
         return view('dashboard', compact(
             'isAdmin',
+            'totalFarmers',
             'plots',
             'interventions',
             'totalPlots',

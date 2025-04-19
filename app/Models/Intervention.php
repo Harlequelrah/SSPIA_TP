@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+
 
 /**
  * @mixin IdeHelperIntervention
@@ -11,6 +13,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Intervention extends Model
 {
     use SoftDeletes;
+
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = Str::uuid();
+            }
+        });
+    }
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
 
     protected $fillable = [
         'description',

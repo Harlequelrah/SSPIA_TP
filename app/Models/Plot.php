@@ -8,8 +8,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @mixin IdeHelperPlot
  */
+
+use Illuminate\Support\Str;
+
 class Plot extends Model
 {
+
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = Str::uuid();
+            }
+        });
+    }
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     use SoftDeletes;
     protected $fillable = [
         'name',

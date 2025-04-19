@@ -18,7 +18,6 @@ class InterventionController extends Controller
     {
         $user = Auth::user();
 
-
         if ($user->role === RoleEnum::ADMIN) {
             // administrateur: afficher toutes les parcelles
             $plots = Plot::paginate(10);
@@ -46,6 +45,8 @@ class InterventionController extends Controller
     public function store(InterventionFormRequest $request)
     {
         $validated = $request->validated();
+        dd($validated);
+
 
         $intervention = Intervention::create($validated);
         return redirect()->route('interventions.index')

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgriculteurController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InterventionController;
@@ -22,9 +23,7 @@ Route::resource('parcelles', PlotController::class);
 Route::resource('interventions', InterventionController::class);
 // Route pour afficher la liste des interventions
 
-Route::get('/users', function () {
-    return view('users.index');
-})->name('users.index');
+Route::resource('agriculteurs', AgriculteurController::class);
 
 
 Route::get('/parametre', function () {

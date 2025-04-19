@@ -17,7 +17,7 @@
                         label="Interventions" />
                     @auth
                         @if (auth()->user()->role === App\Enums\RoleEnum::ADMIN)
-                            <x-sidebar-item route="users.index" active="users.*" icon="fa-user" label="Utilisateurs" />
+                            <x-sidebar-item route="agriculteurs.index" active="agriculteurs.*" icon="fa-user" label="Utilisateurs" />
                         @endif
                     @endauth
                 </div>

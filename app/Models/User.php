@@ -8,6 +8,8 @@ use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
+
 
 /**
  * @mixin IdeHelperUser
@@ -15,12 +17,27 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
 
-    public function plots(){
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = Str::uuid();
+            }
+        });
+    }
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
+    public function plots()
+    {
         return $this->hasMany(Plot::class);
     }
 
 
-    public function interventions(){
+    public function interventions()
+    {
         return $this->belongsToMany(Intervention::class);
     }
 
@@ -37,7 +54,9 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'username'
+        'username',
+        'phone',
+        'address'
     ];
 
     /**

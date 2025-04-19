@@ -156,7 +156,7 @@ return [
     'starts_with' => 'Le champ :attribute doit commencer par l\'un des éléments suivants : :values.',
     'string' => 'Le champ :attribute doit être une chaîne de caractères.',
     'timezone' => 'Le champ :attribute doit être un fuseau horaire valide.',
-    'unique' => 'Le champ :attribute a déjà été pris.',
+    'unique' => ':attribute a déjà été pris.',
     'uploaded' => 'Le champ :attribute n\'a pas pu être téléchargé.',
     'url' => 'Le champ :attribute doit être une URL valide.',
     'uuid' => 'Le champ :attribute doit être un UUID valide.',
@@ -167,6 +167,12 @@ return [
         'plantation_date' => 'date de plantation',
         'status' => 'statut',
         'user_id' => 'utilisateur',
+        "firstName" => "Nom",
+        "lastName" => 'Prénoms',
+        'userName' => 'Nom d\'utilisateur',
+        'email' => 'Adresse E-mail',
+        'phone' => 'Numéro de téléphone',
+        'password' => 'Mot de passe'
     ],
 
 ];

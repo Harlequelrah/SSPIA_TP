@@ -11,6 +11,7 @@
     'interventionTypesCount',
     'recentInterventions',
     'cultureTypes',
+    'totalFarmers',
     'needAttentionPlots',
     'latestInterventions',
     'interventionsByMonth',
@@ -44,6 +45,9 @@
         <x-dashboard-card title="Surface cultivée" count="{{ $totalCultivatedArea }} ha" class="border-blue-500" />
         <x-dashboard-card title="Parcelles nécessitant attention" count="{{ $needAttentionPlots->count() }}"
             class="border-red-500" />
+            @if($isAdmin)
+        <x-dashboard-card title="Agriculteurs enregistrés" count="{{ $totalFarmers }}" class="border-purple-500" />
+    @endif
     </div>
 
     {{-- Message de bienvenue pour les nouveaux utilisateurs agriculteurs --}}
@@ -376,7 +380,7 @@
                     </svg>
                     Consulter toutes les interventions
                 </a>
-                <a href="{{ route('users.index') }}"
+                <a href="{{ route("agriculteurs.index") }}"
                     class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
