@@ -8,5 +8,5 @@
 
 @section('content')
     <x-dashboard :isAdmin="$isAdmin" :interventions="$interventions" :plots="$plots" :plotsInCulture="$plotsInCulture" :plotsHarvested="$plotsHarvested" :totalPlots="$totalPlots"
-        :plotsInFallow="$plotsInFallow" :totalCultivatedArea="$totalCultivatedArea" :interventionTypesCount="$interventionTypesCount" :needAttentionPlots="$needAttentionPlots" :recentInterventions="$recentInterventions" :cultureTypes="$cultureTypes" :latestInterventions="$latestInterventions" :interventionsByMonth="$interventionsByMonth" />
+        :plotsInFallow="$plotsInFallow" :totalCultivatedArea="$totalCultivatedArea" :interventionTypesCount="$interventionTypesCount" :needAttentionPlots="$needAttentionPlots" :recentInterventions="$recentInterventions" :cultureTypes="$cultureTypes" :latestInterventions="$latestInterventions" :interventionsByMonth="$interventionsByMonth" :totalFarmers="$totalFarmers" />
 @endsection
