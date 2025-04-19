@@ -21,13 +21,17 @@
         <!-- Donut Chart - Statut des parcelles -->
         <div class="bg-white rounded-lg p-5 h-80">
             <x-heading class="mb-3" title="Status des parcelles" />
-            <canvas id="plotStatusChart" class="w-full h-full"></canvas>
+            <div class="h-64">
+                <canvas id="plotStatusChart" class="w-full h-full"></canvas>
+            </div>
         </div>
 
         <!-- Bar Chart - Type d'intervention -->
         <div class="bg-white rounded-lg p-5 h-80">
             <x-heading class="mb-3" title="Status des interventions" />
-            <canvas id="interventionTypeChart" class="w-full h-full"></canvas>
+            <div class="h-60">
+                <canvas id="interventionTypeChart" class="w-full h-full"></canvas>
+            </div>
         </div>
     </div>
 
@@ -49,8 +53,8 @@
             <p>Pour commencer, ajoutez votre première parcelle en cliquant sur le bouton "Ajouter une parcelle"
                 ci-dessous.</p>
             <div class="mt-4">
-                <a href="{{ route('parcelles.create') }}"
-                    class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                <a href="{{ route('parcelles.index') }}"
+                    class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded duration-200 transition-colors">
                     Ajouter une parcelle
                 </a>
             </div>
@@ -158,13 +162,13 @@
                                 @foreach ($needAttentionPlots as $plot)
                                     <tr>
                                         <td class="py-2 px-4 border-b border-gray-200">{{ $plot->name }}</td>
-                                        <td class="py-2 px-4 border-b border-gray-200">{{ $plot->culture_type }}</td>
+                                        <td class="py-2 px-4 border-b border-gray-200">{{ $plot->crop_type }}</td>
                                         @if ($isAdmin)
                                             <td class="py-2 px-4 border-b border-gray-200">
                                                 {{ $plot->user->name ?? 'N/A' }}</td>
                                         @endif
                                         <td class="py-2 px-4 border-b border-gray-200">
-                                            <a href="{{ route('parcelles.show', $plot->id) }}"
+                                            <a href="{{ route('parcelles.index', $plot->id) }}"
                                                 class="text-blue-600 hover:text-blue-900">Voir détails</a>
                                         </td>
                                     </tr>
