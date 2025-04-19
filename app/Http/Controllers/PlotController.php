@@ -62,7 +62,7 @@ class PlotController extends Controller
      */
     // public function show(Plot $plot)
     // {
-    //     return view('plot.show', [
+    //     return view('parcelles.show', [
     //         'plot' => $plot,
     //     ]);
     // }
