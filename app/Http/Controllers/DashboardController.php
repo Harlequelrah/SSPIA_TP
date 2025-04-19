@@ -72,6 +72,7 @@ class DashboardController extends Controller
 
         // Mois avec le plus d'interventions (gestion du cas où il n'y a pas d'interventions)
         $x   = collect();
+        
         if ($interventions->count() > 0) {
             $interventionsByMonth = $interventions->groupBy(function ($intervention) {
                 return Carbon::parse($intervention->date)->format('m-Y');
