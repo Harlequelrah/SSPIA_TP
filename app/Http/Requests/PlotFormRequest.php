@@ -27,7 +27,7 @@ class PlotFormRequest extends FormRequest
             'area' => ['required', 'numeric', 'min:0', 'max:9999999999.99'],
             'plantation_date' => ['required','date'],
             'status'=>['required',Rule::in(StatusEnum::values())],
-            'crop_type' => ['required','string']
+            'crop_type' => ['required','string'],
         ];
     }
 }

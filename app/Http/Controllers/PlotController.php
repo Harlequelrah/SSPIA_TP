@@ -90,9 +90,14 @@ class PlotController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PlotFormRequest $request, Plot $plot)
+    public function update(PlotFormRequest $request, Plot $parcelle)
     {
-        $plot->update($request->validated());
+        $validated = $request->validated();
+        $validated['user_id'] = Auth::user()->id;
+        $validated['area'] = (float) $validated['area'];
+
+        $parcelle->update($validated);
+
         return redirect()->route('parcelles.index')
             ->with('success', "The plot was successfully updated");
     }
