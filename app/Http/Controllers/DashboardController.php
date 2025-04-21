@@ -84,7 +84,7 @@ class DashboardController extends Controller
             })->sortByDesc('count')->take(5);
         }
         $totalFarmers = User::where('role', RoleEnum::AGRICULTEUR)->count();
-      
+
         return view('dashboard', compact(
             'isAdmin',
             'totalFarmers',

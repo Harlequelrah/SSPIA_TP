@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -38,6 +39,10 @@ class Plot extends Model
     ];
 
     protected $guarded = [];
+
+    protected $casts = [
+    'status' => StatusEnum::class,
+];
 
     public function user()
     {

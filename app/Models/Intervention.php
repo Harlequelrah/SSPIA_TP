@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\InterventionTypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-
+use App\Enums\UnitEnum;
 
 /**
  * @mixin IdeHelperIntervention
@@ -40,6 +41,11 @@ class Intervention extends Model
     ];
 
     protected $guarded = [];
+
+    protected $casts = [
+    'unit' => UnitEnum::class,
+    'intervention_type' => InterventionTypeEnum::class,
+];
 
     public function user()
     {
