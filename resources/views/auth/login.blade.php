@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Connexion - SSPAI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    @vite('resources/css/app.css')
     <!-- Alpine.js -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -17,10 +15,10 @@
             background-size: cover;
             background-position: center;
             transition: background-image 1s ease-in-out;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
     </style>
 </head>
+
 <body class="min-h-screen flex items-center justify-center">
 
     <div class="w-full max-w-md bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl p-8">
@@ -36,30 +34,32 @@
 
             <!-- E-mail -->
             <div class="mb-4">
-                <label for="email" class="block text-white mb-1">E-mail</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" required
-                    class="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-white border border-white/30">
+                <x-input-label for="password" :value="__('E-mail')" class="text-white" />
+                <x-input-field  type="email" id="email" name="email" value="{{ old('email') }}" required
+                    class="w-full px-4 py-2 rounded-lg bg-white/20 border-white/30" />
                 @error('email')
                     <span class="text-red-300 text-sm">{{ $message }}</span>
                 @enderror
             </div>
 
             <!-- Mot de passe -->
-            <div class="mb-4" x-data="{ show: false }">
-                <label for="password" class="block text-white mb-1">Mot de passe</label>
-                <div class="flex items-center space-x-2">
-                    <input :type="show ? 'text' : 'password'" id="password" name="password" required
-                        class="w-full px-4 py-2 rounded-lg bg-white/20 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-white border border-white/30">
-                    <i class="fas cursor-pointer text-white" :class="show ? 'fa-eye-slash' : 'fa-eye'" @click="show = !show"></i>
+            <div class="mt-4">
+                <x-input-label for="password" :value="__('Mot de passe')" class="text-white" />
+                <div class="flex space-x-3 items-center justify-center mt-1 w" x-data="{ obscuredText: true }">
+                    <x-input-field id="password"
+                        class="bg-white/20 border-white/30"
+                        x-bind:type="obscuredText ? 'password' : 'text'" name="password" />
+                    <i :class="obscuredText ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"
+                        class="cursor-pointer text-gray-800" @click="obscuredText = !obscuredText">
+                    </i>
                 </div>
                 @error('password')
-                    <span class="text-red-300 text-sm">{{ $message }}</span>
+                    <span class="text-sm text-red-500">{{ $message }}</span>
                 @enderror
             </div>
-
             <!-- Connexion -->
             <button type="submit"
-                class="w-full py-2 mt-4 bg-white text-green-900 font-semibold rounded-full hover:bg-purple-200 transition">
+                class="w-full py-2 mt-4 bg-white text-green-900 font-semibold rounded-lg hover:bg-green-200 duration-200 transition cursor-pointer">
                 Connexion
             </button>
 
@@ -97,7 +97,5 @@
         setInterval(changeBackground, 5000);
     </script>
 </body>
+
 </html>
-
-
-
