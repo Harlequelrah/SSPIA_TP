@@ -30,9 +30,9 @@
         }
     }">
         @if (session('success'))
-            <x-notification message='{{ session('success') }}' color="green" icon='fa-circle-check' />
-        @else
-            <x-notification message='{{ session('error') }}' color="red" icon='fa-circle-exclamation' />
+            <x-notification :message="session('success')" color="green" icon="fa-circle-check" />
+        @elseif (session('error'))
+            <x-notification :message="session('error')" color="red" icon="fa-circle-exclamation" />
         @endif
 
 
@@ -61,7 +61,6 @@
         <!-- Intervention List -->
         @include('interventions.partials.interventions-list')
 
-        @include('interventions.partials.details-intervention')
 
     </div>
 
