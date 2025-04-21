@@ -54,7 +54,7 @@ class PlotController extends Controller
 
         Plot::create($validated);
         return redirect()->route('parcelles.index')
-            ->with('success', 'Plot created successfully.');
+            ->with('success', 'Parcelles ajoutée avec succès');
     }
 
     /**
