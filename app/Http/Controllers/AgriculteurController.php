@@ -7,6 +7,7 @@ use App\Http\Requests\UserFormRequest;
 use App\Models\User;
 use App\View\Components\Agriculteurs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AgriculteurController extends Controller
 {
@@ -53,7 +54,8 @@ class AgriculteurController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $agriculteur = User::where('id', $id)->first();
+        return view('agriculteurs.partials.show', compact('agriculteur'));
     }
 
     /**
@@ -75,8 +77,10 @@ class AgriculteurController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+        public function destroy(User $agriculteur)
+        {
+            $agriculteur->delete();
+            return redirect()->route('agriculteurs.index')
+                ->with('success', "L'agriculteur a été supprimée");
+        }
 }

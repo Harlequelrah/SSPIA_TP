@@ -46,6 +46,5 @@
 
         @include('agriculteurs.partials.users-list')
 
-        @include('agriculteurs.partials.details-user')
     </div>
 @endsection

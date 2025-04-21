@@ -16,6 +16,6 @@ return [
     'sent' => 'Nous vous avons envoyé le lien de réinitialisation de votre mot de passe par e-mail.',
     'throttled' => 'Veuillez patienter avant de réessayer.',
     'token' => 'Ce jeton de réinitialisation du mot de passe est invalide.',
-    'user' => "Aucun utilisateur n’a été trouvé avec cette adresse e-mail.",
+    'user' => "Aucun agriculteur n’a été trouvé avec cette adresse e-mail.",
 
 ];

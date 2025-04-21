@@ -2,8 +2,13 @@
 
 @section('title', 'Intervention #' . $intervention->id)
 
+@php
+    use App\Enums\RoleEnum;
+    $isAdmin = Auth::user()->role == RoleEnum::ADMIN; // Vérifie si l'agriculteur est un administrateur
+@endphp
+
 @section('content')
-    
+
     @if (session('success'))
         <x-notification :message="session('success')" color="green" icon="fa-circle-check" />
     @elseif (session('error'))
@@ -16,7 +21,7 @@
                 Détails de l'intervention <span class="text-green-700">#{{ $intervention->id }}</span>
             </h2>
 
-            @if (!auth()->user()->isAdmin)
+            @if (!$isAdmin)
                 <button @click="showEditForm = !showEditForm"
                     :class="showEditForm ? 'bg-red-600 hover:bg-red-700' : 'bg-[#4a7c59] hover:bg-green-700'"
                     class="px-4 py-2 text-white rounded-md flex items-center transition duration-200 space-x-2 cursor-pointer">
@@ -29,9 +34,9 @@
         {{-- Mode Affichage --}}
         <div x-show="!showEditForm">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6 mb-4">
-                <x-intervention-info-card title="Parcelle" :value="$intervention->plot->name" />
+                <x-info-card title="Parcelle" :value="$intervention->plot->name" />
 
-                <x-intervention-info-card title="Type d'intervention">
+                <x-info-card title="Type d'intervention">
                     <span
                         class="px-3 py-1 rounded-full text-sm font-medium
                 {{ match ($intervention->intervention_type) {
@@ -44,25 +49,25 @@
                 } }}">
                         {{ $intervention->intervention_type }}
                     </span>
-                </x-intervention-info-card>
+                </x-info-card>
 
-                <x-intervention-info-card title="Date" :value="$intervention->intervention_date" />
+                <x-info-card title="Date" :value="$intervention->intervention_date" />
 
-                <x-intervention-info-card title="Quantité de produit utilisé" :value="$intervention->product_used_quantity && $intervention->unit
+                <x-info-card title="Quantité de produit utilisé" :value="$intervention->product_used_quantity && $intervention->unit
                     ? $intervention->product_used_quantity . ' ' . $intervention->unit->value
                     : 'Non spécifiée'" />
 
             </div>
-            <x-intervention-info-card title="Nom du produit utilisé" :class="'w-full mb-4'">
+            <x-info-card title="Nom du produit utilisé" :class="'w-full mb-4'">
                 {{ old('product_used_name', $intervention->product_used_name ?? '') }}
-            </x-intervention-info-card>
+            </x-info-card>
 
-            <x-intervention-info-card title="Description" :class="'w-full'"
-                value="{{ $intervention->description ?? 'Non spécifiée' }}"></x-intervention-info-card>
+            <x-info-card title="Description" :class="'w-full'"
+                value="{{ $intervention->description ?? 'Non spécifiée' }}"></x-info-card>
         </div>
 
         {{-- Mode Édition --}}
-        @if (!auth()->user()->isAdmin)
+        @if ($isAdmin)
             <div x-show="showEditForm">
                 <form method="POST" action="{{ route('interventions.update', $intervention) }}">
                     @csrf
@@ -71,9 +76,9 @@
                     <input type="hidden" name="plot_id" value="{{ $intervention->plot->id }}">
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6 mt-4 mb-4">
-                        <x-intervention-info-card title="Parcelle" :value="$intervention->plot->name" />
+                        <x-info-card title="Parcelle" :value="$intervention->plot->name" />
 
-                        <x-intervention-info-card title="Type d'intervention">
+                        <x-info-card title="Type d'intervention">
                             <select id="intervention_type" name="intervention_type"
                                 class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
                                 @foreach (App\Enums\InterventionTypeEnum::values() as $type)
@@ -82,15 +87,15 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </x-intervention-info-card>
+                        </x-info-card>
 
-                        <x-intervention-info-card title="Date">
+                        <x-info-card title="Date">
                             <input type="date" id="intervention_date" name="intervention_date"
                                 value="{{ $intervention->intervention_date }}"
                                 class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
-                        </x-intervention-info-card>
+                        </x-info-card>
 
-                        <x-intervention-info-card title="Quantité de produit utilisé">
+                        <x-info-card title="Quantité de produit utilisé">
                             <div class="flex">
                                 <input type="number" name="product_used_quantity" id="product_used_quantity"
                                     value="{{ $intervention->product_used_quantity }}"
@@ -107,23 +112,23 @@
                             @error('product_used_quantity')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
-                        </x-intervention-info-card>
+                        </x-info-card>
 
 
                     </div>
-                    <x-intervention-info-card title="Nom du produit utilisé" class="w-full">
+                    <x-info-card title="Nom du produit utilisé" class="w-full">
                         <input type="text" id="product_used_name" name="product_used_name"
                             value="{{ old('product_used_name', $intervention->product_used_name ?? '') }}"
                             class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
-                    </x-intervention-info-card>
+                    </x-info-card>
 
-                    <x-intervention-info-card title="Description" class="md:col-span-2 w-full mt-4">
+                    <x-info-card title="Description" class="md:col-span-2 w-full mt-4">
                         <textarea id="description" name="description" rows="4"
                             class="w-full p-2 border rounded-sm border-slate-400 bg-white resize-none focus:border-green-500"
                             placeholder="Ajoutez une description détaillée">{{ $intervention->description }}</textarea>
-                    </x-intervention-info-card>
+                    </x-info-card>
 
-                 <div class="md:col-span-2 flex justify-end gap-3 mt-4">
+                    <div class="md:col-span-2 flex justify-end gap-3 mt-4">
                         <x-secondary-button @click="showEditForm = false">Annuler</x-secondary-button>
                         <x-primary-button type="submit">Enregistrer les modifications</x-primary-button>
                     </div>

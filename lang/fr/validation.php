@@ -166,10 +166,10 @@ return [
         'crop_type' => 'type de culture',
         'plantation_date' => 'date de plantation',
         'status' => 'statut',
-        'user_id' => 'utilisateur',
+        'user_id' => 'agriculteur',
         "firstName" => "Nom",
         "lastName" => 'Prénoms',
-        'userName' => 'Nom d\'utilisateur',
+        'userName' => 'Nom d\'agriculteur',
         'email' => 'Adresse E-mail',
         'phone' => 'Numéro de téléphone',
         'password' => 'Mot de passe'

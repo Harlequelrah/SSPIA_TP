@@ -36,14 +36,13 @@
                             @endif
 
                             <td class="px-3 py-2 flex items-center justify-center space-x-3">
-                                <button @click="selectedPlot = plot">
-                                    <i class="fa-solid cursor-pointer fa-eye text-blue-600"></i>
-                                </button>
-                                <a href="#">
-                                    <i class="fa-solid cursor-pointer fa-pencil text-amber-600"></i>
+                                <a :href="`/parcelles/${plot.id}`"
+                                    class=" px-3 py-2 bg-blue-600 rounded-md  cursor-pointer transition ease-in-out duration-150 hover:bg-blue-800">
+                                    <i class="fa-solid fa-eye text-white m-0 p-0"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-solid cursor-pointer fa-trash-alt text-red-600"></i>
+                                <a x-on:click="$dispatch('open-modal', 'confirm-delete')"
+                                    class="text-white px-4 py-2 cursor-pointer  rounded-md bg-red-600 hover:bg-red-800">
+                                    <i class="fa-solid fa-trash-alt"></i>
                                 </a>
                             </td>
                         </tr>

@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Ces lignes sont utilisées lors de l'authentification pour afficher
-    | divers messages à l'utilisateur. Vous pouvez les adapter librement.
+    | divers messages à l'agriculteur. Vous pouvez les adapter librement.
     |
     */
 

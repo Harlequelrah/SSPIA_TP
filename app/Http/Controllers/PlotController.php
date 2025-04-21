@@ -20,7 +20,7 @@ class PlotController extends Controller
             // administrateur: afficher toutes les parcelles
             $plots = Plot::paginate(5);
         } else {
-            // autres utilisateur: récupérer uniquement leurs parcelles
+            // autres agriculteur: récupérer uniquement leurs parcelles
             $plots = $user->plots()->paginate(5);
         }
 
@@ -48,7 +48,7 @@ class PlotController extends Controller
      */
     public function store(PlotFormRequest $request)
     {
-        
+
         $validated = $request->validated();
         $validated['user_id'] = Auth::user()->id; // link plot to current user
 
@@ -60,13 +60,17 @@ class PlotController extends Controller
     /**
      * Display the specified resource.
      */
-    // public function show(Plot $plot)
-    // {
-    //     return view('parcelles.show', [
-    //         'plot' => $plot,
-    //     ]);
-    // }
+    public function show(string $plot_id)
+    {
+        $plot = Plot::where('id', $plot_id)->first();
 
+        // Si la parcelle n'existe pas, retournez une erreur 404
+        if (!$plot) {
+            abort(404, 'Parcelle non trouvée');
+        }
+
+        return view('parcelles.partials.show', compact('plot'));
+    }
     /**
      * Show the form for editing the specified resource.
      */

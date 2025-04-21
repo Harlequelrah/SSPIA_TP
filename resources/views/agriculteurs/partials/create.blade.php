@@ -4,7 +4,7 @@
         @csrf
         <div class="grid grid-cols-2 gap-4">
             <div>
-            <x-input-label for="fistName" :value="__('Prénoms')" />
+                <x-input-label for="fistName" :value="__('Prénoms')" />
                 <x-input-field name="firstName" id="firstName" type="text" :placeholder="'Ex: Jean'"
                     value="{{ old('firstName') }}" />
                 @error('firstName')
@@ -20,7 +20,7 @@
                 @enderror
             </div>
             <div>
-                <x-input-label for="userName" :value="__('Nom d\'utilisateur')" />
+                <x-input-label for="userName" :value="__('Nom d\'agriculteur')" />
                 <x-input-field name="userName" id="userName" type="text" :placeholder="'Ex: JeanD'"
                     value="{{ old('userName') }}" />
                 @error('userName')
