@@ -91,32 +91,26 @@
             </tfoot>
         </table>
     </div>
-</div>
+    <x-modal name="confirm-delete" maxWidth="md">
+        <div class="p-6">
+            <h2 class="text-lg font-medium text-green-900">
+                Êtes-vous sûr de vouloir supprimer cette intervention ?
+            </h2>
 
-<x-modal name="confirm-delete" maxWidth="md">
-    <div class="p-6">
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            Êtes-vous sûr de vouloir supprimer cette intervention ?
-        </h2>
+            <p class="mt-1 text-sm text-slate-600">
+                Cette action mettra l'intervention dans la corbeille. Vous pourrez la restaurer ultérieurement.
+            </p>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            Cette action mettra l'intervention dans la corbeille. Vous pourrez la restaurer ultérieurement.
-        </p>
+            <div class="mt-6 flex justify-end">
+                <x-secondary-button x-on:click="$dispatch('close-modal', 'confirm-delete')">Annuler</x-secondary-button>
 
-        <div class="mt-6 flex justify-end">
-            <button x-on:click="$dispatch('close-modal', 'confirm-delete')"
-                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                Annuler
-            </button>
-
-            <form method="POST" :action="`/interventions/${intervention.id}`" class="ml-3">
-                @csrf
-                @method('DELETE')
-                <button type="submit"
-                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                    Supprimer
-                </button>
-            </form>
+                <form method="POST" :action="`/interventions/${selectedIntervention.id}`" class="ml-3">
+                    @csrf
+                    @method('DELETE')
+                    <x-primary-button
+                        class="bg-red-500 hover:bg-red-600 transtion-color duration-200 focus:bg-red-700">Supprimer</x-primary-button>
+                </form>
+            </div>
         </div>
-    </div>
-</x-modal>
+    </x-modal>
+</div>

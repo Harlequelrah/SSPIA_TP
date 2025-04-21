@@ -112,6 +112,6 @@ class InterventionController extends Controller
         }
         $intervention->delete();
         return redirect()->route('interventions.index')
-            ->with('success', "L'intervention a été supprimée (soft delete)");
+            ->with('success', "L'intervention a été supprimée");
     }
 }
