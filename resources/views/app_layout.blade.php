@@ -8,7 +8,9 @@
     <link rel="shortcut icon" href="{{ URL('assets/logo.jpg') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="icon" href="{{ URL('assets/logo.jpg') }}" />
-
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     @livewireStyles()
 </head>
 
@@ -28,7 +30,6 @@
             </main>
         </div>
     </div>
-    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
     @stack('scripts')
     @livewireScripts()
 </body>
