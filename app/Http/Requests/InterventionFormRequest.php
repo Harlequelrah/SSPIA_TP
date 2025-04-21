@@ -26,12 +26,11 @@ class InterventionFormRequest extends FormRequest
     {
         return [
             'description'           => ['nullable', 'string'],
-            'product_used_name'     => ['required', 'string'],
+            'product_used_name'     => ['nullable', 'string'],
             'product_used_quantity' => ['nullable', 'numeric', 'min:0', 'max:9999999999.99'],
             'intervention_type'     => ['required', Rule::in(InterventionTypeEnum::values())],
             'intervention_date'     => ['required', 'date'],
             'unit'                  => ['required', Rule::in(UnitEnum::values())],
-            'user_id'               => ['required', 'exists:users,id'],
             'plot_id'               => ['required', 'exists:plots,id'],
         ];
     }

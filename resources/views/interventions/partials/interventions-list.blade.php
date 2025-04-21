@@ -19,17 +19,16 @@
                             <td class="py-2 px-4" x-text="intervention.plot.name"></td>
                             <td class="py-2 px-4" x-text="intervention.intervention_type"></td>
                             <td class="py-2 px-4" x-text="intervention.intervention_date"></td>
-                            <td class="py-2 px-4 space-x-4">
-                                <button @click="selectedIntervention = intervention"
-                                    class="text-blue-600 hover:text-blue-600 cursor-pointer">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <a href="#">
-                                    <i class="fa-solid fa-pencil-alt text-amber-600"></i>
+                            <td class="py-2 px-4 space-x-4 flex items-center">
+                                <a :href="`/interventions/${intervention.id}`"
+                                    class=" px-3 py-2 bg-blue-600 rounded-md  cursor-pointer transition ease-in-out duration-150 hover:bg-blue-800">
+                                    <i class="fa-solid fa-eye text-white m-0 p-0"></i>
                                 </a>
-                                <a :href="'/parcelles/' + intervention.plot.id" class="text-red-600 hover:text-red-800">
+                                <a x-on:click="$dispatch('open-modal', 'confirm-delete')"
+                                    class="text-white px-4 py-2 cursor-pointer  rounded-md bg-red-600 hover:bg-red-800">
                                     <i class="fa-solid fa-trash-alt"></i>
                                 </a>
+
 
                             </td>
                         </tr>
@@ -78,19 +77,6 @@
                                     </button>
                                 </template>
 
-                                <!-- Last Page Button (if there are many pages) -->
-                                {{-- <button @click="goToPage(pagination.last_page)"
-                                    :class="{
-                                        'bg-[#4a7c59] text-white': currentPage === pagination
-                                            .last_page,
-                                        'bg-white text-gray-700 hover:bg-gray-50': currentPage !==
-                                            pagination.last_page
-                                    }"
-                                    class="px-3 py-1 rounded border border-gray-300 text-sm font-medium"
-                                    x-show="pagination.last_page > 5">
-                                    <span x-text="pagination.last_page"></span>
-                                </button> --}}
-
                                 <!-- Next Page Button -->
                                 <button @click="window.location.href = '?page=' + (currentPage + 1)"
                                     :disabled="currentPage >= pagination.last_page"
@@ -106,3 +92,31 @@
         </table>
     </div>
 </div>
+
+<x-modal name="confirm-delete" maxWidth="md">
+    <div class="p-6">
+        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+            Êtes-vous sûr de vouloir supprimer cette intervention ?
+        </h2>
+
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            Cette action mettra l'intervention dans la corbeille. Vous pourrez la restaurer ultérieurement.
+        </p>
+
+        <div class="mt-6 flex justify-end">
+            <button x-on:click="$dispatch('close-modal', 'confirm-delete')"
+                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Annuler
+            </button>
+
+            <form method="POST" :action="`/interventions/${intervention.id}`" class="ml-3">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    Supprimer
+                </button>
+            </form>
+        </div>
+    </div>
+</x-modal>

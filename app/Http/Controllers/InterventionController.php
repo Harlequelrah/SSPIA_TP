@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\InterventionTypeEnum;
 use App\Enums\RoleEnum;
+use App\Enums\UnitEnum;
 use App\Http\Requests\InterventionFormRequest;
 use App\Models\Intervention;
 use App\Models\Plot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class InterventionController extends Controller
 {
@@ -44,12 +47,18 @@ class InterventionController extends Controller
      */
     public function store(InterventionFormRequest $request)
     {
-
+        // Récupérez les données validées depuis le FormRequest
         $validated = $request->validated();
 
-        $intervention = Intervention::create($validated);
+        // Ajoutez user_id manuellement
+        $validated['user_id'] = Auth::user()->id;
+
+        // Créez une nouvelle intervention
+        Intervention::create($validated);
+
+        // Redirigez avec un message de succès
         return redirect()->route('interventions.index')
-            ->with('success', 'Intervention ajoutée avec succès.');
+            ->with('success', 'Intervention créée avec succès.');
     }
 
     /**
@@ -57,7 +66,7 @@ class InterventionController extends Controller
      */
     public function show(Intervention $intervention)
     {
-        //
+        return view('interventions.partials.show', compact('intervention'));
     }
 
     /**
@@ -71,10 +80,27 @@ class InterventionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Intervention $intervention)
+    public function update(InterventionFormRequest $request, Intervention $intervention)
     {
-        //
+        // Vérifiez si l'utilisateur est autorisé à modifier cette intervention
+        if (Auth::user()->role !== RoleEnum::ADMIN && $intervention->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized action');
+        }
+
+        // Récupérez les données validées depuis le FormRequest
+        $validated = $request->validated();
+
+        // Ajoutez user_id manuellement
+        $validated['user_id'] = Auth::user()->id;
+
+        // Mettez à jour l'intervention
+        $intervention->update($validated);
+
+        // Redirigez avec un message de succès
+        return redirect()->route('interventions.show', $intervention->id)
+            ->with('success', 'Intervention mise à jour avec succès.');
     }
+
 
     /**
      * Remove the specified resource from storage.
