@@ -32,6 +32,12 @@
             }
         }
     }">
+        @if (session('success'))
+            <x-notification :message="session('success')" color="green" icon="fa-circle-check" />
+        @elseif (session('error'))
+            <x-notification :message="session('error')" color="red" icon="fa-circle-exclamation" />
+        @endif
+
         <section class ="mb-5">
             <div class="w-full flex justify-between items-center">
                 @auth
