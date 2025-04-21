@@ -44,9 +44,8 @@ class InterventionController extends Controller
      */
     public function store(InterventionFormRequest $request)
     {
-        $validated = $request->validated();
-        dd($validated);
 
+        $validated = $request->validated();
 
         $intervention = Intervention::create($validated);
         return redirect()->route('interventions.index')
