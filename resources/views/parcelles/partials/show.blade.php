@@ -69,7 +69,11 @@
                     <input type="hidden" name="plot_id" value="{{ $plot->id }}">
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6 mt-4 mb-4">
-                        <x-info-card title="Nom de la parcelle" :value="$plot->name" />
+
+                        <x-info-card title="name">
+                            <x-input-field id="name" name="name" :value="$plot->name"
+                                class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500" />
+                        </x-info-card>
 
                         <x-info-card title="Superficie">
                             <x-input-field id="area" name="area" :value="$plot->area"

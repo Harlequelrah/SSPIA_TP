@@ -42,6 +42,7 @@ class Plot extends Model
 
     protected $casts = [
     'status' => StatusEnum::class,
+    'area' => 'float',
 ];
 
     public function user()
