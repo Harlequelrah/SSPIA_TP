@@ -77,10 +77,10 @@ class AgriculteurController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-        public function destroy(User $agriculteur)
-        {
-            $agriculteur->delete();
-            return redirect()->route('agriculteurs.index')
-                ->with('success', "L'agriculteur a été supprimée");
-        }
+    public function destroy(User $agriculteur)
+    {
+        $agriculteur->delete();
+        return redirect()->route('agriculteurs.index')
+            ->with('success', "L'agriculteur a été supprimée");
+    }
 }
