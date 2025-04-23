@@ -3,6 +3,11 @@
 @section('title', 'Liste des interventions d\'une parcelle')
 
 @section('content')
+    @if (session('success'))
+        <x-notification :message="session('success')" color="green" icon="fa-circle-check" />
+    @elseif (session('error'))
+        <x-notification :message="session('error')" color="red" icon="fa-circle-exclamation" />
+    @endif
     <div class="max-w-6xl mx-auto p-4" x-data="{ interventionIdToDelete: null }">
         <h1 class="text-2xl font-bold mb-4 text-[#4a7c59]">
             Interventions de la parcelle : {{ $plot->name }}
@@ -13,7 +18,10 @@
                 ← Retour à la liste des parcelles
             </a>
 
-            <x-primary-button>Télécharger pdf</x-primary-button>
+            <a href="{{ route('plot.etiquette', $plot->id) }}"
+                class="border text-green-800 border-green-800 rounded-lg px-3 py-2 text-sm hover:bg-green-800 hover:text-white transition-colors duration-200">
+                {{ __('Imprimer etiquette ') }}
+            </a>
         </div>
 
         <div class="overflow-x-auto bg-white rounded-lg shadow mt-4">
