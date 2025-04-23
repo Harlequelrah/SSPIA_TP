@@ -1,18 +1,19 @@
  <div class="mt-4" x-data="{
-    showAgriForm: false,
-    toggleAgriForm() {
-        this.showAgriForm = !this.showAgriForm
-        console.log(this.showAgriForm)
-    },
-    enregister() {
-        this.showAgriForm = false
-    }
+     showAgriForm: false,
+     toggleAgriForm() {
+         this.showAgriForm = !this.showAgriForm
+         console.log(this.showAgriForm)
+     },
+     enregister() {
+         this.showAgriForm = false
+     }
  }">
      <x-back-to-home />
 
      <div class="flex items-center justify-between mb-6">
          <x-heading title="Gestion des agriculteurs" />
-         <button @click="toggleAgriForm()" class="bg-[#4a7c59] text-white px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 hover:bg-green-900 active:bg-green-800">
+         <button @click="toggleAgriForm()"
+             class="bg-[#4a7c59] text-white px-3 py-2 rounded-lg cursor-pointer transition-all duration-200 hover:bg-green-900 active:bg-green-800">
              <template x-if='!showAgriForm'>
                  <i class="fa-solid fa-chevron-down"></i>
              </template>
@@ -36,7 +37,7 @@
                      <x-input-field name="lastName" id="lastName" type="text" :placeholder="'Ex: Jean Dupont'" />
                  </div>
                  <div>
-                     <label for="userName" class="block text-gray-700">Nom d'utilisateur</label>
+                     <label for="userName" class="block text-gray-700">Nom d'agriculteur</label>
                      <x-input-field name="userName" id="userName" type="text" :placeholder="'Ex: JeanD'" />
                  </div>
                  <div>
@@ -53,7 +54,8 @@
                  </div>
              </div>
              <div class="mt-4 flex justify-end">
-                 <button type="submit" class="bg-[#4a7c59] cursor-pointer transition-all duration-200 text-white px-4 py-2 rounded-lg hover:bg-green-900 active:bg-green-800">Enregistrer</button>
+                 <button type="submit"
+                     class="bg-[#4a7c59] cursor-pointer transition-all duration-200 text-white px-4 py-2 rounded-lg hover:bg-green-900 active:bg-green-800">Enregistrer</button>
              </div>
          </form>
      </div>
@@ -62,7 +64,7 @@
          <thead class="bg-[#4a7c59] divide-x-2 text-sm text-white">
              <th class="uppercase px-3 py-2">ID</th>
              <th class="uppercase px-3 py-2">Nom complet</th>
-             <th class="uppercase px-3 py-2">Nom d'utilisateur</th>
+             <th class="uppercase px-3 py-2">Nom d'agriculteur</th>
              <th class="uppercase px-3 py-2">Téléphone</th>
              <th class="uppercase px-3 py-2">E-mail</th>
              <th class="uppercase px-3 py-2">Adresse</th>

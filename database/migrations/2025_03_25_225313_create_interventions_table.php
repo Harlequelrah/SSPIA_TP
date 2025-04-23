@@ -16,19 +16,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('interventions', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->text('description')->nullable();
             $table->string('product_used_name')->nullable();
             $table->decimal('product_used_quantity')->nullable();
-            $table->enum('intervention_type',InterventionTypeEnum::values());
+            $table->enum('intervention_type', InterventionTypeEnum::values());
+            $table->enum('unit', UnitEnum::values());
             $table->dateTime('intervention_date');
-            $table->enum('unit_enum', UnitEnum::values());
-            $table->foreignIdFor(User::class)
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->foreignIdFor(Plot::class)
-                ->constrained()
-                ->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('plot_id')->constrained()->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

@@ -1,14 +1,6 @@
-@props([
-'title' => '',
-'count' => '',
-'activeMenu' => ''
-])
+@props(['title', 'count', 'class'])
 
-<div class="flex flex-col justify-center items-center space-y-4 bg-green-50 rounded-lg shadow-md p-4 w-[350px] h-[150px] hover:scale-105 transition-all duration-200">
-    <h1 class="font-bold text-2xl">{{ $title }}</h1>
-    <span class="text-3xl font-bold text-[#4a7c59]">{{ $count }}</span>
-    <div @click="activeMenu = '{{ $activeMenu }}'" class="text-green-800 flex items-center space-x-2 cursor-pointer transition-all duration-200 active:scale-105">
-        <x-text-small title="Voir détail" class="underline" />
-        <i class="fa-solid fa-arrow-right"></i>
-    </div>
+<div class="bg-white rounded-lg shadow-lg p-6 border-l-4 {{ $class }} flex flex-col items-center justify-center h-32 w-full">
+    <h2 class="text-lg font-semibold text-center">{{ $title }}</h2>
+    <p class="text-3xl font-bold mt-2">{{ $count }}</p>
 </div>

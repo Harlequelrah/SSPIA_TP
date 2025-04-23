@@ -6,26 +6,41 @@ namespace App\Models;
 
 use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
+
 
 /**
  * @mixin IdeHelperUser
  */
 class User extends Authenticatable
 {
+    use HasFactory, SoftDeletes;
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = Str::uuid();
+            }
+        });
+    }
 
-    public function plots(){
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
+    public function plots()
+    {
         return $this->hasMany(Plot::class);
     }
 
 
-    public function interventions(){
+    public function interventions()
+    {
         return $this->belongsToMany(Intervention::class);
     }
-
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -38,8 +53,8 @@ class User extends Authenticatable
         'password',
         'role',
         'username',
-        'address',
-        'phone'
+        'phone',
+        'address'
     ];
 
     /**

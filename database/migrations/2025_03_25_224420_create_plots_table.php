@@ -14,17 +14,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('plots', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->decimal('area', 10, 2);
             $table->string('crop_type');
             $table->dateTime('plantation_date');
-            $table->enum('status',StatusEnum::values());
+            $table->enum('status', StatusEnum::values());
             $table->timestamps();
-            $table->foreignIdFor(User::class)
-                ->constrained()
-                ->cascadeOnDelete();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
 
+            // Assurer l'unicité du nom de la parcelle par utilisateur
+            $table->unique(['name', 'user_id']);
         });
     }
 

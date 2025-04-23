@@ -1,45 +1,38 @@
 <?php
 
+use App\Http\Controllers\AgriculteurController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\InterventionController;
+use App\Http\Controllers\PlotController;
 use Illuminate\Support\Facades\Route;
-
-
-
 
 Route::get('/', function () {
     return view('app_layout');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified']);
+
+
+Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route pour afficher la liste des parcelles
-Route::get('/parcelles', function () {
-    return view('parcelles.index');
-})->name('parcelles.index');
+Route::resource('plots', PlotController::class);
+Route::patch('/plots/update-status', [PlotController::class, 'updateStatus'])->name('plots.update-status');
+
+
+Route::resource('interventions', InterventionController::class);
+
+// Lister les interventions d’une parcelle.
+Route::get('/plots/{plot}/interventions', [InterventionController::class, 'byPlot'])
+    ->name('plots.interventions');
 
 // Route pour afficher la liste des interventions
-Route::get('/interventions', function () {
-    return view('interventions.index');
-})->name('interventions.index');
 
-Route::get('/interventions/{id}', function ($id) {
-    $intervention = (object)[
-        'id' => $id,
-        'parcelle' => 'Parcelle Nord',
-        'type' => 'Semis',
-        'date' => '2024-03-15',
-        'description' => 'Irrigation après semis',
-        'quantite' => '25 kg/ha',
-    ];
+Route::resource('agriculteurs', AgriculteurController::class);
 
-    return view('interventions.show', compact('intervention'));
-})->name('interventions.show');
 
-Route::get('/interventions/detail', function () {
-    return view('interventions.show');
-})->name('interventions.show');
-
-Route::get('/users', function () {
-    return view('users.index');
-})->name('users.index');
+Route::get('/parametre', function () {
+    return view('settings.index');
+})->name('settings.index');
 
 
 Route::middleware('auth')->group(function () {
@@ -58,7 +51,4 @@ Route::get('/admin-only', function () {
 // })->name('logout');
 
 
-require __DIR__.'/auth.php';
-
-
-
+require __DIR__ . '/auth.php';
