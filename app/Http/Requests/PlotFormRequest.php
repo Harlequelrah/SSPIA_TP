@@ -25,7 +25,13 @@ class PlotFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'unique:plots,name'],
+            'name' => [
+                'required',
+                'string',
+                Rule::unique('plots')->where(function ($query) {
+                    return $query->where('user_id', auth()->id());
+                }),
+            ],  
             'area' => ['required', 'numeric', 'min:0', 'max:9999999999.99'],
             'plantation_date' => [
                 'required',
