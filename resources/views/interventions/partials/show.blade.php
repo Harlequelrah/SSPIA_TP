@@ -4,7 +4,16 @@
 
 @php
     use App\Enums\RoleEnum;
+    use App\Enums\InterventionTypeEnum;
     $isAdmin = Auth::user()->role == RoleEnum::ADMIN; // Vérifie si l'agriculteur est un administrateur
+$badgeColor = match ($intervention->intervention_type) {
+    InterventionTypeEnum::SM => 'bg-green-100 text-green-800',
+    InterventionTypeEnum::AR => 'bg-blue-100 text-blue-800',
+    InterventionTypeEnum::FT => 'bg-yellow-100 text-yellow-800',
+    InterventionTypeEnum::TR => 'bg-purple-100 text-purple-800',
+    InterventionTypeEnum::RC => 'bg-red-100 text-red-800',
+    default => 'bg-gray-100 text-gray-800',
+    };
 @endphp
 
 @section('content')
@@ -37,16 +46,7 @@
                 <x-info-card title="Parcelle" :value="$intervention->plot->name" />
 
                 <x-info-card title="Type d'intervention">
-                    <span
-                        class="px-3 py-1 rounded-full text-sm font-medium
-                {{ match ($intervention->intervention_type) {
-                    'Semis' => 'bg-green-100 text-green-800',
-                    'Arrosage' => 'bg-blue-100 text-blue-800',
-                    'Fertilisation' => 'bg-yellow-100 text-yellow-800',
-                    'Traitement' => 'bg-purple-100 text-purple-800',
-                    'Récolte' => 'bg-red-100 text-red-800',
-                    default => 'bg-gray-100 text-gray-800',
-                } }}">
+                    <span class="px-3 py-1 rounded-full text-sm font-medium {{ $badgeColor }}">
                         {{ $intervention->intervention_type }}
                     </span>
                 </x-info-card>
@@ -62,12 +62,12 @@
                 {{ old('product_used_name', $intervention->product_used_name ?? '') }}
             </x-info-card>
 
-            <x-info-card title="Description" :class="'w-full'"
-                value="{{ $intervention->description ?? 'Non spécifiée' }}"></x-info-card>
+            <x-info-card title="Description" :class="'w-full'" value="{!! $intervention->description ?? 'Non spécifiée' !!}"></x-info-card>
+
         </div>
 
         {{-- Mode Édition --}}
-        @if ($isAdmin)
+        @if (!$isAdmin)
             <div x-show="showEditForm">
                 <form method="POST" action="{{ route('interventions.update', $intervention) }}">
                     @csrf
@@ -138,9 +138,9 @@
         @endif
 
         <div class="mt-6">
-            <a href="{{ route('interventions.index') }}"
+            <a href="{{ url()->previous() }}"
                 class="inline-flex items-center px-4 py-2 bg-[#4a7c59] text-white text-sm font-medium rounded hover:bg-[#3b6348] transition">
-                <i class="fa-solid fa-arrow-left mr-2"></i> Retour à la liste
+                <i class="fa-solid fa-arrow-left mr-2"></i> Retour
             </a>
         </div>
     </div>

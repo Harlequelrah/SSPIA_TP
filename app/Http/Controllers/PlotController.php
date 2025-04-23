@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enums\RoleEnum;
+use App\Enums\StatusEnum;
 use App\Http\Requests\PlotFormRequest;
 use App\Models\Plot;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Request;
 
 class PlotController extends Controller
 {
@@ -53,7 +56,7 @@ class PlotController extends Controller
         $validated['user_id'] = Auth::user()->id; // link plot to current user
 
         Plot::create($validated);
-        return redirect()->route('parcelles.index')
+        return redirect()->route('plots.index')
             ->with('success', 'Parcelles ajoutée avec succès');
     }
 
@@ -90,15 +93,15 @@ class PlotController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PlotFormRequest $request, Plot $parcelle)
+    public function update(PlotFormRequest $request, Plot $plot)
     {
         $validated = $request->validated();
         $validated['user_id'] = Auth::user()->id;
         $validated['area'] = (float) $validated['area'];
 
-        $parcelle->update($validated);
+        $plot->update($validated);
 
-        return redirect()->route('parcelles.index')
+        return redirect()->route('plots.index')
             ->with('success', "The plot was successfully updated");
     }
 
@@ -111,7 +114,26 @@ class PlotController extends Controller
             abort(403, 'Unauthorized action');
         }
         $plot->delete();
-        return redirect()->route('parcelles.index')
-            ->with('success', "The plot was successfully deleted");
+        return redirect()->route('plots.index')
+            ->with('success', "La parcelle a été supprimé avec succès");
+    }
+
+    public function updateStatus(Request $request)
+    {
+
+        $validated = $request->validate([
+            'plot_id' => 'required|exists:plots,id',
+            'status' => ['required', Rule::in(StatusEnum::values())],
+        ]);
+
+        $plot = Plot::findOrFail($validated['plot_id']);
+
+        // Vérifiez que l'utilisateur actuel est autorisé à modifier cette parcelle
+        $this->authorize('update-status', $plot);
+
+        $plot->status = $validated['status'];
+        $plot->save();
+
+        return redirect()->back()->with('success', 'Statut de la parcelle mis à jour avec succès.');
     }
 }

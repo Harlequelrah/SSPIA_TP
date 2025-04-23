@@ -22,7 +22,7 @@
         </div>
         <!-- Contenu principal -->
         <div class="flex-1 flex flex-col h-screen">
-            <div class="sticky top-0 z-10">
+            <div class="sticky top-0 -z-10">
                 @include('includes.navbar')
             </div>
             <main class="flex-1 overflow-y-auto p-4">

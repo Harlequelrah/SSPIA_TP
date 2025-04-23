@@ -16,9 +16,13 @@ class AgriculteurController extends Controller
      */
     public function index(Request $request)
     {
-        $agriculteurs = User::where('role', RoleEnum::AGRICULTEUR)->paginate(10);
+        $agriculteurs = User::withTrashed()
+            ->where('role', RoleEnum::AGRICULTEUR)
+            ->paginate(10);
+
         return view('agriculteurs.index', compact('agriculteurs'));
     }
+
 
     /**
      * Show the form for creating a new resource.
