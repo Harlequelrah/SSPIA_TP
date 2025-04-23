@@ -125,7 +125,7 @@ class InterventionController extends Controller
             abort(403, 'Unauthorized action');
         }
         $intervention->delete();
-        return redirect()->route('interventions.index')
+        return redirect()->back()
             ->with('success', "L'intervention a été supprimée");
     }
 }

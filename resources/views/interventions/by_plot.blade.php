@@ -1,9 +1,9 @@
 @extends('app_layout')
 
-@section('title', 'Interventions sur la parcelles')
+@section('title', 'Liste des interventions d\'une parcelle')
 
 @section('content')
-    <div class="max-w-6xl mx-auto p-4">
+    <div class="max-w-6xl mx-auto p-4" x-data="{ interventionIdToDelete: null }">
         <h1 class="text-2xl font-bold mb-4 text-[#4a7c59]">
             Interventions de la parcelle : {{ $plot->name }}
         </h1>
@@ -30,17 +30,14 @@
                             <td class="py-2 px-4">{{ $intervention->intervention_date }}</td>
                             <td class="py-2 px-4 flex space-x-2">
                                 <a href="{{ route('interventions.show', $intervention->id) }}"
-                                    class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-800">
+                                   class="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-800">
                                     Voir
                                 </a>
-                                <form method="POST" action="{{ route('interventions.destroy', $intervention->id) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-800"
-                                        onclick="return confirm('Supprimer cette intervention ?')">
-                                        Supprimer
-                                    </button>
-                                </form>
+                                <a href="#"
+                                   @click.prevent="interventionIdToDelete = '{{ $intervention->id }}'; $dispatch('open-modal', 'confirm-delete')"
+                                   class="px-3 py-2 bg-red-600 cursor-pointer rounded-md hover:bg-red-800">
+                                    <i class="fa-solid fa-trash-alt text-white"></i>
+                                </a>
                             </td>
                         </tr>
                     @empty
@@ -52,11 +49,33 @@
                     @endforelse
                 </tbody>
             </table>
+
+            <div class="mt-4">
+                {{ $interventions->links() }}
+            </div>
         </div>
 
-        <!-- Pagination -->
-        <div class="mt-4">
-            {{ $interventions->links() }}
-        </div>
+        <!-- Modal de confirmation -->
+        <x-modal name="confirm-delete" maxWidth="md">
+            <div class="p-6">
+                <h2 class="text-lg font-medium text-green-900">
+                    Êtes-vous sûr de vouloir supprimer cette intervention ?
+                </h2>
+
+                <p class="mt-1 text-sm text-slate-600">
+                    Cette action supprimera l’intervention de manière définitive.
+                </p>
+
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button @click="$dispatch('close-modal', 'confirm-delete')">Annuler</x-secondary-button>
+
+                    <form method="POST" :action="`{{ url('interventions') }}/${interventionIdToDelete}`" class="ml-3">
+                        @csrf
+                        @method('DELETE')
+                        <x-primary-button class="bg-red-500 hover:bg-red-600">Supprimer</x-primary-button>
+                    </form>
+                </div>
+            </div>
+        </x-modal>
     </div>
 @endsection

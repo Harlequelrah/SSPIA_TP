@@ -69,7 +69,7 @@
                                     <i class="fa-solid fa-eye text-white"></i>
                                 </a>
                                 <a x-on:click="$dispatch('open-modal', 'confirm-delete')"
-                                    class="px-3 py-2 bg-red-600 rounded-md hover:bg-red-800">
+                                    class="px-3 py-2 bg-red-600 cursor-pointer rounded-md hover:bg-red-800">
                                     <i class="fa-solid fa-trash-alt text-white"></i>
                                 </a>
                                 <a :href="`/plots/${plot.id}/interventions`"
