@@ -1,13 +1,13 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Enums\RoleEnum;
 use App\Http\Requests\UserFormRequest;
+use App\Mail\AccountCreated;
 use App\Models\User;
-use App\View\Components\Agriculteurs;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Str;
 
 class AgriculteurController extends Controller
 {
@@ -34,20 +34,23 @@ class AgriculteurController extends Controller
     public function store(UserFormRequest $request)
     {
         $validated = $request->validated();
+        $password  = Str::random(10);
 
         $user = User::create([
             'name'     => $validated['firstName'] . ' ' . $validated['lastName'],
             'username' => $validated['userName'],
-            'phone' => $validated['phone'] ?? null,
-            'email' => $validated['email'],
-            'address' => $validated['address'] ?? null,
-            'password' => bcrypt($validated['password']),
-            'role' => RoleEnum::AGRICULTEUR,
+            'phone'    => $validated['phone'] ?? null,
+            'email'    => $validated['email'],
+            'address'  => $validated['address'] ?? null,
+            'password' => bcrypt($password),
+            'role'     => RoleEnum::AGRICULTEUR,
         ]);
 
-        return redirect()->route('agriculteurs.index');
-    }
+    Mail::to($user->email)->send(new AccountCreated($user, $password));
 
+        return redirect()->route('agriculteurs.index')
+            ->with('success', "L'agriculteur a été créé et un email de confirmation a été envoyé.");
+    }
 
     /**
      * Display the specified resource.

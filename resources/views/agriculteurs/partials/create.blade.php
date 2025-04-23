@@ -52,19 +52,6 @@
                 @enderror
             </div>
         </div>
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Mot de passe')" />
-            <div class="flex space-x-3 items-center justify-center mt-1 w" x-data="{ obscuredText: true }">
-                <x-input-field id="password" class="w-full" x-bind:type="obscuredText ? 'password' : 'text'"
-                    name="password" />
-                <i :class="obscuredText ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"
-                    class="cursor-pointer text-gray-500" @click="obscuredText = !obscuredText">
-                </i>
-            </div>
-            @error('password')
-                <span class="text-sm text-red-500">{{ $message }}</span>
-            @enderror
-        </div>
         <div class="w-full flex justify-end space-x-2 mt-4">
             <x-secondary-button>Annuler</x-secondary-button>
             <x-primary-button>Ajouter</x-primary-button>

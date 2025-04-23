@@ -17,17 +17,17 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         // Check if the admin user already exists
-        $adminEmail = 'godswilllek02@gmail.com';
+        $adminEmail = 'admin@gmail.com';
         $agriEmail = "agri@gmail.com";
         $agriEmail2 = 'agri2@gmail.com';
 
         if (!User::where('email', $adminEmail)->exists()) {
             User::create([
-                'name' => 'Uche lek',
+                'name' => 'Administrator',
                 'email' => $adminEmail,
-                'username' => 'escanor',
+                'username' => 'Admin',
                 'role' => RoleEnum::ADMIN,
-                'password' => Hash::make('Uche@2064'),
+                'password' => Hash::make('admin@2064'),
                 'email_verified_at' => now(),
             ]);
 
@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder
                 'email' => $agriEmail,
                 'username' => 'Agri',
                 'role' => RoleEnum::AGRICULTEUR,
-                'password' => Hash::make('uche@2064'),
+                'password' => Hash::make('admin@2064'),
                 'email_verified_at' => now(),
             ]);
 
@@ -55,7 +55,7 @@ class UsersTableSeeder extends Seeder
                 'email' => $agriEmail2,
                 'username' => 'Agri3',
                 'role' => RoleEnum::AGRICULTEUR,
-                'password' => Hash::make('uche@2064'),
+                'password' => Hash::make('admin@2064'),
                 'email_verified_at' => now(),
             ]);
 
