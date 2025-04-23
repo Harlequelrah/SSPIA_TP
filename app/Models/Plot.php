@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 
 class Plot extends Model
 {
+    use SoftDeletes;
 
     protected static function booted()
     {
@@ -28,7 +29,6 @@ class Plot extends Model
 
     protected $keyType = 'string';
 
-    use SoftDeletes;
     protected $fillable = [
         'name',
         'area',
@@ -41,9 +41,9 @@ class Plot extends Model
     protected $guarded = [];
 
     protected $casts = [
-    'status' => StatusEnum::class,
-    'area' => 'float',
-];
+        'status' => StatusEnum::class,
+        'area' => 'float',
+    ];
 
     public function user()
     {

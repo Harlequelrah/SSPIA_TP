@@ -8,9 +8,13 @@
             Interventions de la parcelle : {{ $plot->name }}
         </h1>
 
-        <a href="{{ route('plots.index') }}" class="mb-4 inline-block text-sm text-blue-600 hover:underline">
-            ← Retour à la liste des parcelles
-        </a>
+        <div class="flex items-center justify-between">
+            <a href="{{ route('plots.index') }}" class="mb-4 inline-block text-sm text-blue-600 hover:underline">
+                ← Retour à la liste des parcelles
+            </a>
+
+            <x-primary-button>Télécharger pdf</x-primary-button>
+        </div>
 
         <div class="overflow-x-auto bg-white rounded-lg shadow mt-4">
             <table class="min-w-full bg-white">
@@ -30,12 +34,12 @@
                             <td class="py-2 px-4">{{ $intervention->intervention_date }}</td>
                             <td class="py-2 px-4 flex space-x-2">
                                 <a href="{{ route('interventions.show', $intervention->id) }}"
-                                   class="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-800">
+                                    class="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-800">
                                     Voir
                                 </a>
                                 <a href="#"
-                                   @click.prevent="interventionIdToDelete = '{{ $intervention->id }}'; $dispatch('open-modal', 'confirm-delete')"
-                                   class="px-3 py-2 bg-red-600 cursor-pointer rounded-md hover:bg-red-800">
+                                    @click.prevent="interventionIdToDelete = '{{ $intervention->id }}'; $dispatch('open-modal', 'confirm-delete')"
+                                    class="px-3 py-2 bg-red-600 cursor-pointer rounded-md hover:bg-red-800">
                                     <i class="fa-solid fa-trash-alt text-white"></i>
                                 </a>
                             </td>
