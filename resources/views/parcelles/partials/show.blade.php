@@ -43,7 +43,7 @@
 
                 <x-info-card title="Date de plantation" :value="$plot->plantation_date" />
 
-                <x-info-card title="Statut" :value="$plot->status" />
+                <x-info-card title="Statut de la culture" :value="$plot->status" />
 
                 @if ($isAdmin)
                     <!-- Champs visibles uniquement pour les administrateurs -->
@@ -62,7 +62,7 @@
         @if (!$isAdmin)
             <!-- Seuls les non-administrateurs peuvent modifier -->
             <div x-show="showEditForm">
-                <form method="POST" action="{{ route('parcelles.update', $plot) }}">
+                <form method="POST" action="{{ route('plots.update', $plot) }}">
                     @csrf
                     @method('PUT')
 
@@ -90,9 +90,15 @@
                                 class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500" />
                         </x-info-card>
 
-                        <x-info-card title="Statut">
-                            <x-input-field type="text" id="status" name="status" :value="$plot->status"
-                                class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500" />
+                        <x-info-card title="Statut de la culture">
+                            <select name="status" id="status" :value="$plot->status"
+                                class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500">
+                                <option disabled>Selectionnez une option</option>
+                                @foreach (App\Enums\StatusEnum::values() as $type)
+                                    <option value="{{ $type }}" :selected="$plot->status === '{{ $type }}'">
+                                        {{ $type }}</option>
+                                @endforeach
+                            </select>
                         </x-info-card>
                     </div>
 
@@ -105,7 +111,7 @@
         @endif
 
         <div class="mt-6">
-            <a href="{{ route('parcelles.index') }}"
+            <a href="{{ route('plots.index') }}"
                 class="inline-flex items-center px-4 py-2 bg-[#4a7c59] text-white text-sm font-medium rounded hover:bg-[#3b6348] transition">
                 <i class="fa-solid fa-arrow-left mr-2"></i> Retour à la liste
             </a>

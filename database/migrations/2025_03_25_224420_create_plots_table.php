@@ -22,6 +22,9 @@ return new class extends Migration
             $table->enum('status', StatusEnum::values());
             $table->timestamps();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete();
+
+            // Assurer l'unicité du nom de la parcelle par utilisateur
+            $table->unique(['name', 'user_id']);
         });
     }
 
