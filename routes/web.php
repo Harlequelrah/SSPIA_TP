@@ -23,12 +23,9 @@ Route::resource('interventions', InterventionController::class);
 
 // Lister les interventions d’une parcelle.
 Route::get('/plots/{plot}/interventions', [InterventionController::class, 'byPlot'])
-    ->name('plot.interventions');
+    ->name('plots.interventions');
 
 // Route pour afficher la liste des interventions
-
-Route::get('interventions/plot/{plot}', [InterventionController::class, 'index2'])
-    ->name('interventions.index2');
 
 Route::resource('agriculteurs', AgriculteurController::class);
 
