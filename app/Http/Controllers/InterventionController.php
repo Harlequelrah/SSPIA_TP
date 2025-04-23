@@ -101,6 +101,20 @@ class InterventionController extends Controller
             ->with('success', 'Intervention mise à jour avec succès.');
     }
 
+    // Lister les interventions d’une parcelle.
+    public function byPlot(Plot $plot)
+    {
+        // S'assurer que l'utilisateur a le droit de voir cette parcelle
+        if (Auth::user()->role !== RoleEnum::ADMIN && $plot->user_id !== Auth::user()->id) {
+            abort(403, 'Unauthorized action');
+        }
+
+        $interventions = $plot->interventions()->paginate(10);
+
+        return view('interventions.by_plot', compact('plot', 'interventions'));
+    }
+
+
 
     /**
      * Remove the specified resource from storage.

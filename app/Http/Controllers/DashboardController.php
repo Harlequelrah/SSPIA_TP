@@ -40,7 +40,7 @@ class DashboardController extends Controller
         $totalCultivatedArea = $plots->where('status', $enCulture)->sum('area') ?? 0;
 
         // Interventions récentes (7 derniers jours)
-        $recentInterventions = $interventions->where('date', '>=', Carbon::now()->subDays(7))->values();
+        $recentInterventions = $interventions->where('intervention_date', '>=', Carbon::now()->subDays(7))->values();
 
         // Nombre d'interventions par type (gestion des cas où il n'y a pas d'interventions)
         $interventionTypesCount = collect([
@@ -61,13 +61,12 @@ class DashboardController extends Controller
         $needAttentionPlots = $plots->filter(function ($plot) use ($interventions) {
             $lastIntervention = $interventions
                 ->where('plot_id', $plot->id)
-                ->sortByDesc('date')
+                ->sortByDesc('intervention_date')
                 ->first();
 
             return $lastIntervention === null ||
                 Carbon::parse($lastIntervention->date)->diffInDays(Carbon::now()) > 30;
         })->values();
-
         // Dernières interventions (5 plus récentes)
         $latestInterventions = $interventions->sortByDesc('date')->take(5)->values();
 

@@ -57,7 +57,7 @@
             <p>Pour commencer, ajoutez votre première parcelle en cliquant sur le bouton "Ajouter une parcelle"
                 ci-dessous.</p>
             <div class="mt-4">
-                <a href="{{ route('parcelles.index') }}"
+                <a href="{{ route('plots.index') }}"
                     class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded duration-200 transition-colors">
                     Ajouter une parcelle
                 </a>
@@ -91,15 +91,15 @@
                             </div>
                             <div class="text-center">
                                 <div class="w-32 h-32 rounded-full bg-amber-500 flex items-center justify-center">
-                                    <span class="text-white text-2xl font-bold">{{ $plotsInFallow }}</span>
-                                </div>
-                                <p class="mt-2 font-medium">{{ App\Enums\StatusEnum::EN_J }}</p>
-                            </div>
-                            <div class="text-center">
-                                <div class="w-32 h-32 rounded-full bg-gray-400 flex items-center justify-center">
                                     <span class="text-white text-2xl font-bold">{{ $plotsHarvested }}</span>
                                 </div>
                                 <p class="mt-2 font-medium">{{ App\Enums\StatusEnum::RCLT }}</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-32 h-32 rounded-full bg-gray-400 flex items-center justify-center">
+                                    <span class="text-white text-2xl font-bold">{{ $plotsInFallow }}</span>
+                                </div>
+                                <p class="mt-2 font-medium">{{ App\Enums\StatusEnum::EN_J }}</p>
                             </div>
                         </div>
                     @else
@@ -172,7 +172,7 @@
                                                 {{ $plot->user->name ?? 'N/A' }}</td>
                                         @endif
                                         <td class="py-2 px-4 border-b border-gray-200">
-                                            <a href="{{ route('parcelles.index', $plot->id) }}"
+                                            <a href="{{ route('plots.show', $plot->id) }}"
                                                 class="text-blue-600 hover:text-blue-900">Voir détails</a>
                                         </td>
                                     </tr>
@@ -326,7 +326,7 @@
         <div class="mt-8">
             <x-heading title="Action rapide" class="mb-3" />
             <div class="flex flex-wrap gap-4">
-                <a href="{{ route('parcelles.index') }}"
+                <a href="{{ route('plots.index') }}"
                     class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -335,7 +335,7 @@
                     </svg>
                     Ajouter une parcelle
                 </a>
-                <a href="{{ route('parcelles.index') }}"
+                <a href="{{ route('plots.index') }}"
                     class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -362,7 +362,7 @@
         <div class="mt-8">
             <x-heading title="Navigation administrateur" class="mb-3" />
             <div class="flex flex-wrap gap-4">
-                <a href="{{ route('parcelles.index') }}"
+                <a href="{{ route('plots.index') }}"
                     class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">

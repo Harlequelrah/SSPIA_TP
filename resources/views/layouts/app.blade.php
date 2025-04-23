@@ -24,7 +24,7 @@
             <nav>
                 <ul>
                     <li class="mb-2"><a href="{{ route('dashboard') }}" class="block p-2 hover:bg-green-600">🏠 Tableau de bord</a></li>
-                    <li class="mb-2"><a href="{{ route('parcelles.index') }}" class="block p-2 hover:bg-green-600">📍 Parcelles</a></li>
+                    <li class="mb-2"><a href="{{ route('plots.index') }}" class="block p-2 hover:bg-green-600">📍 Parcelles</a></li>
                     <li class="mb-2"><a href="{{ route('interventions.index') }}" class="block p-2 hover:bg-green-600">⚙️ Interventions</a></li>
                     <li class="mb-2"><a href="#" class="block p-2 hover:bg-green-600">👤 Utilisateurs</a></li>
                 </ul>

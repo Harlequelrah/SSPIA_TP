@@ -15,12 +15,16 @@ Route::get('/', function () {
 Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // Route pour afficher la liste des parcelles
-Route::resource('parcelles', PlotController::class);
+Route::resource('plots', PlotController::class);
+Route::patch('/plots/update-status', [PlotController::class, 'updateStatus'])->name('plots.update-status');
 
-// Route::get('interventions/create/{plot_id}', [InterventionController::class, 'create'])
-//     ->name('interventions.create');
 
 Route::resource('interventions', InterventionController::class);
+
+// Lister les interventions d’une parcelle.
+Route::get('/plots/{plot}/interventions', [InterventionController::class, 'byPlot'])
+    ->name('plot.interventions');
+
 // Route pour afficher la liste des interventions
 
 Route::resource('agriculteurs', AgriculteurController::class);

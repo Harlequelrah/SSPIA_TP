@@ -3,7 +3,7 @@
             <x-heading title="Ajouter une parcelles" class="text-lg font-bold mb-2" />
             <x-heading-small title="Les champs marqués avec (*) sont obligatoires" />
         </div>
-        <form action="{{ route('parcelles.store') }}" method='POST' >
+        <form action="{{ route('plots.store') }}" method='POST' >
             @csrf
             <div class="grid grid-cols-2 gap-4">
                 <div>
@@ -14,7 +14,7 @@
                     @enderror
                 </div>
                 <div>
-                    <label for="size" class="block text-gray-700">Superficie <span class="text-red-600">*</span>
+                    <label for="size" class="block text-gray-700">Superficie (hectare) <span class="text-red-600">*</span>
                     </label>
                     <x-input-field name="area" id="area" type="text" :value="old('area')" :placeholder="'Ex: 2'" />
                     @error('area')

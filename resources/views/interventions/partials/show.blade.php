@@ -67,7 +67,7 @@
         </div>
 
         {{-- Mode Édition --}}
-        @if ($isAdmin)
+        @if (!$isAdmin)
             <div x-show="showEditForm">
                 <form method="POST" action="{{ route('interventions.update', $intervention) }}">
                     @csrf
