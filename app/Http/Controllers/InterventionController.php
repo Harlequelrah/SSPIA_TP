@@ -34,6 +34,23 @@ class InterventionController extends Controller
         return view('interventions.index', compact('interventions', 'plots'));
     }
 
+    public function index2(Request $request , Plot $plot)
+    {
+        $user = Auth::user();
+
+        if ($user->role === RoleEnum::ADMIN) {
+            // administrateur: afficher toutes les parcelles
+            $plots = Plot::paginate(10);
+            $interventions = Intervention::with('plot')->where('plot_id',$plot->id)->paginate(10);
+        } else {
+            // autres agriculteur: récupérer uniquement leurs parcelles
+            $interventions = Intervention::where('user_id', $user->id)->where('plot_id',$plot->id)->with('plot')->paginate(10);
+            $plots = $user->plots()->paginate(10);
+        }
+
+        return view('interventions.index', compact('interventions', 'plots'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
