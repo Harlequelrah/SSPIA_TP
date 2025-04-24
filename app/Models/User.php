@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
  */
 class User extends Authenticatable
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes , Notifiable;
     protected static function booted()
     {
         static::creating(function ($model) {
