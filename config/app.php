@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
 
     /*
     |--------------------------------------------------------------------------

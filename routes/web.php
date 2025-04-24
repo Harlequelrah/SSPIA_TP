@@ -25,6 +25,9 @@ Route::resource('interventions', InterventionController::class);
 Route::get('/plots/{plot}/interventions', [InterventionController::class, 'byPlot'])
     ->name('plots.interventions');
 
+Route::get('/plots/{id}/etiquette', [PlotController::class, 'etiquette'])->name('plot.etiquette');
+
+
 // Route pour afficher la liste des interventions
 
 Route::resource('agriculteurs', AgriculteurController::class);

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -27,10 +28,10 @@ class AccountCreated extends Mailable
     public function build()
     {
         return $this->subject('Votre compte a été créé')
-                    ->view('emails.account-created')
-                    ->with([
-                        'user' => $this->user,
-                        'password' => $this->password,
-                    ]);
+            ->view('emails.account-created')
+            ->with([
+                'user' => $this->user,
+                'password' => $this->password,
+            ]);
     }
 }

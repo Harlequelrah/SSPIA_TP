@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
 use App\Http\Requests\PlotFormRequest;
+use App\Models\Intervention;
 use App\Models\Plot;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PlotController extends Controller
 {
@@ -136,4 +139,49 @@ class PlotController extends Controller
 
         return redirect()->back()->with('success', 'Statut de la parcelle mis à jour avec succès.');
     }
+
+    public function etiquette($id)
+    {
+        // Récupérer la parcelle
+        $plot = Plot::findOrFail($id);
+
+        // Récupérer toutes les interventions pour cette parcelle
+        $interventions = $plot->interventions()->latest()->get();
+
+        // Si aucune intervention n'existe, gérer ce cas
+        if ($interventions->isEmpty()) {
+            return back()->with('error', 'Aucune intervention trouvée pour cette parcelle.');
+        }
+
+        // Récupérer l'agriculteur (du propriétaire de la parcelle ou de la première intervention)
+        $agriculteur = $plot->user ?? $interventions->first()->user;
+
+        $data = [
+            'title' => 'Fiche d\'interventions agricoles',
+            'date' => Carbon::now(),
+            'interventions' => $interventions,
+            'nom_parcelle' => $plot->name ?? 'Non défini',
+            'superficie' => $plot->area ?? '',
+            'type_culture' => $plot->crop_type ?? '',
+            'agriculteur' => $agriculteur->name ?? 'Inconnu',
+        ];
+
+        $filename = 'parcelle_' . $plot->id . '.pdf';
+        $folder = public_path('etiquettes');
+
+        if (!file_exists($folder)) {
+            mkdir($folder, 0755, true);
+        }
+
+        $pdf = PDF::loadView('parcelles.etiquette', $data)
+            ->setPaper('a5', 'portrait')
+            ->setOptions([
+                'defaultFont' => 'DejaVu Sans',
+                'isHtml5ParserEnabled' => true,
+                'isPhpEnabled' => true,
+            ]);
+
+        $pdf->save($folder . '/' . $filename);
+        return $pdf->stream($filename);
+    }   
 }
