@@ -31,7 +31,7 @@ class PlotFormRequest extends FormRequest
                 Rule::unique('plots')->where(function ($query) {
                     return $query->where('user_id', auth()->id());
                 }),
-            ],  
+            ],
             'area' => ['required', 'numeric', 'min:0', 'max:9999999999.99'],
             'plantation_date' => [
                 'required',
@@ -41,6 +41,8 @@ class PlotFormRequest extends FormRequest
             ],
             'status' => ['required', Rule::in(StatusEnum::values())],
             'crop_type' => ['required', 'string'],
+            'latitude' => ['nullable','numeric'],
+            'longitude' => ['nullable','numeric'],
         ];
     }
 

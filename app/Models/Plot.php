@@ -35,7 +35,9 @@ class Plot extends Model
         'crop_type',
         'plantation_date',
         'status',
-        'user_id'
+        'user_id',
+        'latitude' ,
+        'longitude',
     ];
 
     protected $guarded = [];
