@@ -44,7 +44,7 @@
                 @auth
                     @if (!$isAdmin)
                         <x-heading title="Gestion des Parcelles" />
-                        <x-primary-button class="space-x-2" @click="showForm = !showForm">
+                        <x-primary-button :show-loader="false" class="space-x-2" @click="showForm = !showForm">
                             <i class="fa-solid fa-plus"></i>
                             <x-heading-small title="Nouvelle parcelles" class="text-white" />
                         </x-primary-button>

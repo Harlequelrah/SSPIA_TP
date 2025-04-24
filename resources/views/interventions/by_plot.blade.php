@@ -84,7 +84,8 @@
                     <form method="POST" :action="`{{ url('interventions') }}/${interventionIdToDelete}`" class="ml-3">
                         @csrf
                         @method('DELETE')
-                        <x-primary-button class="bg-red-500 hover:bg-red-600">Supprimer</x-primary-button>
+                        <x-primary-button
+                            class="bg-red-500 hover:bg-red-600 transtion-color duration-200 focus:bg-red-700">Supprimer</x-primary-button>
                     </form>
                 </div>
             </div>

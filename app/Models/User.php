@@ -54,7 +54,8 @@ class User extends Authenticatable
         'role',
         'username',
         'phone',
-        'address'
+        'address',
+        'must_change_password'
     ];
 
     /**

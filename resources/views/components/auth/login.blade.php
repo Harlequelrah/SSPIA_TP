@@ -3,7 +3,8 @@
          <div class="flex flex-col items-center justify-center">
              <img src="{{ URL('storage/logo.jpg') }}" alt="logo" class="w-20 h-20   ">
              <x-heading-small class="text-center my-6"
-                 title="Système de Suivi des parcelles et des Interventions Agricoles" />
+                 title="Système de Suivi des 
+                  et des Interventions Agricoles" />
          </div>
 
          <div class="mb-4">

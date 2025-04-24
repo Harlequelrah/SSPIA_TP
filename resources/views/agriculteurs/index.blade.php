@@ -34,7 +34,7 @@
     }">
         <div class="flex items-center justify-between mb-6">
             <x-heading title="Gestion des agriculteurs" />
-            <x-primary-button class="space-x-2" @click="showForm = !showForm">
+            <x-primary-button :show-loader="false" class="space-x-2" @click="showForm = !showForm">
                 <i class="fa-solid fa-plus"></i>
                 <x-heading-small title="Nouveau utilisateur" class="text-white" />
             </x-primary-button>

@@ -100,7 +100,7 @@
 
                     <div class="md:col-span-2 flex justify-end gap-3 mt-4">
                         <x-secondary-button @click="showEditForm = false">Annuler</x-secondary-button>
-                        <x-primary-button type="submit">Enregistrer les modifications</x-primary-button>
+                        <x-primary-button>Enregistrer les modifications</x-primary-button>
                     </div>
                 </form>
             </div>

@@ -17,6 +17,7 @@
             transition: background-image 1s ease-in-out;
         }
     </style>
+    <link rel='icon' href="{{ URL('assets/logo.jpg') }}" type='image/x-icon'>
 </head>
 
 <body class="min-h-screen flex items-center justify-center">
@@ -35,10 +36,10 @@
             <!-- E-mail -->
             <div class="mb-4">
                 <x-input-label for="password" :value="__('E-mail')" class="text-white" />
-                <x-input-field  type="email" id="email" name="email" value="{{ old('email') }}" required
+                <x-input-field type="email" id="email" name="email" value="{{ old('email') }}"
                     class="w-full px-4 py-2 rounded-lg bg-white/20 border-white/30" />
                 @error('email')
-                    <span class="text-red-300 text-sm">{{ $message }}</span>
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -46,8 +47,7 @@
             <div class="mt-4">
                 <x-input-label for="password" :value="__('Mot de passe')" class="text-white" />
                 <div class="flex space-x-3 items-center justify-center mt-1 w" x-data="{ obscuredText: true }">
-                    <x-input-field id="password"
-                        class="bg-white/20 border-white/30"
+                    <x-input-field id="password" class="bg-white/20 border-white/30"
                         x-bind:type="obscuredText ? 'password' : 'text'" name="password" />
                     <i :class="obscuredText ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"
                         class="cursor-pointer text-gray-800" @click="obscuredText = !obscuredText">
@@ -58,10 +58,7 @@
                 @enderror
             </div>
             <!-- Connexion -->
-            <button type="submit"
-                class="w-full py-2 mt-4 bg-white text-green-900 font-semibold rounded-lg hover:bg-green-200 duration-200 transition cursor-pointer">
-                Connexion
-            </button>
+            <x-primary-button class="w-full mt-5">Connexion</x-primary-button>
 
             <!-- Mot de passe oublié -->
             <div class="text-center mt-4">

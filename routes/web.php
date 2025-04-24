@@ -1,18 +1,18 @@
 <?php
 
 use App\Http\Controllers\AgriculteurController;
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InterventionController;
+use App\Http\Controllers\MustChangePasswordController;
 use App\Http\Controllers\PlotController;
+use App\Http\Middleware\ForcePasswordChange;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('app_layout');
-})->middleware(['auth', 'verified']);
-
-
-Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified', ForcePasswordChange::class])
+    ->name('dashboard');
 
 // Route pour afficher la liste des parcelles
 Route::resource('plots', PlotController::class);
@@ -31,6 +31,9 @@ Route::get('/plots/{id}/etiquette', [PlotController::class, 'etiquette'])->name(
 // Route pour afficher la liste des interventions
 
 Route::resource('agriculteurs', AgriculteurController::class);
+
+Route::get('/password/change', [MustChangePasswordController::class, 'showForm'])->name('password.change.form');
+Route::post('/password/change', [MustChangePasswordController::class, 'update'])->name('password.change');
 
 
 Route::get('/parametre', function () {

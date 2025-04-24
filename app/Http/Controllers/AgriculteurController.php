@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Enums\RoleEnum;
@@ -38,31 +39,22 @@ class AgriculteurController extends Controller
     public function store(UserFormRequest $request)
     {
         $validated = $request->validated();
-        $password  = Str::random(10);
+        $password = Str::random(10);
 
         $user = User::create([
-            'name'     => $validated['firstName'] . ' ' . $validated['lastName'],
+            'name' => $validated['firstName'] . ' ' . $validated['lastName'],
             'username' => $validated['userName'],
-            'phone'    => $validated['phone'] ?? null,
-            'email'    => $validated['email'],
-            'address'  => $validated['address'] ?? null,
+            'phone' => $validated['phone'] ?? null,
+            'email' => $validated['email'],
+            'address' => $validated['address'] ?? null,
             'password' => bcrypt($password),
-            'role'     => RoleEnum::AGRICULTEUR,
+            'role' => RoleEnum::AGRICULTEUR,
+            'must_change_password' => true,
         ]);
-
-    Mail::to($user->email)->send(new AccountCreated($user, $password));
+        Mail::to($user->email)->send(new AccountCreated($user, $password));
 
         return redirect()->route('agriculteurs.index')
             ->with('success', "L'agriculteur a été créé et un email de confirmation a été envoyé.");
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $agriculteur = User::where('id', $id)->first();
-        return view('agriculteurs.partials.show', compact('agriculteur'));
     }
 
     /**
