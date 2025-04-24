@@ -1,0 +1,33 @@
+commande wsl
+
+""" premiere fois
+nano ~/.bashrc
+à copier tout en bas : alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+recharger le terminal : source ~/.bashrc
+"""
+# commandes
+sail artisan migrate
+
+sail artisan db:seed
+
+sail npm install
+
+
+
+# verifier que docker est allumé
+docker ps
+
+
+#demarrer les containers
+ sail up -d
+# -d pour docker en arriere plan
+sail npm run dev
+
+puis aller sur le localhost:8000
+
+
+#eteindre sail
+sail down pour eteindre
+
+
+PS C:\Users\LENOVO\Desktop\Programmation\Php\laravel\projects\SSPIA_TP> docker-compose up -d
