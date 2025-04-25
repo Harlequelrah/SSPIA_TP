@@ -37,7 +37,7 @@
             <div class="mb-4">
                 <x-input-label for="password" :value="__('E-mail')" class="text-white" />
                 <x-input-field type="email" id="email" name="email" value="{{ old('email') }}"
-                    class="w-full px-4 py-2 rounded-lg bg-white/20 border-white/30" />
+                    class=" bg-white/20 border-white/30" />
                 @error('email')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror

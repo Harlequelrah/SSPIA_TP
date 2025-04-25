@@ -3,7 +3,7 @@
     $initials = \App\Helpers\AppHelpers::initials($currentUserName);
 @endphp
 
-<div class="p-4 bg-[#4a7c59] w-full flex justify-between items-center">
+<div class="p-4 bg-green-800 w-full flex rounded-br-4xl shadow-xl justify-between items-center">
   
     <button @click="openSidebar = !openSidebar" class="md:hidden bg-[#4a7c59] cursor-pointer">
         <i class="fa-solid fa-bars text-xl text-slate-100"></i>

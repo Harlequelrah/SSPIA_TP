@@ -22,7 +22,7 @@
     <!-- Modal de confirmation pour la déconnexion -->
     <x-modal name="confirm-logout" maxWidth="md">
         <div class="p-6">
-            <h2 class="text-lg font-medium text-red-900">
+            <h2 class="text-lg font-medium text-red-500">
                 {{ $modalTitle }}
             </h2>
             <p class="mt-1 text-sm text-slate-600">

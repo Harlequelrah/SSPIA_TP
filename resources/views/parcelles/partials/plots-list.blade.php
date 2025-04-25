@@ -48,15 +48,14 @@
                                     <div x-show="isEditing" class="relative">
                                         <input type="hidden" name="plot_id" :value="plot.id">
                                         <select name="status"
-                                            class="w-full p-1 border-2 border-slate-500 rounded-md cursor-pointer"
-                                            x-model="currentStatus " @change="$event.target.form.submit()">
+                                            class="w-full border-2 border-slate-500 rounded-md cursor-pointer"
+                                            x-model="currentStatus" @change="$event.target.form.submit()">
                                             @foreach (App\Enums\StatusEnum::values() as $type)
-                                                <option value="{{ $type }}"
-                                                    :selected="$plot - > status === '{{ $type }}'">
-                                                    {{ $type }}</option>
+                                                <option value="{{ $type }}">{{ $type }}</option>
                                             @endforeach
                                         </select>
                                     </div>
+
                                 </form>
                             </td>
                             @if ($isAdmin)

@@ -24,7 +24,7 @@ class PlotController extends Controller
 
         if ($user->role === RoleEnum::ADMIN) {
             // administrateur: afficher toutes les parcelles
-            $plots = Plot::paginate(5);
+            $plots = Plot::with('user')->paginate(5);
         } else {
             // autres agriculteur: récupérer uniquement leurs parcelles
             $plots = $user->plots()->paginate(5);
@@ -80,18 +80,18 @@ class PlotController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Plot $plot)
-    {
-        if ($plot->user_id !== Auth::user()->id) {
-            abort(403, 'Unauthorized action');
-        }
-        return view(
-            'plot.edit',
-            [
-                'plot' => $plot,
-            ]
-        );
-    }
+    // public function edit(Plot $plot)
+    // {
+    //     if ($plot->user_id !== Auth::user()->id) {
+    //         abort(403, 'Unauthorized action');
+    //     }
+    //     return view(
+    //         'plot.edit',
+    //         [
+    //             'plot' => $plot,
+    //         ]
+    //     );
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -183,5 +183,5 @@ class PlotController extends Controller
 
         $pdf->save($folder . '/' . $filename);
         return $pdf->stream($filename);
-    }   
+    }
 }

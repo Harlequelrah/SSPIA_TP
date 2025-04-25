@@ -1,4 +1,5 @@
-<aside class="bg-[#4a7c59] md:flex-col h-screen w-80 p-4 hidden md:flex flex-col justify-between">
+<aside
+    class="bg-green-800 md:flex-col h-screen w-80 p-4 hidden md:flex flex-col shadow-xl rounded-br-4xl justify-between">
     <div>
         {{-- logo --}}
         <div class="flex items-center space-x-2">
@@ -15,6 +16,7 @@
                     <x-sidebar-item route="plots.index" active="plots.*" icon="fa-landmark" label="Parcelles" />
                     <x-sidebar-item route="interventions.index" active="interventions.*" icon="fa-bolt"
                         label="Interventions" />
+                    <x-sidebar-item route="parametres.index" active="parametres.*" icon="fa-gear" label="Paramètres" />
                     @auth
                         @if (auth()->user()->role === App\Enums\RoleEnum::ADMIN)
                             <x-sidebar-item route="agriculteurs.index" active="agriculteurs.*" icon="fa-user"
@@ -27,6 +29,7 @@
     </div>
 
     {{-- Logout en bas --}}
-   <x-logout></x-logout>
-
+    <x-logout
+        buttonClass="px-3 py-1 cursor-pointer text-white rounded hover:bg-red-500 transition duration-200"
+        confirmBtnClass="bg-blue-600 hover:bg-blue-700" />
 </aside>
