@@ -16,20 +16,20 @@
                     <x-sidebar-item route="plots.index" active="plots.*" icon="fa-landmark" label="Parcelles" />
                     <x-sidebar-item route="interventions.index" active="interventions.*" icon="fa-bolt"
                         label="Interventions" />
-                    <x-sidebar-item route="parametres.index" active="parametres.*" icon="fa-gear" label="Paramètres" />
                     @auth
                         @if (auth()->user()->role === App\Enums\RoleEnum::ADMIN)
                             <x-sidebar-item route="agriculteurs.index" active="agriculteurs.*" icon="fa-user"
                                 label="Utilisateurs" />
                         @endif
                     @endauth
+                    <x-sidebar-item route="parametres.index" active="parametres.*" icon="fa-gear" label="Paramètres" />
+
                 </div>
             </ul>
         </nav>
     </div>
 
     {{-- Logout en bas --}}
-    <x-logout
-        buttonClass="px-3 py-1 cursor-pointer text-white rounded hover:bg-red-500 transition duration-200"
+    <x-logout buttonClass="px-3 py-1 cursor-pointer text-white rounded hover:bg-red-500 transition duration-200"
         confirmBtnClass="bg-blue-600 hover:bg-blue-700" />
 </aside>

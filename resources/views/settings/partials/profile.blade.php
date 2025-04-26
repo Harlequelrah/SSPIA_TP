@@ -27,8 +27,7 @@
                 <i class="fa-solid fa-user mr-2 text-green-600 text-md"></i>
                 Informations personnelles
             </h3>
-            <form method="POST" action="#" class="space-y-5">
-                @csrf
+            <form method="POST" action="{{ route('profile.update') }}" class="space-y-5"> @csrf
                 @method('PUT')
                 <div>
                     <x-input-label for="name" :value="__('Nom complet')" />
@@ -37,11 +36,17 @@
                 <div>
                     <x-input-label for="email" :value="__('Adresse e-mail')" />
                     <x-input-field type="email" id="email" name="email" :value="old('email', Auth::user()->email)" />
+                    @error('email')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div>
                     <x-input-label for="phone" :value="__('Numero de téléphone')" />
                     <x-input-field type="phone" id="phone" name="phone" :value="old('phone', Auth::user()->phone)" :placeholder="Auth::user()->phone ?? 'Non spécifié'" />
+                    @error('phone')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div>
                     <x-input-label for="address" :value="__('Adresse')" />
@@ -51,6 +56,9 @@
                     <x-input-label for="username" :value="__('Nom d\'utilisateur')" />
                     <x-input-field type="text" id="username" name="username" :value="old('username', Auth::user()->username)"
                         :placeholder="Auth::user()->username ?? 'Non spécifié'" />
+                    @error('username')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="pt-4">
                     <x-primary-button>
@@ -68,22 +76,30 @@
                 Changer de mot de passe
             </h3>
 
-            <form method="POST" action="#" class="space-y-5">
-                @csrf
+            <form method="POST" action="{{ route('password.update') }}" class="space-y-5"> @csrf
                 @method('PUT')
                 <div>
                     <x-input-label for="current_password" :value="__('Mot de passe actuel')" />
                     <x-input-field type="password" id="current_password" name="current_password" />
+                    @error('current_password')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div>
                     <x-input-label for="new_password" :value="__('Nouveau mot de passe')" />
                     <x-input-field type="password" id="new_password" name="new_password" />
                     <p class="mt-1 text-xs text-gray-500">Minimum 8 caractères, avec au moins un chiffre et un
                         caractère spécial.</p>
+                    @error('new_password')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div>
                     <x-input-label for="new_password_confirmation" :value="__('Confirmer le nouveau mot de passe')" />
                     <x-input-field type="password" id="new_password_confirmation" name="new_password_confirmation" />
+                    @error('new_password_confirmation')
+                        <span class="text-red-500">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="pt-4">
@@ -108,9 +124,44 @@
                 <p class="text-red-600 text-sm">Cette action est irréversible. Toutes vos données seront
                     supprimées définitivement.</p>
             </div>
-            <x-danger-button x-data="{ showConfirm: false }" @click="showConfirm = !showConfirm" class="py-2">
+            <x-danger-button x-data=""
+                x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')" class="py-2">
                 <i class="fa-solid fa-trash-alt"></i>
             </x-danger-button>
         </div>
+
+
+        <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()">
+            <form method="post" action="{{ route('profile.destroy') }}" class="p-6"> @csrf
+                @method('delete')
+
+                <x-heading
+                    title="
+                    {{ __('Êtes-vous sûr de vouloir supprimer votre compte?') }}
+                " />
+                <x-heading-small
+                    title="
+                {{ __('Une fois le compte supprimé, toutes vos données et resources seront supprimer permanament. Entrez votre mot de passe pour confirmer que vous voulez vraiment supprimer votre compte.') }}" />
+
+                <div class="mt-6">
+                    <x-input-label for="password" value="{{ __('Mot de passe') }}" class="sr-only" />
+
+                    <x-input-field id="password" name="password" type="password"
+                        placeholder="{{ __('Mot de passe') }}" />
+
+                    <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <x-secondary-button x-on:click="$dispatch('close-modal', 'confirm-user-deletion')">
+                        {{ __('Annuler') }}
+                    </x-secondary-button>
+
+                    <x-danger-button class="ms-3">
+                        {{ __('Supprimer') }}
+                    </x-danger-button>
+                </div>
+            </form>
+        </x-modal>
     </div>
 </div>

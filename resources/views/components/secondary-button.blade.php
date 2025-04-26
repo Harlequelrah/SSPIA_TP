@@ -15,7 +15,7 @@
     <span x-show="!loading" class="flex items-center space-x-2">{{ $slot }}</span>
     @if ($showLoader)
         <span x-show="loading" class="flex items-center">
-            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+            <svg class="animate-spin h-4 w-4 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
                 </circle>

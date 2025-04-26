@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ str_replace('_TP', '', config('app.name')) }} | @yield('title', 'Tableau de bord') </title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(["resources/css/app.css", "resources/js/app.js", "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf"])
     <link rel="shortcut icon" href="{{ URL('assets/logo.jpg') }}" type="image/x-icon" class="rounded-full">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

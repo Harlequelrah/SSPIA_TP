@@ -1,6 +1,12 @@
 @extends('app_layout')
 @section('title', 'Paramètres')
 @section('content')
+    @if (session('success'))
+        <x-notification :message="session('success')" color="green" icon="fa-circle-check" />
+    @elseif (session('error'))
+        <x-notification :message="session('error')" color="red" icon="fa-circle-exclamation" />
+    @endif
+    
     <div class="max-w-5xl mx-auto mt-10 mb-12" x-data="{ activeTab: 'profile' }">
         <div class="bg-gradient-to-r from-green-100 to-blue-50 rounded-t-lg p-8">
             <h1 class="text-3xl font-bold text-gray-800">Paramètres du compte</h1>
