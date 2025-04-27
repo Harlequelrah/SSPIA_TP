@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\RoleEnum;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserFormRequest;
 use App\Mail\AccountCreated;
 use App\Models\User;
@@ -108,34 +109,23 @@ class AgriculteurController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserFormRequest $request, User $agriculteur)
+    public function update(Request $request, $id)
     {
+        // Valider la requête en passant l'ID de l'utilisateur
+        $request->validate((new UpdateUserRequest())->rules($id));
 
-        dd($agriculteur);
-        // Vérifiez si l'utilisateur est autorisé à modifier cet agriculteur
-        if (Auth::user()->role !== RoleEnum::ADMIN) {
-            abort(403, 'Unauthorized action');
-        }
+        // Récupérer l'agriculteur par ID
+        $agriculteur = User::findOrFail($id);
 
-        // Récupérez les données validées depuis le FormRequest
-        $validated = $request->validated();
+        // Mettre à jour les données de l'agriculteur
+        $agriculteur->update($request->all());
 
-        // Combinaison du prénom et du nom en un seul champ 'name'
-        if (isset($validated['firstName']) && isset($validated['lastName'])) {
-            $validated['name'] = $validated['firstName'] . ' ' . $validated['lastName'];
-
-            // Supprimez les champs firstName et lastName car ils n'existent pas dans la base de données
-            unset($validated['firstName']);
-            unset($validated['lastName']);
-        }
-
-        // Mettez à jour l'agriculteur
-        $agriculteur->update($validated);
-
-        // Redirigez avec un message de succès
+        // Retourner une réponse
         return redirect()->route('agriculteurs.show', $agriculteur->id)
             ->with('success', 'Agriculteur mis à jour avec succès.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

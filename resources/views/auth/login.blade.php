@@ -121,7 +121,7 @@
             <div class="mb-6">
                 <x-input-label for="email" :value="__('E-mail')" class="text-white font-medium mb-2 flex items-center" />
                 <div class="relative">
-                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70">
+                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-800">
                         <i class="fas fa-envelope"></i>
                     </span>
                     <x-input-field type="email" id="email" name="email" value="{{ old('email') }}"
@@ -137,14 +137,14 @@
             <div class="mb-6">
                 <x-input-label for="password" :value="__('Mot de passe')" class="text-white font-medium mb-2 flex items-center" />
                 <div class="relative" x-data="{ obscuredText: true }">
-                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/70">
+                    <span class="absolute left-3 top-1/2 transform -translate-y-1/2  text-slate-800">
                         <i class="fas fa-lock"></i>
                     </span>
                     <x-input-field id="password"
                         class="input-field pl-10 bg-white/20 border-white/30 focus:border-green-400 focus:ring focus:ring-green-200 focus:ring-opacity-50"
                         x-bind:type="obscuredText ? 'password' : 'text'" name="password" placeholder="••••••••" />
                     <button type="button" @click="obscuredText = !obscuredText"
-                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white transition">
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2  text-slate-800 cursor-pointer transition">
                         <i :class="obscuredText ? 'fas fa-eye' : 'fas fa-eye-slash'"></i>
                     </button>
                 </div>

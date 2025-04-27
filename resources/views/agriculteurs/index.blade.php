@@ -32,6 +32,12 @@
             }
         }
     }">
+        @if (session('success'))
+            <x-notification :message="session('success')" color="green" icon="fa-circle-check" />
+        @elseif (session('error'))
+            <x-notification :message="session('error')" color="red" icon="fa-circle-exclamation" />
+        @endif
+
         <div class="flex items-center justify-between mb-6">
             <x-heading title="Gestion des agriculteurs" />
             <x-primary-button :show-loader="false" class="space-x-2" @click="showForm = !showForm">

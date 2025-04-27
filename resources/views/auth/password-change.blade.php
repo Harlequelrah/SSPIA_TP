@@ -79,7 +79,7 @@
                         <x-input-label for="current_password" class="mb-2" :value="__('Mot de passe actuel')" />
                         <x-input-field type="password" id="current_password" name="current_password"
                             value="{{ old('current_password') }}"
-                            class="w-full px-4 py-2 rounded-lg bg-black/30 border-gray" />
+                            class="w-full px-4 py-2 rounded-lg border-gray" />
                         @error('current_password')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
@@ -89,7 +89,7 @@
                         <x-input-label for="new_password" class="mb-2" :value="__('Nouveau mot de passe')" />
                         <x-input-field type="password" id="new_password" name="new_password"
                             value="{{ old('new_password') }}"
-                            class="w-full px-4 py-2 rounded-lg bg-black/30 border-gray" />
+                            class="w-full px-4 py-2 rounded-lg border-gray" />
                         @error('new_password')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
@@ -99,7 +99,7 @@
                         <x-input-label for="new_password_confirmation" class="mb-2" :value="__('Confirmer le nouveau mot de passe')" />
                         <x-input-field type="password" id="new_password_confirmation" name="new_password_confirmation"
                             value="{{ old('new_password_confirmation') }}"
-                            class="w-full px-4 py-2 rounded-lg bg-black/30 border-gray" />
+                            class="w-full px-4 py-2 rounded-lg border-gray" />
                     </div>
 
                     <div class="mt-8">

@@ -15,14 +15,14 @@
         <x-notification :message="session('error')" color="red" icon="fa-circle-exclamation" />
     @endif
 
-    <div x-data="{ showEditForm: false }"
+    <div x-data="{ showEditForm: {{ $errors->any() ? 'true' : 'false' }} }"
         class="p-6 border rounded-lg bg-gradient-to-r from-green-50 to-green-100 shadow-md mt-4 max-w-5xl mx-auto">
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl font-bold text-[#4a7c59]">
                 Détails de l'agriculteur <span class="text-green-700">#{{ $agriculteur->id }}</span>
             </h2>
 
-            @if ($isAdmin)
+            @if (!$isAdmin)
                 <!-- Si l'agriculteur n'est pas admin, afficher le bouton Modifier -->
                 <button @click="showEditForm = !showEditForm"
                     :class="showEditForm ? 'bg-red-600 hover:bg-red-700' : 'bg-[#4a7c59] hover:bg-green-700'"
@@ -38,7 +38,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6 mb-4">
                 <x-info-card title="Nom complet" :value="$agriculteur->name" />
 
-                <x-info-card title="Nom d'agriculteur" :value="$agriculteur->username ?? 'Non renseigné'" />
+                <x-info-card title="Nom d'utilisateur" :value="$agriculteur->username ?? 'Non renseigné'" />
 
                 <x-info-card title="Email" :value="$agriculteur->email" />
 
@@ -75,21 +75,34 @@
                         <x-info-card title="Nom complet">
                             <x-input-field id="name" name="name" :value="$agriculteur->name"
                                 class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500" />
+                            @error('name')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+
                         </x-info-card>
 
-                        <x-info-card title="Nom d'agriculteur">
+                        <x-info-card title="Nom d'utilisateur">
                             <x-input-field id="username" name="username" :value="$agriculteur->username"
                                 class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500" />
+                            @error('username')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </x-info-card>
 
                         <x-info-card title="Email">
                             <x-input-field type="email" id="email" name="email" :value="$agriculteur->email"
                                 class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500" />
+                            @error('email')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </x-info-card>
 
                         <x-info-card title="Téléphone">
                             <x-input-field type="tel" id="phone" name="phone" :value="$agriculteur->phone"
                                 class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:border-green-500" />
+                            @error('phone')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </x-info-card>
 
                         <x-info-card title="Adresse">
