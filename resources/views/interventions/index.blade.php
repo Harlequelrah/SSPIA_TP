@@ -20,15 +20,25 @@
         interventions: {{ json_encode($interventions->items()) }},
         pagination: {{ json_encode($pagination) }},
         currentPage: {{ $pagination['current_page'] }},
-    
-        init() {
-            this.selectedIntervention = this.interventions[this.interventions.length - 1];
-        },
-    
+        searchQuery: '', // <-- ADD THIS
         selectIntervention(item) {
             this.selectedIntervention = item;
-        }
+        },
+        init() {
+            this.selectedIntervention = this.interventions.length > 0 ? this.interventions[0] : null;
+        },
+        get filteredInterventions() {
+            if (!this.searchQuery) {
+                return this.interventions;
+            }
+            return this.interventions.filter((item) => {
+                return (item.plot?.name?.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                    item.type?.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                    (item.date && item.date.includes(this.searchQuery)));
+            });
+        },
     }">
+
         @if (session('success'))
             <x-notification :message="session('success')" color="green" icon="fa-circle-check" />
         @elseif (session('error'))

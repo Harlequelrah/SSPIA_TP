@@ -58,6 +58,7 @@
             @include('parcelles.partials.create')
         </div>
 
+        @include('parcelles.partials.search-bar')
         @include('parcelles.partials.plots-list', ['isAdmin' => $isAdmin])
 
     </div>

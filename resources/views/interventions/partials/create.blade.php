@@ -59,8 +59,8 @@
                 <div>
                     <label for="product_used_name" class="block text-gray-700">Nom du produit utilisé <span
                             class="text-red-600">*</span> </label>
-                    <x-input-field name="product_used_name" id="product_used_name" type="text" :value="old('product_used_name')"
-                        :placeholder="'Ex: Fertilisant ELRAH'" />
+                    <input name="product_used_name" id="product_used_name" type="text" :value="old('product_used_name')"
+                        :placeholder="'Ex: Fertilisant ELRAH'" class="w-full p-2 border rounded-sm border-slate-400 bg-white focus:bg-white focus:border-green-500 focus:outline-none text-sm placeholder:text-sm" />
                     @error('product_used_name')
                         <span class="text-sm text-red-500">{{ $message }}</span>
                     @enderror

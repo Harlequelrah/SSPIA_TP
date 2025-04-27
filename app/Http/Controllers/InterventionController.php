@@ -8,6 +8,7 @@ use App\Enums\UnitEnum;
 use App\Http\Requests\InterventionFormRequest;
 use App\Models\Intervention;
 use App\Models\Plot;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -20,18 +21,70 @@ class InterventionController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
+        $isAdmin = $user->role == RoleEnum::ADMIN;
 
+        // Démarrer la requête de base
+        $query = Intervention::query();
+
+        // Vérification du rôle de l'utilisateur
         if ($user->role === RoleEnum::ADMIN) {
-            // administrateur: afficher toutes les parcelles
-            $plots = Plot::paginate(10);
-            $interventions = Intervention::with('plot')->paginate(10);
+            // Si l'utilisateur est admin, récupérer toutes les parcelles
+            $plots = Plot::orderBy('name')->get();
         } else {
-            // autres agriculteur: récupérer uniquement leurs parcelles
-            $interventions = Intervention::where('user_id', $user->id)->with('plot')->paginate(10);
-            $plots = $user->plots()->paginate(10);
+            // Si l'utilisateur n'est pas admin, récupérer uniquement les parcelles associées à l'utilisateur
+            $plots = $user->plots()->orderBy('name')->get();
+            // Filtrer les interventions par l'ID utilisateur
+            $query->where('user_id', $user->id);
         }
 
-        return view('interventions.index', compact('interventions', 'plots'));
+        // Recherche textuelle globale
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('notes', 'like', "%{$search}%");
+            });
+        }
+
+        // Filtrage par type d'intervention
+        if ($request->filled('intervention_type')) {
+            $query->where('intervention_type', $request->input('intervention_type'));
+        }
+
+        // Filtrage par parcelle
+        if ($request->filled('plot_id')) {
+            $query->where('plot_id', $request->input('plot_id'));
+        }
+
+        // Filtrage par produit utilisé
+        if ($request->filled('product_used')) {
+            $query->where('product_used', 'like', '%' . $request->input('product_used') . '%');
+        }
+
+        // Filtrage par date
+        if ($request->filled('date_from')) {
+            $query->whereDate('intervention_date', '>=', $request->input('date_from'));
+        }
+
+        // Ajout du filtrage par date_to si vous implémentez cette fonctionnalité
+        if ($request->filled('date_to')) {
+            $query->whereDate('intervention_date', '<=', $request->input('date_to'));
+        }
+
+        // Validation des dates
+        if ($request->filled('date_from')) {
+            $dateFrom = new DateTime($request->input('date_from'));
+
+        }
+
+        // Récupérer les résultats (avec pagination)
+        $interventions = $query->with('plot') // Assurez-vous de charger la relation 'plot'
+            ->orderBy('intervention_date', 'desc')
+            ->paginate(10);
+
+        // Retourner la vue avec les interventions et les parcelles
+        return view('interventions.index', compact('interventions', 'plots', 'isAdmin'));
     }
 
 

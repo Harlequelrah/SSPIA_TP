@@ -22,7 +22,7 @@
                 Détails de l'agriculteur <span class="text-green-700">#{{ $agriculteur->id }}</span>
             </h2>
 
-            @if (!$isAdmin)
+            @if ($isAdmin)
                 <!-- Si l'agriculteur n'est pas admin, afficher le bouton Modifier -->
                 <button @click="showEditForm = !showEditForm"
                     :class="showEditForm ? 'bg-red-600 hover:bg-red-700' : 'bg-[#4a7c59] hover:bg-green-700'"
@@ -62,7 +62,7 @@
         </div>
 
         {{-- Mode Édition --}}
-        @if (!$isAdmin)
+        @if ($isAdmin)
             <!-- Seuls les non-administrateurs peuvent modifier -->
             <div x-show="showEditForm">
                 <form method="POST" action="{{ route('agriculteurs.update', $agriculteur) }}">

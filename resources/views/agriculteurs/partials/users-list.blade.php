@@ -38,6 +38,15 @@
                         </td>
                     </tr>
                 </template>
+                <template x-if='users.length === 0'>
+                    <tr>
+                        <td colspan="7" class="px-3 py-2 text-center">
+                            <span class="italic  text-slate-700">
+                                Aucun utilisateur trouvé
+                            </span>
+                        </td>
+                    </tr>
+                </template>
             </tbody>
 
             <tfoot>

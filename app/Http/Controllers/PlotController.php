@@ -10,30 +10,64 @@ use App\Models\Plot;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 
 class PlotController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
+        $isAdmin = $user->role === RoleEnum::ADMIN;
 
-        if ($user->role === RoleEnum::ADMIN) {
-            // administrateur: afficher toutes les parcelles
-            $plots = Plot::with('user')->paginate(5);
+        // Base de la requête
+        $query = Plot::query();
+
+        if ($isAdmin) {
+            $query->with('user'); // l'admin peut voir à qui appartient chaque parcelle
         } else {
-            // autres agriculteur: récupérer uniquement leurs parcelles
-            $plots = $user->plots()->paginate(5);
+            // utilisateur normal : filtrer sur ses propres parcelles
+            $query->where('user_id', $user->id);
         }
 
-        return view('parcelles.index', [
-            'plots' => $plots,
-        ]);
+        // --- Filtres dynamiques ---
+        // Recherche globale sur le nom ou le type de culture
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('crop_type', 'like', "%{$search}%");
+            });
+        }
+
+        // Filtrage par status
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        // Filtrage par date de plantation
+        if ($request->filled('date_from')) {
+            $query->whereDate('plantation_date', '>=', $request->input('date_from'));
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('plantation_date', '<=', $request->input('date_to'));
+        }
+
+        // Validation des dates
+        if ($request->filled('date_from')) {
+            $dateFrom = new \DateTime($request->input('date_from'));
+        }
+
+        // Récupération finale avec pagination
+        $plots = $query->orderBy('name')->paginate(5);
+
+        return view('parcelles.index', compact('plots', 'isAdmin'));
     }
+
 
     /**
      * Show the form for creating a new resource.

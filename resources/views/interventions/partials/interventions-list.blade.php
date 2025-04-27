@@ -11,11 +11,11 @@
                 </tr>
             </thead>
             <tbody class="even:bg-slate-50 odd:bg-slate-500">
-                <template x-if='interventions.length !== 0'>
-                    <template x-for="intervention in interventions" :key="intervention.id">
+                <template x-if='filteredInterventions.length !== 0'>
+                    <template x-for="intervention in filteredInterventions" :key="intervention.id">
                         <tr class="transition-colors"
                             :class="{ 'bg-green-100': selectedIntervention && selectedIntervention.id === intervention.id }">
-                            <td class="py-2 px-4" x-text="intervention.id"></td>
+                            <td class="py-2 px-4" x-text="intervention.id.substring(0, 20)"></td>
                             <td class="py-2 px-4" x-text="intervention.plot.name"></td>
                             <td class="py-2 px-4" x-text="intervention.intervention_type"></td>
                             <td class="py-2 px-4" x-text="intervention.intervention_date"></td>
@@ -34,7 +34,7 @@
                         </tr>
                     </template>
                 </template>
-                <template x-if='interventions.length === 0'>
+                <template x-if='filteredInterventions.length === 0'>
                     <tr>
                         <td colspan="5" class="px-3 py-2 text-center">
                             <span class="italic  text-slate-700">

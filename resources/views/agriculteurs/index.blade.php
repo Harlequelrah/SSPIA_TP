@@ -44,6 +44,8 @@
             @include('agriculteurs.partials.create')
         </div>
 
+        @include('agriculteurs.partials.search-bar')
+
         @include('agriculteurs.partials.users-list')
 
     </div>

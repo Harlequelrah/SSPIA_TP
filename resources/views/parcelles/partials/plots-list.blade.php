@@ -25,39 +25,43 @@
                             <td class="px-3 py-2 text-slate-800" x-text="plot.crop_type"></td>
                             <td class="px-3 py-2 text-slate-800" x-text="plot.plantation_date"></td>
                             <!-- Dans la colonne de statut, remplacez le contenu actuel par un formulaire -->
-                            <td class="px-3 py-2 text-slate-900 font-semibold rounded-lg">
-                                <form :action="'{{ route('plots.update-status') }}'" method="POST"
-                                    x-data="{ isEditing: false, currentStatus: plot.status }" @click.away="isEditing = false">
-                                    @csrf
-                                    @method('PATCH')
-                                    <!-- Affichage du statut normal (visible quand isEditing est false) -->
-                                    <div x-show="!isEditing" @click="isEditing = true"
-                                        :class="{
-                                            'rounded-full text-xs text-gray-50 text-center p-1 bg-green-500': plot
-                                                .status === '{{ \App\Enums\StatusEnum::EN_C }}',
-                                            'rounded-full text-xs text-gray-50 text-center p-1 bg-yellow-500': plot
-                                                .status === '{{ \App\Enums\StatusEnum::EN_J }}',
-                                            'rounded-full text-xs text-gray-50 text-center p-1 bg-gray-500': plot
-                                                .status === '{{ \App\Enums\StatusEnum::RCLT }}'
-                                        }"
-                                        class="cursor-pointer hover:opacity-80 transition-all duration-200"
-                                        x-text="plot.status">
-                                    </div>
+                            @if ($isAdmin)
+                                <td class="px-3 py-2 text-slate-800" x-text="plot.status"></td>
+                            @else
+                                <td class="px-3 py-2 text-slate-900 font-semibold rounded-lg">
+                                    <form :action="'{{ route('plots.update-status') }}'" method="POST"
+                                        x-data="{ isEditing: false, currentStatus: plot.status }" @click.away="isEditing = false">
+                                        @csrf
+                                        @method('PATCH')
+                                        <!-- Affichage du statut normal (visible quand isEditing est false) -->
+                                        <div x-show="!isEditing" @click="isEditing = true"
+                                            :class="{
+                                                'rounded-full text-xs text-gray-50 text-center p-1 bg-green-500': plot
+                                                    .status === '{{ \App\Enums\StatusEnum::EN_C }}',
+                                                'rounded-full text-xs text-gray-50 text-center p-1 bg-yellow-500': plot
+                                                    .status === '{{ \App\Enums\StatusEnum::EN_J }}',
+                                                'rounded-full text-xs text-gray-50 text-center p-1 bg-gray-500': plot
+                                                    .status === '{{ \App\Enums\StatusEnum::RCLT }}'
+                                            }"
+                                            class="cursor-pointer hover:opacity-80 transition-all duration-200"
+                                            x-text="plot.status">
+                                        </div>
 
-                                    <!-- Menu déroulant pour éditer le statut (visible quand isEditing est true) -->
-                                    <div x-show="isEditing" class="relative">
-                                        <input type="hidden" name="plot_id" :value="plot.id">
-                                        <select name="status"
-                                            class="w-full border-2 border-slate-500 rounded-md cursor-pointer"
-                                            x-model="currentStatus" @change="$event.target.form.submit()">
-                                            @foreach (App\Enums\StatusEnum::values() as $type)
-                                                <option value="{{ $type }}">{{ $type }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                        <!-- Menu déroulant pour éditer le statut (visible quand isEditing est true) -->
+                                        <div x-show="isEditing" class="relative">
+                                            <input type="hidden" name="plot_id" :value="plot.id">
+                                            <select name="status"
+                                                class="w-full border-2 border-slate-500 rounded-md cursor-pointer"
+                                                x-model="currentStatus" @change="$event.target.form.submit()">
+                                                @foreach (App\Enums\StatusEnum::values() as $type)
+                                                    <option value="{{ $type }}">{{ $type }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
-                                </form>
-                            </td>
+                                    </form>
+                                </td>
+                            @endif
                             @if ($isAdmin)
                                 <td class="px-3 py-2 text-slate-800" x-text="plot.user.name"></td>
                             @endif
