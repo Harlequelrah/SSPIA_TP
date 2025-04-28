@@ -1,7 +1,6 @@
 @props([
     'buttonText' => __('Se déconnecter'),
-    'buttonClass' =>
-        'px-4 py-2 bg-red-300 text-white w-full rounded-lg flex items-center duration-200 transition-color justify-center mt-4 hover:bg-red-500 cursor-pointer',
+    'buttonClass' =>'transition-all duration-300',
     'modalTitle' => 'Déconnectez-vous',
     'modalMessage' => 'Voulez-vous vraiment vous déconnecter ?',
     'cancelText' => 'Annuler',
@@ -14,7 +13,7 @@
     <!-- Bouton pour ouvrir le modal -->
     <a x-on:click="$dispatch('open-modal', 'confirm-logout')" {{ $attributes->merge(['class' => $buttonClass]) }}>
         @if ($showIcon)
-            <i class="fa-solid fa-sign-out mr-2"></i>
+            <i class="fa-solid fa-sign-out w-5 mr-3 text-gray-400"></i>
         @endif
         {{ $buttonText }}
     </a>
@@ -29,9 +28,9 @@
                 {{ $modalMessage }}
             </p>
             <div class="mt-6 flex justify-end">
-                <x-secondary-button x-on:click="$dispatch('close-modal', 'confirm-logout')">
+                <button class="inline-flex items-center px-4 py-3 bg-white border border-green-300 rounded-md font-semibold text-xs text-green-700 tracking-widest shadow-sm hover:bg-green-50 focus:outline-none disabled:opacity-25 cursor-pointer transition ease-in-out duration-150" x-on:click="$dispatch('close-modal', 'confirm-logout')">
                     {{ $cancelText }}
-                </x-secondary-button>
+                </button>
                 <form method="POST" action="{{ route('logout') }}" class="ml-3">
                     @csrf
                     <x-primary-button class="{{ $confirmBtnClass }}"

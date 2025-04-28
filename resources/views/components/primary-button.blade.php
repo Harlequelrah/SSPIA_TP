@@ -4,13 +4,13 @@
 
 <button x-data="{ loading: false }" x-on:click="if ({{ $showLoader ? 'true' : 'false' }}) loading = true"
     @click.prevent="
-        if ({{ $showLoader ? 'true' : 'false' }}) loading = true; 
+        if ({{ $showLoader ? 'true' : 'false' }}) loading = true;
         $event.target.closest('form')?.submit()
     "
     {{ $attributes->merge([
         'type' => 'submit',
         'class' =>
-            'flex justify-center items-center px-5 py-3 bg-gradient-to-r from-green-700 to-green-800 rounded-lg font-medium text-sm text-white tracking-widest  hover:from-green-600 hover:to-green-700 shadow-sm focus:bg-green-700 active:bg-green-900 focus:outline-none cursor-pointer transition ease-in-out duration-150 disabled:cursor-not-allowed',
+            'flex justify-center items-center px-5 py-3 bg-gradient-to-r from-teal-700 to-teal-800 rounded-lg font-medium text-sm text-white tracking-widest  hover:from-teal-600 hover:to-teal-700 shadow-sm focus:bg-teal-700 active:bg-teal-900 focus:outline-none cursor-pointer transition ease-in-out duration-150 disabled:cursor-not-allowed',
     ]) }}
 
     :disabled="loading" :class="loading ? 'opacity-75' : ''">

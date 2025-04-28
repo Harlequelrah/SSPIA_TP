@@ -19,7 +19,7 @@
     }
 }">
     <form x-ref="form" action="{{ route('agriculteurs.index') }}" method="GET">
-        <div class="bg-green-50">
+        <div class="bg-white">
             <div class="flex flex-col space-y-3">
                 <!-- Barre de recherche principale -->
                 <div class="flex items-center gap-2">

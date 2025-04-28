@@ -22,6 +22,11 @@ class AgriculteurController extends Controller
         // Démarrer la requête de base
         $query = User::query();
 
+        // Exclure l'utilisateur actuel
+        if (auth()->check()) {
+            $query->where('id', '!=', auth()->id());
+        }
+
         // Recherche textuelle globale
         if ($request->filled('search')) {
             $search = $request->input('search');
@@ -41,15 +46,12 @@ class AgriculteurController extends Controller
         if ($request->filled('userName')) {
             $query->where('username', 'like', '%' . $request->input('userName') . '%');
         }
-
         if ($request->filled('phone')) {
             $query->where('phone', 'like', '%' . $request->input('phone') . '%');
         }
-
         if ($request->filled('email')) {
             $query->where('email', 'like', '%' . $request->input('email') . '%');
         }
-
         if ($request->filled('address')) {
             $query->where('address', 'like', '%' . $request->input('address') . '%');
         }
@@ -59,7 +61,6 @@ class AgriculteurController extends Controller
 
         return view('agriculteurs.index', compact('agriculteurs'));
     }
-
 
     /**
      * Show the form for creating a new resource.

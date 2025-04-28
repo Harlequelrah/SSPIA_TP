@@ -1,7 +1,7 @@
 <div>
     <div class="overflow-x-auto bg-white rounded-lg shadow mt-4">
         <table class="w-full">
-            <thead class="bg-[#4a7c59] divide-x-2 text-sm text-white text-left">
+            <thead class="bg-teal-700 divide-x-2 text-sm text-white text-left">
                 <th class="uppercase px-3 py-2">ID</th>
                 <th class="uppercase px-3 py-2">Nom complet</th>
                 <th class="uppercase px-3 py-2">Téléphone</th>
@@ -27,12 +27,12 @@
                         <td class="px-3 py-2">
                             <div class="flex items-center justify-center space-x-3">
                                 <a :href="`/agriculteurs/${user.id}`"
-                                    class=" px-3 py-2 bg-blue-600 rounded-md  cursor-pointer transition ease-in-out duration-150 hover:bg-blue-800">
-                                    <i class="fa-solid fa-eye text-white m-0 p-0"></i>
+                                    class=" px-3 py-2  rounded-md  cursor-pointer transition ease-in-out duration-150 ">
+                                    <i class="fa-solid fa-eye text-lg text-blue-600 m-0 p-0"></i>
                                 </a>
                                 <a @click="selectedUser = user; $dispatch('open-modal', 'confirm-delete')"
-                                    class="text-white px-4 py-2 cursor-pointer rounded-md bg-red-600 hover:bg-red-800">
-                                    <i class="fa-solid fa-trash-alt"></i>
+                                    class=" px-4 py-2 cursor-pointer rounded-md ">
+                                    <i class="fa-solid fa-trash-alt text-red-600 text-lg"></i>
                                 </a>
                             </div>
                         </td>
@@ -63,7 +63,7 @@
 
                             <div class="flex items-center space-x-1">
                                 <button @click="goToPage(currentPage - 1)" :disabled="currentPage <= 1"
-                                    :class="{ 'opacity-50 cursor-not-allowed': currentPage <= 1 }"
+                                    :class="{ ' cursor-not-allowed': currentPage <= 1 }"
                                     class="px-3 py-1 rounded border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
@@ -71,7 +71,7 @@
                                 <template x-for="page in Math.min(5, pagination.last_page)" :key="page">
                                     <button @click="goToPage(page)"
                                         :class="{
-                                            'bg-[#4a7c59] text-white px-2 py-1': currentPage === page,
+                                            'bg-teal-700 text-white px-4  py-1': currentPage === page,
                                             'bg-white text-gray-700 hover:bg-green-50 px-3 py-1': currentPage !==
                                                 page
                                         }"
@@ -82,7 +82,7 @@
 
                                 <button @click="goToPage(currentPage + 1)"
                                     :disabled="currentPage >= pagination.last_page"
-                                    :class="{ 'opacity-50 cursor-not-allowed': currentPage >= pagination.last_page }"
+                                    :class="{ 'cursor-not-allowed': currentPage >= pagination.last_page }"
                                     class="px-3 py-1 rounded border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>

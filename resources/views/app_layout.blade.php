@@ -13,24 +13,46 @@
     @livewireStyles()
 </head>
 
-<body class="bg-gray-100 overflow-hidden h-screen">
-    <div class="flex h-full">
-        <!-- Sidebar -->
-        <div class="sticky top-0 h-screen">
-            @include('includes.sidebar')
-        </div>
-        <!-- Contenu principal -->
-        <div class="flex-1 flex flex-col h-screen">
-            <div class="sticky top-0 -z-10">
-                @include('includes.navbar')
+<body class="bg-slate-50 font-sans h-screen flex flex-col">
+<div class="flex flex-grow overflow-hidden">
+    <!-- Sidebar - fixe -->
+    <aside class="h-screen sticky top-0 flex-shrink-0">
+        @include('includes.sidebar')
+    </aside>
+
+    <!-- Contenu principal -->
+    <div class="flex-1 flex flex-col">
+        <!-- Navbar - fixe -->
+        <header class="sticky top-0 z-0 flex-shrink-0">
+            @include('includes.navbar')
+        </header>
+
+        <!-- Zone de contenu scrollable -->
+        <main class="flex-1 overflow-y-auto bg-slate-50 p-6">
+            <!-- Fil d'Ariane (breadcrumb) -->
+            <div class="flex items-center text-sm text-slate-500 mb-6">
+                <a href="{{ route('dashboard') }}" class="hover:text-teal-600 transition-colors">
+                    <i class="fa-solid fa-home"></i>
+                </a>
+                <i class="fa-solid fa-chevron-right mx-2 text-xs text-slate-400"></i>
+                <span class="text-slate-700 font-medium">@yield('title')</span>
             </div>
-            <main class="flex-1 overflow-y-auto bg-green-50 p-4">
+
+            <!-- Contenu de la page -->
+            <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-6 mb-6">
                 @yield('content')
-            </main>
-        </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center text-sm text-slate-500 mt-4 pb-4">
+                &copy; {{ date('Y') }} {{ str_replace('_TP', '', config('app.name')) }} - Tous droits réservés
+            </div>
+        </main>
     </div>
-    @stack('scripts')
-    @livewireScripts()
+</div>
+
+@stack('scripts')
+@livewireScripts()
 </body>
 
 </html>

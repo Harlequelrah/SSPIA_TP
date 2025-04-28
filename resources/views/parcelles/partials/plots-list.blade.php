@@ -2,7 +2,7 @@
     <!-- Liste des parcelles -->
     <div class="overflow-x-auto bg-white rounded-lg shadow mt-4">
         <table class="w-full">
-            <thead class="bg-[#4a7c59] divide-x-2 text-sm text-left text-white">
+            <thead class="bg-teal-700 divide-x-2 text-sm text-left text-white">
                 <th class="uppercase px-3 py-2">ID</th>
                 <th class="uppercase px-3 py-2">Nom</th>
                 <th class="uppercase px-3 py-2">Superficie (ha)</th>
@@ -68,15 +68,15 @@
 
                             <td class="px-3 py-2 flex items-center justify-center space-x-3">
                                 <a :href="`/plots/${plot.id}`"
-                                    class="px-3 py-2 bg-blue-600 rounded-md hover:bg-blue-800">
-                                    <i class="fa-solid fa-eye text-white"></i>
+                                    class="px-3 py-2 rounded-md">
+                                    <i class="fa-solid fa-eye text-blue-600 text-lg"></i>
                                 </a>
                                 <a x-on:click="$dispatch('open-modal', 'confirm-delete')"
-                                    class="px-3 py-2 bg-red-600 cursor-pointer rounded-md hover:bg-red-800">
-                                    <i class="fa-solid fa-trash-alt text-white"></i>
+                                    class="px-3 py-2 cursor-pointer rounded-md">
+                                    <i class="fa-solid fa-trash-alt text-xl text-red-600 "></i>
                                 </a>
                                 <a :href="`/plots/${plot.id}/interventions`"
-                                    class="bg-gray-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-800 flex items-center space-x-1">
+                                    class="bg-gray-600 text-white px-3 py-2 rounded text-sm hover:bg-gray-800 transition-color duration-300 flex items-center space-x-1">
                                     <i class="fa-solid fa-list"></i>
                                     <span>Interv.</span>
                                 </a>
@@ -111,7 +111,7 @@
                             <div class="flex items-center space-x-1">
                                 <button @click="window.location.href = '?page=' + (currentPage - 1)"
                                     :disabled="currentPage <= 1"
-                                    :class="{ 'opacity-50 cursor-not-allowed': currentPage <= 1 }"
+                                    :class="{ ' cursor-not-allowed': currentPage <= 1 }"
                                     class="px-3 py-1 rounded border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
@@ -119,7 +119,7 @@
                                 <template x-for="page in pagination.last_page" :key="page">
                                     <button @click="window.location.href = '?page=' + page"
                                         :class="{
-                                            'bg-[#4a7c59] text-white px-2 py-1': currentPage === page,
+                                            'bg-teal-700 text-white px-4 py-1': currentPage === page,
                                             'bg-white text-gray-700 hover:bg-green-50 px-3 py-1': currentPage !== page
                                         }"
                                         class="rounded-lg border cursor-pointer border-gray-400 text-sm font-medium">
@@ -129,7 +129,7 @@
 
                                 <button @click="window.location.href = '?page=' + (currentPage + 1)"
                                     :disabled="currentPage >= pagination.last_page"
-                                    :class="{ 'opacity-50 cursor-not-allowed': currentPage >= pagination.last_page }"
+                                    :class="{ ' cursor-not-allowed': currentPage >= pagination.last_page }"
                                     class="px-3 py-1 rounded border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>

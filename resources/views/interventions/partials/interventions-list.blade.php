@@ -2,7 +2,7 @@
     <div class="overflow-x-auto bg-white rounded-lg shadow mt-4">
         <table class="min-w-full bg-white">
             <thead>
-                <tr class="bg-[#4a7c59] text-white">
+                <tr class="bg-teal-700 text-white">
                     <th class="py-2 px-4 text-left">ID</th>
                     <th class="py-2 px-4 text-left">Parcelle</th>
                     <th class="py-2 px-4 text-left">Type</th>
@@ -21,14 +21,14 @@
                             <td class="py-2 px-4" x-text="intervention.intervention_date"></td>
                             <td class="py-2 px-4 space-x-4 flex items-center">
                                 <a :href="`/interventions/${intervention.id}`"
-                                    class=" px-3 py-2 bg-blue-600 rounded-md  cursor-pointer transition ease-in-out duration-150 hover:bg-blue-800">
-                                    <i class="fa-solid fa-eye text-white m-0 p-0"></i>
+                                    class=" px-3 py-2  rounded-md  cursor-pointer ">
+                                    <i class="fa-solid fa-eye text-blue-600 m-0 p-0 text-lg"></i>
                                 </a>
                                 <a x-on:click="$dispatch('open-modal', 'confirm-delete')"
-                                    class="text-white px-4 py-2 cursor-pointer  rounded-md bg-red-600 hover:bg-red-800">
-                                    <i class="fa-solid fa-trash-alt"></i>
+                                    class=" px-4 py-2">
+                                    <i class="fa-solid fa-trash-alt text-lg text-red-600"></i>
                                 </a>
-                                
+
 
                             </td>
                         </tr>
@@ -58,7 +58,7 @@
                                 <!-- Previous Page Button -->
                                 <button @click="window.location.href = '?page=' + (currentPage - 1)"
                                     :disabled="currentPage <= 1"
-                                    :class="{ 'opacity-50 cursor-not-allowed': currentPage <= 1 }"
+                                    :class="{ ' cursor-not-allowed': currentPage <= 1 }"
                                     class="px-3 py-1 rounded border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
@@ -67,7 +67,7 @@
                                 <template x-for="page in pagination.last_page" :key="page">
                                     <button @click="window.location.href = '?page=' + page"
                                         :class="{
-                                            'bg-[#4a7c59] text-white px-2 py-1': currentPage ===
+                                            'bg-teal-700 text-white px-4 py-1': currentPage ===
                                                 page,
                                             'bg-white text-gray-700 hover:bg-green-50 px-3 py-1': currentPage !==
                                                 page
@@ -80,7 +80,7 @@
                                 <!-- Next Page Button -->
                                 <button @click="window.location.href = '?page=' + (currentPage + 1)"
                                     :disabled="currentPage >= pagination.last_page"
-                                    :class="{ 'opacity-50 cursor-not-allowed': currentPage >= pagination.last_page }"
+                                    :class="{ 'cursor-not-allowed': currentPage >= pagination.last_page }"
                                     class="px-3 py-1 rounded border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
                                     <i class="fa-solid fa-chevron-right"></i>
                                 </button>

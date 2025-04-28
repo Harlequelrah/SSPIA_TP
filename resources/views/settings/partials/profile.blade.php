@@ -2,7 +2,7 @@
     <div class="flex items-start mb-8">
         <div class="relative group">
             <div
-                class="w-20 h-20 rounded-full bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center text-white text-2xl font-bold mr-6 overflow-hidden">
+                class="w-20 h-20 rounded-full bg-gray-400 opacity-50 flex items-center justify-center text-white text-2xl font-bold mr-6 overflow-hidden">
                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
             </div>
             {{-- <div
