@@ -46,7 +46,7 @@ Route::delete('parametre/sessions', [SettingsController::class, 'destroyAllSessi
 // Route pour la mise à jour du profil
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-// Route pour la mise à jour du mot de passe
+// // Route pour la mise à jour du mot de passe
 // Route::put('/password', [PasswordController::class, 'update'])->name('password.update');
 
 // Route pour la suppression du compte
