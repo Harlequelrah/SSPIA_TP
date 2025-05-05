@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
@@ -24,7 +23,16 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('parametres.index')->with('success', 'Profile mise à jour avec succès');
+        // return Redirect::route('parametres.index')->with('success', 'Profile mise à jour avec succès');
+        return Redirect::route('profile.edit')->with('success', 'Profile mis à jour avec succès');
+
+    }
+    public function edit()
+    {
+        return view('profile.edit', [
+            'user' => Auth::user(),
+        ]);
+
     }
 
     /**
@@ -34,7 +42,10 @@ class ProfileController extends Controller
     {
         $request->validate([
             'password' => ['required', 'current_password'],
-        ]);
+        ], [
+            'password.required'         => 'The password field is required.',
+            'password.current_password' => 'The password is incorrect.',
+        ]); 
 
         $user = $request->user();
 
@@ -45,6 +56,7 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return redirect('/')->with('status', 'Account deleted successfully.');
+
     }
 }

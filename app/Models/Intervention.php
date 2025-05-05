@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use App\Enums\UnitEnum;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @mixin IdeHelperIntervention
@@ -14,6 +15,7 @@ use App\Enums\UnitEnum;
 class Intervention extends Model
 {
     use SoftDeletes;
+    use HasFactory;
 
     protected static function booted()
     {

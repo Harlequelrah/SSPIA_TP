@@ -1,41 +1,43 @@
 <?php
+
 namespace Tests\Unit;
 
+use App\Models\Intervention;
+use App\Models\Plot;
+use App\Models\User;
 use App\Enums\InterventionTypeEnum;
 use App\Enums\UnitEnum;
-use App\Models\Intervention;
-use PHPUnit\Framework\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class InterventionTest extends TestCase
 {
-    public function test_fillable_attributes()
+    use RefreshDatabase;
+
+    public function test_intervention_belongs_to_user()
     {
-        $intervention = new Intervention();
+        $user = User::factory()->create();
+        $intervention = Intervention::factory()->create(['user_id' => $user->id]);
 
-        $fillable = [
-            'description',
-            'product_used_name',
-            'product_used_quantity',
-            'intervention_type',
-            'intervention_date',
-            'user_id',
-            'plot_id',
-            'unit',
-        ];
-
-        $this->assertEquals($fillable, $intervention->getFillable());
+        $this->assertTrue($intervention->user()->is($user));
     }
 
-    public function test_casts()
+    public function test_intervention_belongs_to_plot()
     {
-        $intervention = new Intervention();
+        $plot = Plot::factory()->create();
+        $intervention = Intervention::factory()->create(['plot_id' => $plot->id]);
 
-        $casts = [
-            'unit'              => UnitEnum::class,
-            'intervention_type' => InterventionTypeEnum::class,
-            'deleted_at'=> 'datetime'
-        ];
+        $this->assertTrue($intervention->plot()->is($plot));
+    }
 
-        $this->assertEquals($casts, $intervention->getCasts());
+    public function test_intervention_casts_attributes()
+    {
+        $intervention = Intervention::factory()->create([
+            'intervention_type' => InterventionTypeEnum::FT,
+            'unit' => UnitEnum::KG,
+        ]);
+
+        $this->assertEquals(InterventionTypeEnum::FT, $intervention->intervention_type);
+        $this->assertEquals(UnitEnum::KG, $intervention->unit);
     }
 }
