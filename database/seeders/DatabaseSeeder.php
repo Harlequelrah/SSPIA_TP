@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UsersTableSeeder::class,
+              
+            PlotsTableSeeder::class,
+            
+            InterventionsTableSeeder::class,
         ]);
     }
 }

@@ -57,12 +57,12 @@
                     <span class="text-sm text-red-500">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="mb-4">
-                <label for="map" class="block text-sm font-medium text-gray-700">Position sur la carte</label>
-                <div id="map" class="h-96 rounded border"></div>
-                <input type="hidden" name="latitude" id="latitude">
-                <input type="hidden" name="longitude" id="longitude">
-            </div>
+{{--            <div class="mb-4">--}}
+{{--                <label for="map" class="block text-sm font-medium text-gray-700">Position sur la carte</label>--}}
+{{--                <div id="map" class="h-96 rounded border"></div>--}}
+{{--                <input type="hidden" name="latitude" id="latitude">--}}
+{{--                <input type="hidden" name="longitude" id="longitude">--}}
+{{--            </div>--}}
 
             <div class="w-full flex justify-end space-x-2 mt-4">
                 <x-secondary-button>Annuler</x-secondary-button>

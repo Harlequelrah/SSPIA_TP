@@ -37,10 +37,10 @@
     x-on:close-modal.window="$event.detail == '{{ $name }}' ? show = false : null" x-on:close.stop="show = false"
     x-on:keydown.escape.window="show = false" x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
     x-on:keydown.shift.tab.prevent="prevFocusable().focus()" x-show="show"
-    class="fixed inset-0 flex items-center justify-center overflow-y-auto px-4 py-6 sm:px-0 z-50"
-    style="display: {{ $show ? 'block' : 'none' }};">
+    class="fixed inset-0 flex items-center justify-center overflow-y-auto px-4 py-6 sm:px-0"
+    style="display: {{ $show ? 'block' : 'none' }}; z-index: 1000;">
     <!-- Overlay -->
-    <div x-show="show" class="fixed inset-0 bg-[rgba(31,41,55,0.75)] z-40" x-transition:enter="ease-out duration-300"
+    <div x-show="show" class="fixed inset-0 bg-[rgba(31,41,55,0.75)] z-50" x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
         x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"></div>

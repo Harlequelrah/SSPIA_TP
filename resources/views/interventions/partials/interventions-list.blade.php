@@ -2,7 +2,7 @@
     <div class="overflow-x-auto bg-white rounded-lg shadow mt-4">
         <table class="min-w-full bg-white">
             <thead>
-                <tr class="bg-[#4a7c59] text-white">
+                <tr class="bg-teal-700 text-white">
                     <th class="py-2 px-4 text-left">ID</th>
                     <th class="py-2 px-4 text-left">Parcelle</th>
                     <th class="py-2 px-4 text-left">Type</th>
@@ -21,14 +21,13 @@
                             <td class="py-2 px-4" x-text="intervention.intervention_date"></td>
                             <td class="py-2 px-4 space-x-4 flex items-center">
                                 <a :href="`/interventions/${intervention.id}`"
-                                    class=" px-3 py-2 bg-blue-600 rounded-md  cursor-pointer transition ease-in-out duration-150 hover:bg-blue-800">
-                                    <i class="fa-solid fa-eye text-white m-0 p-0"></i>
+                                    class=" px-3 py-2  rounded-md  cursor-pointer ">
+                                    <i class="fa-solid fa-eye text-blue-600 m-0 p-0 text-lg"></i>
                                 </a>
-                                <a x-on:click="$dispatch('open-modal', 'confirm-delete')"
-                                    class="text-white px-4 py-2 cursor-pointer  rounded-md bg-red-600 hover:bg-red-800">
-                                    <i class="fa-solid fa-trash-alt"></i>
+                                <a x-on:click="$dispatch('open-modal', 'confirm-delete')" class=" px-4 py-2">
+                                    <i class="fa-solid fa-trash-alt text-lg text-red-600"></i>
                                 </a>
-                                
+
 
                             </td>
                         </tr>
@@ -44,7 +43,7 @@
                     </tr>
                 </template>
             </tbody>
-            <!-- Pagination -->
+            <!-- Pagination améliorée avec ellipsis -->
             <tfoot>
                 <tr>
                     <td colspan="5" class="py-3 px-4">
@@ -63,19 +62,64 @@
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </button>
 
-                                <!-- Page Numbers -->
-                                <template x-for="page in pagination.last_page" :key="page">
-                                    <button @click="window.location.href = '?page=' + page"
-                                        :class="{
-                                            'bg-[#4a7c59] text-white px-2 py-1': currentPage ===
-                                                page,
-                                            'bg-white text-gray-700 hover:bg-green-50 px-3 py-1': currentPage !==
-                                                page
-                                        }"
-                                        class="rounded-lg border cursor-pointer border-gray-400 text-sm font-medium">
-                                        <span x-text="page"></span>
-                                    </button>
-                                </template>
+                                <!-- Pagination avec ellipsis optimisée -->
+                                <div x-data="{
+                                    pages() {
+                                        let pages = [];
+                                        let maxVisible = 7;
+                                
+                                        if (pagination.last_page <= maxVisible) {
+                                            // Si moins de 7 pages, afficher toutes les pages
+                                            for (let i = 1; i <= pagination.last_page; i++) {
+                                                pages.push({ value: i, type: 'page' });
+                                            }
+                                        } else {
+                                            // Toujours afficher la première page
+                                            pages.push({ value: 1, type: 'page' });
+                                
+                                            // Calculer les pages centrales à afficher
+                                            let leftBound = Math.max(2, currentPage - 2);
+                                            let rightBound = Math.min(pagination.last_page - 1, currentPage + 2);
+                                
+                                            // Ajouter ellipsis au début si nécessaire
+                                            if (leftBound > 2) {
+                                                pages.push({ value: '...', type: 'ellipsis' });
+                                            }
+                                
+                                            // Ajouter les pages centrales
+                                            for (let i = leftBound; i <= rightBound; i++) {
+                                                pages.push({ value: i, type: 'page' });
+                                            }
+                                
+                                            // Ajouter ellipsis à la fin si nécessaire
+                                            if (rightBound < pagination.last_page - 1) {
+                                                pages.push({ value: '...', type: 'ellipsis' });
+                                            }
+                                
+                                            // Toujours afficher la dernière page
+                                            pages.push({ value: pagination.last_page, type: 'page' });
+                                        }
+                                
+                                        return pages;
+                                    }
+                                }" class="flex items-center space-x-1">
+                                    <template x-for="(page, index) in pages()" :key="index">
+                                        <template x-if="page.type === 'page'">
+                                            <button @click="window.location.href = '?page=' + page.value"
+                                                :class="{
+                                                    'bg-teal-700 text-white px-4 py-1': currentPage === page.value,
+                                                    'bg-white text-gray-700 hover:bg-green-50 px-3 py-1': currentPage !==
+                                                        page.value
+                                                }"
+                                                class="rounded-lg border cursor-pointer border-gray-400 text-sm font-medium">
+                                                <span x-text="page.value"></span>
+                                            </button>
+                                        </template>
+                                        <template x-if="page.type === 'ellipsis'">
+                                            <span class="px-2 py-1 text-gray-500">...</span>
+                                        </template>
+                                    </template>
+                                </div>
 
                                 <!-- Next Page Button -->
                                 <button @click="window.location.href = '?page=' + (currentPage + 1)"

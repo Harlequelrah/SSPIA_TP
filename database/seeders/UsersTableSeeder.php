@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Administrator',
                 'email' => $adminEmail,
                 'username' => 'Admin',
-                'role' => RoleEnum::ADMIN,
+                'role' => RoleEnum::ADMIN->value, // Utilisation de ->value
                 'password' => Hash::make('admin@2064'),
                 'email_verified_at' => now(),
             ]);
@@ -40,7 +40,7 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Agriculteur',
                 'email' => $agriEmail,
                 'username' => 'Agri',
-                'role' => RoleEnum::AGRICULTEUR,
+                'role' => RoleEnum::AGRICULTEUR->value, // Utilisation de ->value
                 'password' => Hash::make('admin@2064'),
                 'email_verified_at' => now(),
             ]);
@@ -54,7 +54,7 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Agriculteur 2',
                 'email' => $agriEmail2,
                 'username' => 'Agri3',
-                'role' => RoleEnum::AGRICULTEUR,
+                'role' => RoleEnum::AGRICULTEUR->value, // Utilisation de ->value
                 'password' => Hash::make('admin@2064'),
                 'email_verified_at' => now(),
             ]);
@@ -62,6 +62,21 @@ class UsersTableSeeder extends Seeder
             $this->command->info('Agriculteur 2 user created successfully!');
         } else {
             $this->command->info('Agriculteur 2 user already exists. Skipped creation.');
+        }
+        
+        // Ajout d'un autre agriculteur pour assurer qu'il y a suffisamment d'utilisateurs
+        $agriEmail3 = 'agri3@gmail.com';
+        if (!User::where('email', $agriEmail3)->exists()) {
+            User::create([
+                'name' => 'Agriculteur 3',
+                'email' => $agriEmail3,
+                'username' => 'Agri3',
+                'role' => RoleEnum::AGRICULTEUR->value,
+                'password' => Hash::make('admin@2064'),
+                'email_verified_at' => now(),
+            ]);
+
+            $this->command->info('Agriculteur 3 user created successfully!');
         }
     }
 }

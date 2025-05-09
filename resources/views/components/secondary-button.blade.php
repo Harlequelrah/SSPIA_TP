@@ -3,8 +3,8 @@
     'type' => 'reset' // Par défaut reset, tu peux changer cette valeur à 'submit' ou 'button' si besoin
 ])
 
-<button 
-    x-data="{ loading: false }" 
+<button
+    x-data="{ loading: false }"
     x-on:click="if ({{ $showLoader ? 'true' : 'false' }}) loading = true"
     @click.prevent="
         if ({{ $showLoader ? 'true' : 'false' }}) loading = true;
@@ -14,8 +14,8 @@
         'class' =>
             'inline-flex items-center px-4 py-3 bg-white border border-green-300 rounded-md font-semibold text-xs text-green-700 tracking-widest shadow-sm hover:bg-green-50 focus:outline-none disabled:opacity-25 cursor-pointer transition ease-in-out duration-150',
     ]) }}
-    :disabled="loading" 
-    :class="loading ? 'opacity-75' : ''" 
+    :disabled="loading"
+    :class="loading ? 'opacity-75' : ''"
     type="{{ $type }}"> <!-- Le type dynamique est appliqué ici -->
     <span x-show="!loading" class="flex items-center space-x-2">{{ $slot }}</span>
     @if ($showLoader)

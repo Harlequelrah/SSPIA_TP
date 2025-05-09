@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\InterventionTypeEnum;
 use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
 use App\Models\Intervention;
@@ -44,11 +45,11 @@ class DashboardController extends Controller
 
         // Nombre d'interventions par type (gestion des cas où il n'y a pas d'interventions)
         $interventionTypesCount = collect([
-            'Semis' => $interventions->where('intervention_type', 'Semis')->count(),
-            'Arrosage' => $interventions->where('intervention_type', 'Arrosage')->count(),
-            'Fertilisation' => $interventions->where('intervention_type', 'Fertilisation')->count(),
-            'Traitement' => $interventions->where('intervention_type', 'Traitement')->count(),
-            'Récolte' => $interventions->where('intervention_type', 'Récolte')->count(),
+            'Semis' => $interventions->where('intervention_type', InterventionTypeEnum::SM)->count(),
+            'Arrosage' => $interventions->where('intervention_type', InterventionTypeEnum::AR)->count(),
+            'Fertilisation' => $interventions->where('intervention_type', InterventionTypeEnum::FT)->count(),
+            'Traitement' => $interventions->where('intervention_type', InterventionTypeEnum::TR)->count(),
+            'Récolte' => $interventions->where('intervention_type', InterventionTypeEnum::RC)->count(),
         ]);
 
         // Répartition des types de cultures
