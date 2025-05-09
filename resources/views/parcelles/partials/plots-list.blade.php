@@ -24,47 +24,20 @@
                             <td class="px-3 py-2 text-slate-800" x-text="plot.area"></td>
                             <td class="px-3 py-2 text-slate-800" x-text="plot.crop_type"></td>
                             <td class="px-3 py-2 text-slate-800" x-text="plot.plantation_date"></td>
-                            <!-- Dans la colonne de statut, remplacez le contenu actuel par un formulaire -->
-                            @if ($isAdmin)
-                                <td class="px-3 py-2 text-slate-800" x-text="plot.status"></td>
-                            @else
-                                <td class="px-3 py-2 text-slate-900 font-semibold rounded-lg">
-                                    <form :action="'{{ route('plots.update-status') }}'" method="POST"
-                                        x-data="{ isEditing: false, currentStatus: plot.status }" @click.away="isEditing = false">
-                                        @csrf
-                                        @method('PATCH')
-                                        <!-- Affichage du statut normal (visible quand isEditing est false) -->
-                                        <div x-show="!isEditing" @click="isEditing = true"
-                                            :class="{
-                                                'rounded-full text-xs text-gray-50 text-center p-1 bg-green-500': plot
-                                                    .status === '{{ \App\Enums\StatusEnum::EN_C }}',
-                                                'rounded-full text-xs text-gray-50 text-center p-1 bg-yellow-500': plot
-                                                    .status === '{{ \App\Enums\StatusEnum::EN_J }}',
-                                                'rounded-full text-xs text-gray-50 text-center p-1 bg-gray-500': plot
-                                                    .status === '{{ \App\Enums\StatusEnum::RCLT }}'
-                                            }"
-                                            class="cursor-pointer hover:opacity-80 transition-all duration-200"
-                                            x-text="plot.status">
-                                        </div>
-
-                                        <!-- Menu déroulant pour éditer le statut (visible quand isEditing est true) -->
-                                        <div x-show="isEditing" class="relative">
-                                            <input type="hidden" name="plot_id" :value="plot.id">
-                                            <select name="status"
-                                                class="w-full border-2 border-slate-500 rounded-md cursor-pointer"
-                                                x-model="currentStatus" @change="$event.target.form.submit()">
-                                                @foreach (App\Enums\StatusEnum::values() as $type)
-                                                    <option value="{{ $type }}">{{ $type }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                    </form>
-                                </td>
-                            @endif
+                            <td class="text-slate-800">
+                            <span :class="{
+                                    'rounded-md text-xs text-gray-900 inline-block px-2 py-1 text-center bg-green-200': plot
+                                        .status === '{{ \App\Enums\StatusEnum::EN_C }}',
+                                    'rounded-md text-xs text-gray-900 inline-block px-2 py-1 text-center bg-yellow-200': plot
+                                        .status === '{{ \App\Enums\StatusEnum::EN_J }}',
+                                    'rounded-md text-xs text-gray-900 inline-block px-2 py-1 text-center bg-gray-200': plot
+                                        .status === '{{ \App\Enums\StatusEnum::RCLT }}'
+                                }" x-text="plot.status"></span>
+                        </td>                          
                             @if ($isAdmin)
                                 <td class="px-3 py-2 text-slate-800" x-text="plot.user.name"></td>
                             @endif
+ 
 
                             <td class="px-3 py-2 flex items-center justify-center space-x-3">
                                 <a :href="`/plots/${plot.id}`"
