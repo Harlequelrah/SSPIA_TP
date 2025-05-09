@@ -33,11 +33,11 @@
                                     'rounded-md text-xs text-gray-900 inline-block px-2 py-1 text-center bg-gray-200': plot
                                         .status === '{{ \App\Enums\StatusEnum::RCLT }}'
                                 }" x-text="plot.status"></span>
-                        </td>                          
+                        </td>
                             @if ($isAdmin)
                                 <td class="px-3 py-2 text-slate-800" x-text="plot.user.name"></td>
                             @endif
- 
+
 
                             <td class="px-3 py-2 flex items-center justify-center space-x-3">
                                 <a :href="`/plots/${plot.id}`"
@@ -92,7 +92,7 @@
                                     pages() {
                                         let pages = [];
                                         let maxVisible = 7;
-                                
+
                                         if (pagination.last_page <= maxVisible) {
                                             // Si moins de 7 pages, afficher toutes les pages
                                             for (let i = 1; i <= pagination.last_page; i++) {
@@ -101,30 +101,30 @@
                                         } else {
                                             // Toujours afficher la première page
                                             pages.push({ value: 1, type: 'page' });
-                                
+
                                             // Calculer les pages centrales à afficher
                                             let leftBound = Math.max(2, currentPage - 2);
                                             let rightBound = Math.min(pagination.last_page - 1, currentPage + 2);
-                                
+
                                             // Ajouter ellipsis au début si nécessaire
                                             if (leftBound > 2) {
                                                 pages.push({ value: '...', type: 'ellipsis' });
                                             }
-                                
+
                                             // Ajouter les pages centrales
                                             for (let i = leftBound; i <= rightBound; i++) {
                                                 pages.push({ value: i, type: 'page' });
                                             }
-                                
+
                                             // Ajouter ellipsis à la fin si nécessaire
                                             if (rightBound < pagination.last_page - 1) {
                                                 pages.push({ value: '...', type: 'ellipsis' });
                                             }
-                                
+
                                             // Toujours afficher la dernière page
                                             pages.push({ value: pagination.last_page, type: 'page' });
                                         }
-                                
+
                                         return pages;
                                     }
                                 }" class="flex items-center space-x-1">

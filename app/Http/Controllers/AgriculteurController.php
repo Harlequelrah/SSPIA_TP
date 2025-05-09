@@ -57,7 +57,7 @@ class AgriculteurController extends Controller
         }
 
         // Récupération des résultats avec pagination
-        $agriculteurs = $query->orderBy('firstName')->paginate(10);
+        $agriculteurs = $query->orderBy('name')->paginate(10);
 
         return view('agriculteurs.index', compact('agriculteurs'));
     }

@@ -47,11 +47,6 @@
                                     class=" px-3 py-2 rounded">
                                     <i class="fa-solid fa-eye text-blue-600 text-lg"></i>
                                 </a>
-                                <a href="#"
-                                    @click.prevent="interventionIdToDelete = '{{ $intervention->id }}'; $dispatch('open-modal', 'confirm-delete')"
-                                    class="px-3 py-2 cursor-pointer rounded-md">
-                                    <i class="fa-solid fa-trash-alt text-lg text-red-600"></i>
-                                </a>
                             </td>
                         </tr>
                     @empty
