@@ -67,7 +67,7 @@
                                     pages() {
                                         let pages = [];
                                         let maxVisible = 7;
-                                
+
                                         if (pagination.last_page <= maxVisible) {
                                             // Si moins de 7 pages, afficher toutes les pages
                                             for (let i = 1; i <= pagination.last_page; i++) {
@@ -76,30 +76,30 @@
                                         } else {
                                             // Toujours afficher la première page
                                             pages.push({ value: 1, type: 'page' });
-                                
+
                                             // Calculer les pages centrales à afficher
                                             let leftBound = Math.max(2, currentPage - 2);
                                             let rightBound = Math.min(pagination.last_page - 1, currentPage + 2);
-                                
+
                                             // Ajouter ellipsis au début si nécessaire
                                             if (leftBound > 2) {
                                                 pages.push({ value: '...', type: 'ellipsis' });
                                             }
-                                
+
                                             // Ajouter les pages centrales
                                             for (let i = leftBound; i <= rightBound; i++) {
                                                 pages.push({ value: i, type: 'page' });
                                             }
-                                
+
                                             // Ajouter ellipsis à la fin si nécessaire
                                             if (rightBound < pagination.last_page - 1) {
                                                 pages.push({ value: '...', type: 'ellipsis' });
                                             }
-                                
+
                                             // Toujours afficher la dernière page
                                             pages.push({ value: pagination.last_page, type: 'page' });
                                         }
-                                
+
                                         return pages;
                                     }
                                 }" class="flex items-center space-x-1">

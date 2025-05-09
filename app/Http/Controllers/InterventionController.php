@@ -25,7 +25,7 @@ class InterventionController extends Controller
 
         // Démarrer la requête de base
         $query = Intervention::query();
-
+        // Filtrer uniquement les interventions qui ont une parcelle associée
         // Vérification du rôle de l'utilisateur
         if ($user->role === RoleEnum::ADMIN) {
             // Si l'utilisateur est admin, récupérer toutes les parcelles
@@ -79,7 +79,9 @@ class InterventionController extends Controller
         }
 
         // Récupérer les résultats (avec pagination)
-        $interventions = $query->with('plot') // Assurez-vous de charger la relation 'plot'
+        $interventions = $query
+            ->whereNotNull('plot_id')
+            ->with('plot')
             ->orderBy('intervention_date', 'desc')
             ->paginate(10);
 
@@ -137,7 +139,7 @@ class InterventionController extends Controller
     public function update(InterventionFormRequest $request, Intervention $intervention)
     {
         // Vérifiez si l'agriculteur est autorisé à modifier cette intervention
-        if (Auth::user()->role !== RoleEnum::ADMIN && $intervention->user_id !== Auth::user()->id) {
+        if (Auth::user()->role !== RoleEnum::ADMIN && (string)$intervention->user_id !== (string)Auth::user()->id) {
             abort(403, 'Unauthorized action');
         }
 
@@ -175,7 +177,7 @@ class InterventionController extends Controller
      */
     public function destroy(Intervention $intervention)
     {
-        if ($intervention->user_id !== Auth::user()->id) {
+        if ((string)$intervention->user_id !== (string)Auth::user()->id) {
             abort(403, 'Unauthorized action');
         }
         $intervention->delete();

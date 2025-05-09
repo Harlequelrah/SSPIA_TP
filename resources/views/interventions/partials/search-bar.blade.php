@@ -1,6 +1,6 @@
 <section class="bg-slate-50 mb-5" x-data="{
     searchQuery: '{{ request('search', '') }}',
-    showFilters: false,
+    {{-- showFilters: false, --}}
     filters: {
         intervention_type: '{{ request('intervention_type', '') }}',
         plot_id: '{{ request('plot_id', '') }}',
@@ -21,20 +21,20 @@
             <div class="flex flex-col space-y-3">
                 <!-- Barre de recherche principale -->
                 <div class="flex items-center gap-2">
-                    <div class="w-96">
+                    {{-- <div class="w-96">
                         <x-input-field x-model="searchQuery" type="search" name="search" id="search"
                             placeholder="Rechercher une intervention" />
-                    </div>
-                    <button type="button" @click="showFilters = !showFilters"
+                    </div> --}}
+                    {{-- <button type="button" @click="showFilters = !showFilters"
                         class="inline-flex items-center px-4 py-3 bg-white border border-green-300 rounded-md font-semibold text-xs text-green-700 tracking-widest shadow-sm hover:bg-green-50 focus:outline-none disabled:opacity-25 cursor-pointer transition ease-in-out duration-150">
                         <i class="fa-solid fa-filter"></i>
                         <span class="text-sm ml-1"
                             x-text="showFilters ? 'Masquer les filtres' : 'Filtres avancés'"></span>
-                    </button>
+                    </button> --}}
                 </div>
 
                 <!-- Filtres avancés -->
-                <div x-show="showFilters" x-transition
+                <div x-transition
                     class="bg-white p-4 rounded-lg shadow-md border border-slate-200">
                     <!-- Type d'intervention -->
                     <div class=" grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">

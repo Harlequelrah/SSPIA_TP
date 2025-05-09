@@ -26,6 +26,11 @@ class Plot extends Model
                 $model->{$model->getKeyName()} = Str::uuid();
             }
         });
+        static::deleting(function ($plot) {
+    // Soft delete les interventions associées
+    $plot->interventions()->delete();
+});
+
     }
 
     public $incrementing = false;
@@ -59,4 +64,6 @@ class Plot extends Model
     {
         return $this->hasMany(Intervention::class);
     }
+
+
 }

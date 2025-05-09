@@ -43,6 +43,8 @@ Route::delete('parametre/sessions/{session}', [SettingsController::class, 'destr
 Route::delete('parametre/sessions', [SettingsController::class, 'destroyAllSessions'])->name('parametre.sessions.destroy.all');
 
 // Route pour la mise à jour du profil
+Route::put('/profile', [ProfileController::class, 'show'])->name('profile.show');
+
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
@@ -52,11 +54,11 @@ Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.
 // Route pour la suppression du compte
 // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 // Route::get('/admin-only', function () {
 
