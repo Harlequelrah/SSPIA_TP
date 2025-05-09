@@ -1,66 +1,203 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <strong>SSPIA_TP</strong> - Système de Suivi des Parcelles et Interventions Agricoles
 </p>
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## À propos de SSPIA_TP
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+SSPIA_TP est une application web développée avec le framework Laravel. Elle permet de gérer efficacement les parcelles agricoles et les interventions associées. Ce projet vise à offrir une solution complète pour les agriculteurs et les administrateurs, en mettant l'accent sur la traçabilité, la gestion des cultures et l'optimisation des interventions.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Fonctionnalités principales
 
-## Learning Laravel
+- **Gestion des parcelles** : Ajout, modification, suppression et suivi des parcelles agricoles.
+- **Gestion des interventions** : Enregistrement des interventions (semis, arrosage, fertilisation, etc.) et suivi de leur historique.
+- **Tableau de bord** : Visualisation des statistiques globales (parcelles, interventions, surface cultivée, etc.).
+- **Rôles et permissions** : Gestion des utilisateurs avec des rôles spécifiques (administrateurs, agriculteurs).
+- **Notifications** : Alertes pour les actions importantes (parcelles nécessitant une attention, interventions récentes).
+- **Export PDF** : Génération d'étiquettes pour les parcelles et interventions.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Prérequis
 
-## Laravel Sponsors
+- PHP >= 8.1
+- Composer
+- Node.js & npm
+- MySQL ou SQLite
+- Docker (optionnel, pour l'utilisation de Sail)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Étapes d'installation
 
-### Premium Partners
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/votre-utilisateur/SSPIA_TP.git
+   cd SSPIA_TP
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+2. Installez les dépendances PHP et JavaScript :
+   ```bash
+   composer install
+   npm install
+   ```
 
-## Contributing
+3. Configurez le fichier `.env` :
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4. Configurez la base de données dans le fichier `.env` :
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=sspia_tp
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
 
-## Code of Conduct
+5. Exécutez les migrations et les seeders :
+   ```bash
+   php artisan migrate --seed
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+6. Lancez le serveur de développement :
+   ```bash
+   php artisan serve
+   ```
 
-## Security Vulnerabilities
+7. Accédez à l'application via [http://localhost:8000](http://localhost:8000).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## Utilisation
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Rôles disponibles
+
+- **Administrateur** : Gestion complète des utilisateurs, parcelles et interventions.
+- **Agriculteur** : Gestion de ses propres parcelles et interventions.
+
+### Commandes utiles
+
+- Lancer les tests :
+  ```bash
+  php artisan test
+  ```
+
+- Générer les assets front-end :
+  ```bash
+  npm run dev
+  ```
+
+- Lancer Sail (Docker) :
+  ```bash
+  sail up -d
+  ```
+
+---
+
+## Fonctionnalités techniques
+
+### Technologies utilisées
+
+- **Backend** : Laravel 10.x
+- **Frontend** : Blade, TailwindCSS, Alpine.js
+- **Base de données** : MySQL ou SQLite
+- **PDF** : DomPDF pour la génération d'étiquettes
+- **Tests** : PHPUnit pour les tests unitaires et fonctionnels
+
+### Structure du projet
+
+- `app/` : Contient les contrôleurs, modèles et services principaux.
+- `resources/views/` : Fichiers Blade pour les interfaces utilisateur.
+- `database/migrations/` : Définitions des tables de la base de données.
+- `tests/` : Tests unitaires et fonctionnels.
+
+---
+
+## Interfaces principales
+
+Voici un aperçu des interfaces principales de l'application **SSPIA_TP** :
+
+### 1. Tableau de bord
+- **Description** : Affiche un résumé des parcelles et interventions.
+- **Fonctionnalités** :
+  - Nombre total de parcelles.
+  - Nombre total d'interventions.
+  - Statistiques sur les cultures.
+
+<p align="center">
+    <img src="screenshots/screenshot_1.png" alt="Tableau de bord" width="700">
+</p>
+
+### 2. Gestion des parcelles
+- **Description** : Permet de gérer les parcelles agricoles.
+- **Fonctionnalités** :
+  - Ajouter une nouvelle parcelle.
+  - Modifier les informations d'une parcelle existante.
+  - Supprimer une parcelle.
+
+
+<p align="center">
+    <img src="screenshots/screenshot_2.png" alt="Gestion des parcelles" width="700">
+</p>
+
+
+### 3. Gestion des interventions
+- **Description** : Permet de gérer les interventions agricoles.
+- **Fonctionnalités** :
+  - Ajouter une nouvelle intervention.
+  - Modifier une intervention existante.
+  - Supprimer une intervention.
+
+<p align="center">
+    <img src="screenshots/screenshot_4.png" alt="Génération d'étiquettes PDF" width="700">
+</p>
+
+
+### 4. Gestion des agriculteurs
+
+- **Description** : Gérer les différents agriculteurs du système.
+
+- **Fonctionnalités** :
+  - Ajouter de nouveau Agriculteur
+  - Voir les details sur les agriculteurs
+  - Supprimer un agriculteur
+
+<p align="center">
+    <img src="screenshots/screenshot_3.png" alt="Gestion des interventions" width="700">
+</p>
+
+
+## Contribution
+
+Merci de considérer contribuer à ce projet ! Veuillez suivre les étapes suivantes pour soumettre vos modifications :
+
+1. Forkez le dépôt.
+2. Créez une branche pour vos modifications :
+   ```bash
+   git checkout -b feature/ma-fonctionnalite
+   ```
+3. Soumettez une pull request.
+
+---
+
+## Sécurité
+
+Si vous découvrez une vulnérabilité de sécurité, veuillez envoyer un e-mail à l'un des contributeurs
+---
+
+## Licence
+
+Ce projet est un logiciel open-source sous licence [MIT](https://opensource.org/licenses/MIT).
+
+---
+
+## Quelques interfaces
+
+<p align="center">© {{ date('Y') }} SSPIA_TP - Tous droits réservés.</p>
