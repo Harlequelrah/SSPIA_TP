@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\RoleEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,11 +25,15 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'admin',
-            'email' => 'godswilllek02@gmail.com',
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'username' => $this->faker->unique()->userName(),
+            'phone' => $this->faker->phoneNumber(),
+            'address' => $this->faker->address(),
             'email_verified_at' => now(),
-            'password' => Hash::make('uche@2064'),
+            'password' => Hash::make('password'), // Mot de passe par défaut
             'remember_token' => Str::random(10),
+            'role'=>RoleEnum::AGRICULTEUR
         ];
     }
 
