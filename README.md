@@ -200,4 +200,4 @@ Ce projet est un logiciel open-source sous licence [MIT](https://opensource.org/
 
 ## Quelques interfaces
 
-<p align="center">© {{ date('Y') }} SSPIA_TP - Tous droits réservés.</p>
+<p align="center">© 2025 SSPIA_TP - Tous droits réservés.</p>
