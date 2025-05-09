@@ -1,17 +1,15 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Enums\RoleEnum;
 use App\Enums\StatusEnum;
 use App\Http\Requests\PlotFormRequest;
-use App\Models\Intervention;
 use App\Models\Plot;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Http\Request;
 
 class PlotController extends Controller
 {
@@ -20,7 +18,7 @@ class PlotController extends Controller
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
+        $user    = Auth::user();
         $isAdmin = $user->role === RoleEnum::ADMIN;
 
         // Base de la requête
@@ -68,7 +66,6 @@ class PlotController extends Controller
         return view('parcelles.index', compact('plots', 'isAdmin'));
     }
 
-
     /**
      * Show the form for creating a new resource.
      */
@@ -89,7 +86,7 @@ class PlotController extends Controller
     public function store(PlotFormRequest $request)
     {
 
-        $validated = $request->validated();
+        $validated            = $request->validated();
         $validated['user_id'] = Auth::user()->id; // link plot to current user
 
         Plot::create($validated);
@@ -105,9 +102,13 @@ class PlotController extends Controller
         $plot = Plot::where('id', $plot_id)->first();
 
         // Si la parcelle n'existe pas, retournez une erreur 404
-        if (!$plot) {
+        if (! $plot) {
             abort(404, 'Parcelle non trouvée');
         }
+if ((string) $plot->user_id !== (string) Auth::user()->id) {
+    abort(403, 'Unauthorized action');
+}
+
 
         return view('parcelles.partials.show', compact('plot'));
     }
@@ -132,9 +133,12 @@ class PlotController extends Controller
      */
     public function update(PlotFormRequest $request, Plot $plot)
     {
-        $validated = $request->validated();
+        if ((string) $plot->user_id !== (string) Auth::user()->id) {
+            abort(403, 'Unauthorized action');
+        }
+        $validated            = $request->validated();
         $validated['user_id'] = Auth::user()->id;
-        $validated['area'] = (float) $validated['area'];
+        $validated['area']    = (float) $validated['area'];
 
         $plot->update($validated);
 
@@ -147,7 +151,7 @@ class PlotController extends Controller
      */
     public function destroy(Plot $plot)
     {
-        if ($plot->user_id !== Auth::user()->id) {
+        if ((string) $plot->user_id !== (string) Auth::user()->id) {
             abort(403, 'Unauthorized action');
         }
         $plot->delete();
@@ -160,7 +164,7 @@ class PlotController extends Controller
 
         $validated = $request->validate([
             'plot_id' => 'required|exists:plots,id',
-            'status' => ['required', Rule::in(StatusEnum::values())],
+            'status'  => ['required', Rule::in(StatusEnum::values())],
         ]);
 
         $plot = Plot::findOrFail($validated['plot_id']);
@@ -191,28 +195,28 @@ class PlotController extends Controller
         $agriculteur = $plot->user ?? $interventions->first()->user;
 
         $data = [
-            'title' => 'Fiche d\'interventions agricoles',
-            'date' => Carbon::now(),
+            'title'         => 'Fiche d\'interventions agricoles',
+            'date'          => Carbon::now(),
             'interventions' => $interventions,
-            'nom_parcelle' => $plot->name ?? 'Non défini',
-            'superficie' => $plot->area ?? '',
-            'type_culture' => $plot->crop_type ?? '',
-            'agriculteur' => $agriculteur->name ?? 'Inconnu',
+            'nom_parcelle'  => $plot->name ?? 'Non défini',
+            'superficie'    => $plot->area ?? '',
+            'type_culture'  => $plot->crop_type ?? '',
+            'agriculteur'   => $agriculteur->name ?? 'Inconnu',
         ];
 
         $filename = 'parcelle_' . $plot->id . '.pdf';
-        $folder = public_path('etiquettes');
+        $folder   = public_path('etiquettes');
 
-        if (!file_exists($folder)) {
+        if (! file_exists($folder)) {
             mkdir($folder, 0755, true);
         }
 
         $pdf = PDF::loadView('parcelles.etiquette', $data)
             ->setPaper('a5', 'portrait')
             ->setOptions([
-                'defaultFont' => 'DejaVu Sans',
+                'defaultFont'          => 'DejaVu Sans',
                 'isHtml5ParserEnabled' => true,
-                'isPhpEnabled' => true,
+                'isPhpEnabled'         => true,
             ]);
 
         $pdf->save($folder . '/' . $filename);
